@@ -1,0 +1,121 @@
+.overlay {
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.35);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index: 1000;
+}
+
+.modal {
+  width: 650px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  font-family: Arial, sans-serif;
+}
+
+/* HEADER */
+.modal-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.modal-header h2 {
+  margin:0;
+}
+
+.close {
+  background:none;
+  border:none;
+  font-size:18px;
+  cursor:pointer;
+}
+
+/* SUBTITLE */
+.subtitle {
+  color:#666;
+  font-size:14px;
+  margin:10px 0 20px;
+}
+
+/* CARD */
+.card {
+  display:flex;
+  gap:15px;
+  border:1px solid #ddd;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:15px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.card:hover {
+  border-color:#4caf50;
+}
+
+.card.active {
+  border:2px solid #4caf50;
+  background:#f3fff5;
+}
+
+.card input {
+  margin-top:5px;
+}
+
+/* CONTENT */
+.card-content h3 {
+  margin:0;
+  font-size:16px;
+}
+
+.card-content p {
+  font-size:13px;
+  color:#777;
+}
+
+/* FORM */
+select {
+  padding:6px;
+  margin-top:5px;
+  border-radius:6px;
+  border:1px solid #ccc;
+}
+
+/* ROW */
+.row {
+  display:flex;
+  gap:20px;
+}
+
+/* FOOTER */
+.footer {
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  margin-top:20px;
+}
+
+.cancel {
+  padding:8px 15px;
+  border:none;
+  background:#eee;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.export {
+  padding:8px 15px;
+  border:none;
+  background:#4caf50;
+  color:white;
+  border-radius:6px;
+  cursor:pointer;
+}

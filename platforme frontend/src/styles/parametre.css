@@ -1,0 +1,60 @@
+#tparam{
+    margin-top:10%;
+    margin-left: 10%;
+    font-size: clamp(0.8rem,2.5vw,4rem);
+    font-weight: lighter;
+}
+#param1{
+    width: 85%;
+    margin-left: 10%;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+#param1>div{
+    width: 90%;
+    
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+
+}
+#param1>div>div{
+    
+    display: flex;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+    flex: 1;
+    flex-direction: column;
+    padding-inline: 5px;
+    
+}
+#param1>div>div div{
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+#param1>div>div div p{
+    font-size: clamp(0.8rem,1.2vw,2rem);
+    font-weight: lighter;
+}
+#param1>div>div div>img{
+    width: 40px;
+    height: 40px;
+}
+#param1>div>div div>button{
+    width: 40px;
+    height: 40px;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+#param1>div>div div>button img{
+     width: 40px;
+    height: 40px;
+}

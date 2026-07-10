@@ -1,0 +1,26 @@
+#loader{
+    width: 100vw;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+#loader img{
+    width: 300px;
+    max-width: 50vw;
+    animation: load1 1s infinite ;
+}
+
+@keyframes load1 {
+    0%{
+        opacity: 0.5;
+    }
+    50%{
+        opacity: 1;
+    }
+    100%{
+       opacity: 0.5;
+    }
+}
+

@@ -1,0 +1,44 @@
+.table-container {
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  font-family: Arial, sans-serif;
+}
+
+/* HEADER FIXED */
+.table-header {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: #667eea;
+  color: white;
+  font-weight: bold;
+  padding: 15px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* BODY SCROLL */
+.table-body {
+  max-height: 300px;   /*  important */
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+/* ROW */
+.table-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  background: white;
+}
+
+/* hover effect */
+.table-row:hover {
+  background: #f3f4ff;
+  cursor: pointer;
+}

@@ -1,0 +1,101 @@
+#refus{
+    position: fixed;
+    z-index: 200;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4); 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    background-color: white;
+    width: 80%;
+    padding: 10px;
+    max-width: 700px;
+    z-index: 201;
+    /* transform: translate(-50%,-50%); */
+    gap: 10px;
+    animation: apear 1s 1 forwards;
+    /* animation: scale 1s 1 forwards; */
+    
+
+}
+#refus>div{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+
+}
+#refus>div img{
+    width: 25px;
+    height: 25px;
+}
+#refus button img{
+    width: 25px;
+    height: 25px;
+}
+#refus h1{
+    font-size: clamp(0.8rem,1.4vw,4rem);
+    width: 95%;
+    font-weight: lighter;
+    text-align: center;
+    margin: 0;
+
+}
+
+#refus textarea{
+    font-size: clamp(0.8rem,1.2vw,1.3rem);
+    width: 100%;
+    height: 200px;
+    border: solid 1px #0A8D47;
+    font-weight: lighter;
+    font-family: 'Playfair Display', serif;
+    
+}
+#refus textarea:focus{
+    outline: none;
+}
+#refus>img{
+    width:100px;
+}
+#refus button{
+    color: rgb(255, 255, 255);
+    border: none;
+    padding-inline: 20px;
+    height: 50px;
+    background-image: linear-gradient(90deg,#0A8D47,#144B24);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: clamp(0.8rem,1.2vw,1.3rem);
+    font-family: 'Playfair Display', serif;
+}
+@keyframes apear {
+    from{
+        opacity: 0.2;
+        transform: translate(-50%,50%);
+    }
+    to{
+        opacity: 1;
+        transform: translate(-50%,-50%);
+    }
+    
+}
+@keyframes scale {
+    0%{
+        opacity: 0.2;
+        transform: translate(-50%,-50%) scale(0);
+    }
+
+    50%{
+        opacity: 1;
+        transform: translate(-50%,-50%) scale(1.1);
+    }
+
+    100%{
+        opacity: 1;
+        transform: translate(-50%,-50%) scale(1);
+    }
+}

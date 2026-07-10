@@ -1,0 +1,449 @@
+import Baradmin from "./composants/baradmin";
+import Headeradmin from "./composants/headeradmin";
+import "./styles/adminreservation.css"
+import openfile from "./img/open-file.png"
+import React,{useEffect,useState} from "react"
+import trash from "./img/trash.png"
+import ares1 from "./img/ares1.png"
+import ares2 from "./img/ares2.png"
+import ares3 from "./img/ares3.png"
+import axios from "axios";
+import Ouinon from "./composants/ouinon";
+import Success from "./composants/success";
+import FileReader from "./composants/fileReader";
+import {useNavigate} from "react-router-dom"
+import { toast } from "react-toastify";
+import arowdown from "./img/down-arrow (1).png"
+import invoice from "./img/invoice.png"
+function Adminreservation(){
+    const navigate=useNavigate()
+    const [confirmer,setConfirmer]=useState(false)
+    const [showdetails,setshowdetails]=useState(false);
+    const [reservations,setReservations]=useState([])
+    const [rchoisi,setRchoisi]=useState({})
+    const [succ,setSucc]=useState(false)
+    const [produits,setProduits]=useState([])
+    const [reservation,setReservation]=useState({})
+    const [quantite,setQuantite]=useState(0)
+    const [prix,setPrix]=useState(0)
+    const [read,setRead]=useState(false)
+    const [fileUrl,setFileUrl]=useState(null)
+    const [out,setOut]=useState(false)
+    const [filtredListe,setFiltredList]=useState([])
+    const [typeFile,setTypeFile]=useState("")
+     const [error, setError] = useState(null);
+    
+  useEffect(() => {
+
+//  *********************************************************
+  const fetchDemande=async()=>{
+    // Requête GET vers l’endpoint Spring Boot
+    await axios.get("http://localhost:8080/api/produits/demandes-accepted")
+      .then(response => {
+        setReservations(response.data); // On stocke le tableau de DemandeCompletDTO
+        setFiltredList(response.data)
+        console.log("les dennes",response.data)
+      })
+      .catch(err => {
+        console.error("Erreur lors du chargement des demandes :", err);
+        setError("Impossible de charger les demandes.");
+      });
+  }
+  fetchDemande();
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+}, []);
+
+
+
+// ----------------calcule le couleur pour letat=================================
+const etat = (dateDebut, dateFin) => {
+
+  const today = new Date();
+  const dateD = new Date(dateDebut);
+  const dateF = new Date(dateFin);
+
+  // remove time part
+  today.setHours(0, 0, 0, 0);
+  dateD.setHours(0, 0, 0, 0);
+  dateF.setHours(0, 0, 0, 0);
+
+  //  future (not started)
+  if (dateD > today) {
+    return "#4EABFD";
+  }
+
+  //  finished
+  if (dateF < today) {
+    return "#FB4124";
+  }
+
+  //  ongoing
+  if (dateD <= today && dateF >= today) {
+    return "#89E75A";
+  }
+
+  // fallback (important)
+  return "#000000";
+};
+//======================supprimer la reservation===============
+const supprimer=async()=>{
+    try {
+        if(rchoisi.type==="reservation"){
+        await axios.delete(
+            `http://localhost:8080/api/produits/suprimer/${rchoisi.codeProduit}`
+        );}
+        else{
+          await axios.delete(
+            `http://localhost:8080/api/prolongements/suprimer/${rchoisi.idProlongement}`
+        );
+        }
+        setRchoisi({})
+    setConfirmer(false)
+     if(rchoisi.type==="reservation"){
+    setFiltredList(filtredListe.filter(r => r.codeProduit !== rchoisi.codeProduit));
+    setReservations(reservations.filter(r => r.codeProduit !== rchoisi.codeProduit));
+  }else{
+    setFiltredList(filtredListe.filter(r => r.idProlongement !== rchoisi.idProlongement));
+    setReservations(reservations.filter(r => r.idProlongement !== rchoisi.idProlongement));
+  }
+        toast.success("La réservation a été bien supprimée.")
+    
+
+    
+    
+    } catch (error) {
+
+        console.log(error);
+
+    }
+}
+
+//===========================changer le fichier================================
+const [idpr,setidpr]=useState(null)
+
+const setfile=()=>{
+    if(idpr.facture===fileUrl){
+        setFileUrl(idpr.onssa)
+        setTypeFile("ONSSA")
+    }
+    if(idpr.onssa===fileUrl){
+        setFileUrl(idpr.rc)
+        setTypeFile("IRC")
+    }
+    if(idpr.rc===fileUrl){
+        setFileUrl(idpr.facture)
+        setTypeFile("Facture")
+    }
+}
+// ---------------------cherchement ====================
+
+// ---------------------cherchement ====================
+// Fonction de filtrage
+  const filterBySequentialLetters = (searchTerm) => {
+    if (!searchTerm.trim()){setFiltredList(reservations);}
+    else{
+        setFiltredList(reservations)
+    const term = searchTerm.toLowerCase();
+        
+    setFiltredList(reservations.filter(obj => {
+            const name = ((optionsearchSelectionnee.value === "CIN" ? obj.cinClient : obj.nomClient) || "").toLowerCase();
+            let i = 0;
+            for (let char of name) {
+                if (char === term[i]) i++;
+                if (i === term.length) break;
+            }
+            return i === term.length;
+            }));}
+  };
+//   ---------------------la partie pour filtrer les listes
+        const [filtre, setFiltre] = useState("all");
+        const [open, setOpen] = useState(false);
+
+        const options = [
+          { value: "all", label: "Toutes les réservations",color:"white" },
+          { value: "upcoming", label: "Stockage à venir" ,color:"#4EABFD"},
+          { value: "ongoing", label: "Stockage en cours" ,color:"#89E75A"},
+          { value: "finished", label: "Stockage terminé",color:"#FB4124" },
+          { value: "today", label: "Réservations du jour",color:"white" },
+
+        ]
+
+        const optionSelectionnee = options.find(option => option.value === filtre);
+//===================telecharger le recu
+const telechargerRecu = (reserv) => {
+  if(reserv.type==="reservation"){
+  window.open(`http://localhost:8080/api/produits/download/${reserv.codeProduit}`, "_blank");}
+  else{
+    window.open(`http://localhost:8080/api/prolongements/download/${reserv.idProlongement}`, "_blank");
+  }
+};
+// ==================================================================
+        const [filtresearch, setFiltresearch] = useState("CIN");
+        const [opensearch, setOpensearch] = useState(false);
+        const optionsearch = [
+        { value: "CIN", label: "CIN" },
+        { value: "NOM", label: "NOM"},
+        ];
+
+        const optionsearchSelectionnee = optionsearch.find(option => option.value === filtresearch);
+
+    return(<>
+    {read && <FileReader type={typeFile} produit={idpr} suivant={setfile}  close={()=>{setFileUrl(null);setRead(false);setshowdetails(true)}} url={fileUrl}/>}
+    {out && <Ouinon type={1} sortir={()=>{localStorage.removeItem("admin");navigate("/admin")}}  annuler={()=>setOut(false)}/>}
+    {confirmer && <Ouinon sortir={supprimer} annuler={()=>{setConfirmer(false);setRchoisi({})}}  type={2}/>}
+    <Baradmin page={3} closeWindow={()=>{setOut(true)}}/>
+    <Headeradmin closeWindow={()=>{setOut(true)}}/>
+    <div id="areservation1">
+        <h1>Gestion des réservations</h1>
+        <p>{filtredListe.length} réservations</p>
+        <div>
+            <div>
+                <div></div>
+                <h3>Stockage à venir</h3>
+            </div>
+            <div>
+                <div></div>
+                <h3>Stockage en cours</h3>
+            </div>
+            <div>
+                <div></div>
+                <h3>Stockage terminées</h3>
+            </div>
+        </div>
+        <div>
+           {/* ============================= */}
+           <div className="reda">
+        <label className='option'>Chercher par :</label>
+        {/* +++++++++++++++++++++++++++++++++++++++++++++++ */}
+             <div className="select-filter">
+  <div
+    className="select-box-filter"
+    onClick={() => setOpensearch(!opensearch)}
+  >
+    <span>{optionsearchSelectionnee.label}</span>
+    <span><img width="30px"  src={arowdown}/></span>
+  </div>
+
+  {opensearch && (
+    <div className="select-options-filter">
+        
+      {optionsearch.map((option) => (
+        <div
+          key={option.value}
+          className={`select-option-filter ${filtresearch === option.value ? "active" : ""}`}
+          onClick={() => {
+            setFiltresearch(option.value);
+            setOpensearch(false);
+          }}
+        >
+            <div style={{backgroundColor:option.color}}></div>
+          {option.label}
+        </div>
+      ))}
+    </div>
+  )}
+</div>
+
+        {/* +++++++++++++++++++++++++++++++++++++++++++++++ */}
+        </div>
+         <div className="wave-group">
+        <input placeholder=" "  type="text" className="input" onChange={(e)=>{filterBySequentialLetters(e.target.value)}}  />
+        <span className="bar"></span>
+        <label className="label">
+        <span className="label-char" style={{ "--index": 0 }}>Rechercher...</span>
+        </label>
+        </div>
+       {/* =============================la section pour filtrer les listes */}
+    <div>
+       <label>Filtrer par : </label>
+    <div className="select-filter">
+  <div
+    className="select-box-filter"
+    onClick={() => setOpen(!open)}
+  >
+    <span>{optionSelectionnee.label}</span>
+    <span><img width="30px"  src={arowdown}/></span>
+  </div>
+
+  {open && (
+    <div className="select-options-filter">
+        
+      {options.map((option) => (
+        <div
+          key={option.value}
+          className={`select-option-filter ${filtre === option.value ? "active" : ""}`}
+          onClick={() => {
+  setFiltre(option.value);
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const filtered = reservations.filter((r) => {
+    const start = new Date(r.dateDebutStockage);
+    const end = new Date(r.dateFinStockage);
+
+    start.setHours(0, 0, 0, 0);
+    end.setHours(0, 0, 0, 0);
+
+    switch (option.value) {
+      // commence aujourd’hui
+      case "today":
+        return start.getTime() === today.getTime();
+
+      // à venir (pas encore commencé)
+      case "upcoming":
+        return start.getTime() > today.getTime();
+
+      // en cours
+      case "ongoing":
+        return start.getTime() <= today.getTime() && end.getTime() >= today.getTime();
+
+      // terminé
+      case "finished":
+        return end.getTime() < today.getTime();
+
+      // tous
+      case "all":
+      default:
+        return true;
+    }
+  });
+
+  setFiltredList(filtered);
+  setOpen(false);
+}}
+        >
+            <div style={{backgroundColor:option.color}}></div>
+          {option.label}
+        </div>
+      ))}
+    </div>
+  )}
+</div>
+</div>
+        </div>
+    </div>
+    {/* ====================================== */}
+   {filtredListe.length!==0 &&
+
+    <div id="areservation2">
+        
+        <table>
+           
+            <tr>
+                <th>CIN</th>
+                <th>Nom du client</th>
+                <th>État</th>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+                <th></th>
+            </tr>
+           
+    
+    {filtredListe.map((res,index)=>(
+        <>
+        
+        <tr id="rowreservation" key={index} >
+      <td>{res.cinClient}</td>
+      <td>{res.nomClient}</td>
+      <td><div style={{backgroundColor:etat(res.dateDebutStockage,res.dateFinStockage)}}></div></td>
+      <td>{new Date(res.dateDebutStockage).toLocaleDateString("fr-FR")}</td>
+      <td>{new Date(res.dateFinStockage).toLocaleDateString("fr-FR")}</td>
+      <td><div>
+        <button onClick={()=>{setConfirmer(true);setRchoisi(res)}}><img src={trash}/></button>
+        <button onClick={() => telechargerRecu(res)}><img src={invoice}/></button>
+        <button onClick={()=>{setshowdetails(true);setReservation(res);}}>Voir les détails</button>
+        
+        </div></td>
+    </tr>
+        </>
+))}
+  
+ 
+        </table>
+    </div>}
+    {filtredListe.length===0 && 
+    <h1 id="aucun">Aucune réservation trouvée.</h1>
+    }
+    {/* ========================boite de details */}
+    {showdetails &&<>
+    <div id="black"></div>
+    <div id="resdetail">
+        <div>
+            <div>
+                <img src={ares1}/>
+                <h1>Informations du client</h1>
+            </div>
+            <table>
+                <tr>
+                    <td>Nom complet : {reservation.nomClient}</td>
+                    <td>CIN : {reservation.cinClient}</td>
+                </tr>
+                <tr>
+                    <td>Email : {reservation.emailClient}</td>
+                    <td>Téléphone : {reservation.telephoneClient}</td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <div>
+                <img src={ares2}/>
+                <h1>Informations sur le stockage </h1>
+            </div>
+            <table>
+                <tr>
+                    <td> Code : {reservation.codeProduit}</td>
+                    <td> Produit : {reservation.nomProduit}</td>
+
+                </tr>
+                <tr>
+                    
+                    <td> Quantité en tonne : {reservation.quantiteProduit}</td>
+                    <td>Prix : {reservation.prixProduit.toFixed(2)} DH</td>
+                </tr>
+                <tr>
+                    <td> Chambre : {reservation.nomChambre}</td>
+                    <td> Température : {reservation.temperatureStockage}°C</td>
+                </tr>
+                <tr>
+                    <td>Date de début : {new Date(reservation.dateDebutStockage).toLocaleDateString("fr-FR")}</td>
+                    <td>durée en jour : {reservation.dureeStockage}</td>
+                </tr>
+                <tr>
+                    <td>Date de fin : {new Date(reservation.dateFinStockage).toLocaleDateString("fr-FR")}</td>
+                </tr>
+                
+            </table>
+        </div>
+        <div>
+            <div>
+                <img src={ares3}/>
+                <h1>Documents du produit</h1>
+            </div>
+            
+                <table>
+                <tr>
+                   
+                    <td><div><label>Facture</label><button onClick={()=>{setFileUrl(reservation.facture);setTypeFile("Facture");setidpr(reservation);setRead(true);setshowdetails(false)}}><img src={openfile}/></button></div></td>
+                </tr>
+                <tr>
+                    
+                    <td><div><label>Attestation ONSSA</label><button onClick={()=>{setFileUrl(reservation.onssa);setTypeFile("ONSSA");setidpr(reservation);setRead(true);setshowdetails(false)}}><img src={openfile}/></button></div></td>
+                </tr>
+                <tr>
+                    
+                    <td><div><label>IRC</label><button onClick={()=>{setFileUrl(reservation.rc);setTypeFile("IRC");setidpr(reservation);setRead(true);setshowdetails(false)}}><img src={openfile}/></button></div></td>
+                </tr>
+            </table>
+           
+            
+        </div>
+        <div>
+            <button onClick={()=>{setshowdetails(false)}}>Masquer les détails</button>
+        </div>
+    </div></>}
+    </>);
+}
+export default Adminreservation;

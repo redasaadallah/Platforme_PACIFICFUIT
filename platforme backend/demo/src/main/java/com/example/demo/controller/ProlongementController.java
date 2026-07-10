@@ -1,0 +1,265 @@
+package com.example.demo.controller;
+
+import com.example.demo.entity.Chambre;
+import com.example.demo.entity.Client;
+import com.example.demo.entity.Produit;
+import com.example.demo.entity.Prolongement;
+import com.example.demo.repository.ChambreRepository;
+import com.example.demo.repository.ProduitRepository;
+import com.example.demo.repository.ProlongementRepository;
+import com.example.demo.service.EmailService;
+import com.example.demo.service.PdfService;
+import com.example.demo.service.TwilioService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api/prolongements")
+public class ProlongementController {
+
+    @Autowired
+    private ProlongementRepository prolongementRepository;
+
+    @Autowired
+    private ProduitRepository produitRepository;
+
+    @Autowired
+    private ChambreRepository chambreRepository;
+
+    @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private TwilioService twilioService;
+
+    @Value("${app.base-url}")
+    private String baseUrl;
+
+    @Autowired
+    private PdfService pdfService;
+
+    // Récupérer toutes les prolongations en attente
+    @GetMapping("/pending")
+    public List<Prolongement> getProlongementsPending() {
+
+        return prolongementRepository.findByStatut("pending");
+    }
+
+
+
+
+//=================================pour faire un prolongement=============================
+    @PostMapping("/demande")
+    public Prolongement creerProlongementDirect(@RequestBody Map<String, Object> request) {
+
+
+        // Récupérer les infos du client
+        String codeProduit = (String) request.get("codeProduit");
+        int nbJours = (Integer) request.get("nbJours");
+        String dateString = (String) request.get("dateFinStockage");
+        LocalDate dateFinStockage = LocalDate.parse(dateString);
+        Object prixObj = request.get("prixProlongement");
+        Double prix;
+        if (prixObj instanceof Number) {
+            prix = ((Number) prixObj).doubleValue(); // convertit Integer ou Double en Double
+        } else {
+            throw new RuntimeException("prixProlongement invalide : " + prixObj);
+        }
+        //=================================================
+        //=================================================
+        // Récupérer le produit existant
+        Produit produit = produitRepository.findById(codeProduit)
+                .orElseThrow(() -> new RuntimeException("Produit introuvable"));
+
+        // Créer le prolongement
+        Prolongement pr = new Prolongement();
+        pr.setProduit(produit);
+        pr.setPrixProlongement(prix);
+        pr.setAncienneDateFin(dateFinStockage.plusDays(1));
+        pr.setNouvelleDateFinDemandee(pr.getAncienneDateFin().plusDays(nbJours));
+        pr.setNbJoursAjoutes(nbJours);
+        pr.setStatut("enAtente"); // statut initial
+        pr.setDateDemande(java.time.LocalDateTime.now());
+
+        // Sauvegarder et retourner le prolongement
+        return prolongementRepository.save(pr);
+    }
+    @DeleteMapping("/{id}")
+    public Map<String, String> supprimerProlongement(@PathVariable Long id) {
+        Prolongement p = prolongementRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Prolongement introuvable"));
+
+        if (!"enAtente".equals(p.getStatut())) {
+            throw new RuntimeException("Impossible de supprimer un prolongement déjà traité");
+        }
+
+        // Option 1 : supprimer la ligne de la base
+        prolongementRepository.delete(p);
+
+
+        return Map.of("message", "Prolongement annulé avec succès");
+    }
+    @PutMapping("/modifier/{id}")
+    public Prolongement modifierProlongement(@PathVariable Long id,
+                                             @RequestBody Map<String, Object> request) {
+        Prolongement prolongement = prolongementRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Prolongement introuvable"));
+
+        // Exemple : modifier le nombre de jours
+        Integer nbJours = (Integer) request.get("nbJours");
+        Object prixObj = request.get("prix");
+        Double prix;
+        if (prixObj instanceof Number) {
+            prix = ((Number) prixObj).doubleValue(); // convertit Integer ou Double en Double
+        } else {
+            throw new RuntimeException("prixProlongement invalide : " + prixObj);
+        }
+        if (nbJours != null && nbJours > 0) {
+            prolongement.setNbJoursAjoutes(nbJours);
+            // recalcul de la nouvelle date de fin
+            prolongement.setNouvelleDateFinDemandee(prolongement.getAncienneDateFin().plusDays(nbJours));
+            prolongement.setPrixProlongement(prix);
+        }
+
+        return prolongementRepository.save(prolongement);
+    }
+    //===================================================================
+//=========================accepter une prolongation==================
+    @PutMapping("/accepter/{code}")
+    public Prolongement accepterProlongation(@PathVariable Long code) throws Exception {
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        Prolongement prolongement = prolongementRepository.findById(code)
+                .orElseThrow(() -> new RuntimeException("Prolongation introuvable"));
+        prolongement.setStatut("accepted");
+        prolongementRepository.save(prolongement);
+        Produit produit = prolongement.getProduit();
+
+        Client client=produit.getClient();
+        // Vérifier si le client a déjà une réservation acceptée
+        List<Produit> produitsAcceptes = produitRepository.findByClientAndStatutIn(client, List.of("accepted", "ended"));
+        boolean envoyerMotDePasse = produitsAcceptes.isEmpty(); // true si c’est la première réservation acceptée
+        String motpass=client.getMotDePasse();
+        // Générer le PDF
+
+
+        byte[] pdfBytes = pdfService.generatePdf(
+                "Reçu de prolongation de réservation",
+                client.getNom(),
+                client.getEmail(),
+                client.getCin(),
+                client.getTelephone(),
+                produit.getCodeProduit(),
+                prolongement.getAncienneDateFin().toString(),
+                String.valueOf(prolongement.getNbJoursAjoutes()),
+                prolongement.getNouvelleDateFinDemandee().toString(),
+                LocalDate.now().toString(),
+                String.valueOf(produit.getPrix()),
+                produit.getNom(),
+                String.valueOf(produit.getQuantite()),
+                produit.getChambre().getNomChambre(),
+                String.valueOf(produit.getTemperatureStockage())
+        );
+
+        // Sauvegarder le PDF
+        String fileName = pdfService.savePdf(pdfBytes, produit.getCodeProduit());
+
+        // Créer l’URL du PDF
+        String pdfUrl = baseUrl + "/api/produits/recus/" + fileName;
+        int type=2;
+        //envoyer le email
+        emailService.envoyerEmail(produit,motpass,envoyerMotDePasse,type,"Reçu de prolongation de réservation");
+        //emvoyer le message whatsapp
+        twilioService.envoyerMessageWhatsApp(produit,motpass,pdfUrl,fileName,envoyerMotDePasse,type);
+
+        return prolongement;
+    }
+    //============================================================================
+    //===========================refuse une reservation=======================
+    @DeleteMapping("/refuser/{code}/{message}")
+    public String refuserReservation(@PathVariable Long code, @PathVariable String message) throws Exception {
+
+        Prolongement prolongement = prolongementRepository.findById(code)
+                .orElseThrow(() -> new RuntimeException("Produit introuvable"));
+        prolongement.setStatut("refused");
+        prolongementRepository.save(prolongement);
+        Produit produit = prolongement.getProduit();
+
+        //envoyer le email
+
+        emailService.sendRefuseEmail(produit, message,2);
+        twilioService.envoyerMessageRefus(produit,message,2);
+        return "refusée avec succès";
+    }
+    //=====================================telecharger le recu
+    @GetMapping("/download/{id}")
+    public ResponseEntity<byte[]> telechargerRecu(@PathVariable Long id) throws Exception {
+
+        Prolongement prolongement = prolongementRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Prolongation introuvable"));
+        Produit produit =prolongement.getProduit();
+        // Générer PDF en mémoire
+        byte[] pdfBytes = pdfService.generatePdf(
+                "Reçu de prolongation de réservation",
+                produit.getClient().getNom(),
+                produit.getClient().getEmail(),
+                produit.getClient().getCin(),
+                produit.getClient().getTelephone(),
+                produit.getCodeProduit(),
+                prolongement.getAncienneDateFin().toString(),
+                String.valueOf(produit.getDureeStockage()),
+                prolongement.getNouvelleDateFinDemandee().toString(),
+                LocalDate.now().toString(),
+                String.valueOf(prolongement.getPrixProlongement()),
+                produit.getNom(),
+                String.valueOf(produit.getQuantite()),
+                produit.getChambre().getNomChambre(),
+                String.valueOf(produit.getTemperatureStockage())
+        );
+
+        // Retourner le PDF directement, sans le stocker
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_PDF)
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=\"recu_" + produit.getCodeProduit() + ".pdf\"")
+                .body(pdfBytes);
+    }
+//===================================================
+//===========================suprimer une prolongation=======================
+@DeleteMapping("/suprimer/{code}")
+public String supprimerProlongation(@PathVariable Long code) throws Exception {
+
+    Prolongement prolongement = prolongementRepository.findById(code)
+            .orElseThrow(() -> new RuntimeException("Prolongation introuvable"));
+    prolongement.setStatut("ended");
+    prolongementRepository.save(prolongement);
+    Chambre chambre = prolongement.getProduit().getChambre();
+
+    // check if another accepted prolongation exists AFTER this one
+    boolean hasNextAccepted =
+            prolongementRepository.existsNextAccepted(
+                    prolongement.getProduit().getCodeProduit(),
+                    prolongement.getNouvelleDateFinDemandee()
+            );
+
+    if (!hasNextAccepted) {
+
+        chambre.setCapaciteDisponible(
+                chambre.getCapaciteDisponible() + prolongement.getProduit().getQuantite()
+        );
+
+        chambreRepository.save(chambre);
+    }
+    return "Supprimé avec succès";
+}
+}

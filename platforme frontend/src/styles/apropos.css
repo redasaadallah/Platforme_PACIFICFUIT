@@ -1,0 +1,123 @@
+.apropos1{
+    width: 90%;
+    height: auto;
+    margin: 50px auto;
+    display:flex;
+    gap: 20px;
+}
+.apropos1>img{
+    width: max(30%,350px);
+    height: 350px;
+    border-radius: 20px;
+}
+.apropos1 hr{
+    width: 25%;
+    border: 3px solid #0A8D47;
+    text-align: left;
+    border-radius: 50px;
+    margin-right: 100%;
+    margin-bottom: -4%;
+}
+.apropos1 h1{
+    width: 100%;
+    text-align: left;
+    border-radius: 50px;
+    font-weight: lighter;
+    font-size: clamp(2rem,4vw,6rem);
+    font-family: 'Playfair Display', serif;
+
+}
+.apropos1 p{
+     width: 90%;
+    text-align: left;
+    font-weight: lighter;
+    font-size: clamp(1rem,2vw,4rem);
+    text-align: justify;
+}
+#apropos1{
+    flex-direction: row-reverse;
+}
+/* =============================================== */
+#apropos2{
+    width: 90%;
+    margin: 100px auto;
+}
+#apropos2 hr{
+width: 25%;
+    border: 3px solid #0A8D47;
+    text-align: left;
+    border-radius: 50px;
+    
+    margin-bottom: -3%;
+}
+#apropos2 h1{
+width: 100%;
+    text-align: center;
+    border-radius: 50px;
+    font-weight: lighter;
+    font-size: clamp(2rem,4vw,6rem);
+    font-family: 'Playfair Display', serif;
+}
+#apropos2>div:last-of-type{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+#apropos2>div:last-of-type>.title{
+    width: 100%;
+    border: solid 1px #0A8D47;
+    display: flex;
+    height: 50px;
+    align-items: center;
+    justify-content: space-between;
+}
+#apropos2>div:last-of-type>.detail{
+    width: 100%;
+    border: solid 1px #0A8D47;
+    display: flex;
+    height: auto;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+#apropos2>div:last-of-type>.detail p{
+    text-align: justify;
+    margin-right: 5px;
+}
+#apropos2>div:last-of-type>div div{
+    display: flex;
+    width: auto;
+    align-items: center;
+    height: 50px;
+    gap: 10px;
+
+}
+#apropos2>div:last-of-type p{
+    text-align: left;
+    font-weight: lighter;
+    font-size: clamp(0.8rem,1.5vw,4rem);
+    margin-left: 5px;
+    
+}
+#apropos2>div:last-of-type div img{
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+}
+@media (max-width: 900px)  {
+    .apropos1{
+        flex-direction: column-reverse;
+        
+    }
+    .apropos1 p{
+        width: 100%;
+        
+    }
+    #apropos1{
+    flex-direction: column-reverse;
+}
+.apropos1>img{
+    height: 200px;
+}
+}

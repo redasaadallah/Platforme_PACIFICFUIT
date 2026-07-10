@@ -1,0 +1,118 @@
+services:
+
+  database:
+
+    image: postgres:16
+
+    container_name: pacific-postgres
+
+    restart: always
+
+    environment:
+
+      POSTGRES_DB: PACIFIC_FRUIT
+
+      POSTGRES_USER: ${DB_USERNAME}
+
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+
+    ports:
+
+      - "5432:5432"
+
+
+    volumes:
+
+      - postgres_data:/var/lib/postgresql/data
+
+
+
+  backend:
+
+    build:
+
+      context: ./platforme backend/demo
+
+
+    container_name: pacific-backend
+
+
+    restart: always
+
+
+    ports:
+
+      - "8080:8080"
+
+
+    environment:
+
+      DB_URL: ${DB_URL}
+
+      DB_USERNAME: ${DB_USERNAME}
+
+      DB_PASSWORD: ${DB_PASSWORD}
+
+
+      UPLOAD_DIR: ${UPLOAD_DIR}
+
+
+      MAIL_HOST: ${MAIL_HOST}
+
+      MAIL_PORT: ${MAIL_PORT}
+
+      MAIL_USERNAME: ${MAIL_USERNAME}
+
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+
+
+      TWILIO_SID: ${TWILIO_SID}
+
+      TWILIO_TOKEN: ${TWILIO_TOKEN}
+
+      TWILIO_WHATSAPP_FROM: ${TWILIO_WHATSAPP_FROM}
+
+
+      APP_BASE_URL: ${APP_BASE_URL}
+
+
+    volumes:
+
+      - ./platforme backend/demo/uploads:/app/uploads
+
+
+    depends_on:
+
+      - database
+
+
+
+
+  frontend:
+
+    build:
+
+      context: ./platforme frontend
+
+
+    container_name: pacific-frontend
+
+
+    restart: always
+
+
+    ports:
+
+      - "3000:80"
+
+
+    depends_on:
+
+      - backend
+
+
+
+volumes:
+
+  postgres_data:

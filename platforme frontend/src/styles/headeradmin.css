@@ -1,0 +1,168 @@
+#ha{
+    width: 90vw;
+    margin-left: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    background-color: rgb(255, 255, 255);
+}
+#ha>div:first-of-type{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 0px;
+    width: 100%;
+   
+
+    
+}
+#ha>div:first-of-type>div:first-of-type{
+        padding-top: 40px;
+}
+#ha>div:first-of-type>div:first-of-type hr{
+    width: 150px;
+    max-width: 30vw;
+    text-align: left;
+    border-radius: 50px;
+    margin-right: 85%;
+    margin-bottom: -5%;
+    border: solid 3px #0A8D47;
+}
+#ha>div:first-of-type>div:first-of-type h1{
+    width: 100%;
+    text-align: left;
+    border-radius: 50px;
+    font-size: clamp(1.3rem,2vw,6rem);
+    font-weight: lighter;
+    margin-bottom: -6%;
+
+}
+#ha>div:first-of-type>div:first-of-type p{
+    width: 100%;
+    text-align: left;
+    border-radius: 50px;
+    font-size: clamp(0.9rem,1.2vw,2rem);
+    font-weight: lighter;
+}
+#ha>div:first-of-type>div:last-of-type{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    
+}
+#ha>div:first-of-type>div:last-of-type button:first-of-type{
+     color: rgb(255, 255, 255);
+    text-decoration: none;
+    height: 45px;
+    background-image: linear-gradient(90deg,#0A8D47,#144B24);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+    gap: 5px;
+    font-size: clamp(0.8rem,0.8vw,2rem);
+        font-family: 'Playfair Display', serif;
+    border: none;
+}
+ 
+
+#ha img{
+    width: 25px;
+} 
+/* ================================= */
+#buttonmenu{
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: none;
+    right: 5px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+
+}
+#buttonmenu img{
+    width: 30px;
+    height: 30px;
+}
+
+.box {
+  position: fixed;
+  width: 95%;
+  height: 30dvh;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.7);
+  top: 110dvh; /* hidden */
+  border-radius: 5px 5px 0 0;
+  z-index: 300;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  transition: top 0.2s ease,display 0.2s ease; /* smooth sliding both ways */
+  display: flex;
+}
+
+.box.show {
+  top: 70dvh;
+   /* visible position */
+}
+.whitemenu{
+    width: 100%;
+    height: 100dvh;
+    background-color: rgb(255, 255, 255);
+    opacity: 0;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    display: none;
+}
+.whitemenu.cover{
+    display: block;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+
+}
+#buttonmenu{
+    position: fixed;
+    top: 10px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: none;
+    right: 10px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+
+}
+#buttonmenu img{
+    width: 40px;
+    height: 40px;
+}
+@media (max-width:767px) {
+#ha{
+    left: 50%;
+    margin-left: 0;
+    transform: translateX(-50%);
+    width: 100vw;
+    padding-left: 5px;
+
+}
+#ha>div:first-of-type>div:last-of-type{
+    display: none;
+}
+#ha>div:first-of-type>div:first-of-type{
+    padding-top: 0;
+}
+#buttonmenu{
+    display: flex;
+}
+}
+

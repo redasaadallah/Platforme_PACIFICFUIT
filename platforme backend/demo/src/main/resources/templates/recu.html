@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8" />
+
+    <style>
+
+        @page {
+    size: A4;
+    margin: 0mm;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+}
+
+
+body {
+height: 99.1%;
+    font-family: Arial, sans-serif;
+    color: #333;
+    font-size: 14px;
+    border-top: 5px solid #4CAF50;
+    border-bottom: 5px solid #4CAF50;
+    
+
+}
+
+.container {
+    height: 257mm;
+    width: 93%;
+    background: white;
+    padding: 3%;
+}
+.ticket{
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 30px;
+
+
+}
+.ticket td:first-child{
+
+    height: 150px;
+    border: solid 3px #4CAF50;
+    border-right: dashed 2px #4CAF50;
+    background-color: rgb(162, 243, 162);
+    border-radius: 10px 0px 0 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 5px;
+    gap: 10px;
+
+
+}
+        .ticket td:first-child::before{
+            content:"";
+            position:absolute;
+            width:50px;
+            height:50px;
+            background:white;
+            border-radius:50%;
+            top:-25px;
+            right:-25px;
+        }
+        .ticket td:first-child::after{
+            content:"";
+            position:absolute;
+            width:50px;
+            height:50px;
+            background:rgb(255, 255, 255);
+            border-radius:50%;
+            top:125px;
+            right:-25px;
+        }
+        .ticket td:last-child{
+            width: 40%;
+            height: 150px;
+            border: solid 3px #4CAF50;
+            border-left: dashed 2px #4CAF50;
+
+            background-color: rgb(162, 243, 162);
+            border-radius: 10px;
+            padding-left: 10px;
+
+        }
+        .ticket td:last-child h1{
+            font-size: 15px;
+        }
+
+
+        .ticket td:last-child img{
+            width: 30px;
+            display:inline-block
+            
+            }
+       
+        .header-table {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            width: 120px;
+        }
+
+        .title {
+            text-align: right;
+            color: #4CAF50;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .info {
+            margin-top: 15px;
+            
+        }
+
+        .info-row {
+            margin-bottom: 8px;
+            
+        }
+
+        .label {
+            font-weight: bold;
+            
+        }
+
+        .location{
+           display: inline-block;
+           
+        }
+        .mappng{
+            display: inline-block;
+        }
+        .divlocation{
+            text-align: center;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .table th {
+            background: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            
+
+        }
+
+
+        .conseil{
+            font-size: 15px;
+            font-weight: lighter;
+        }
+        .fait{
+            text-align: right;
+            margin-top: 200px;
+            margin-bottom: 100px;
+        }
+
+        .footer {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 15px;
+            color: gray;
+
+
+        }
+        .contact{
+            width: 99%;
+            padding-left: 2%;
+            height: 90px;
+            position: absolute;
+            bottom: 12px;
+
+
+
+        }
+
+        .contact div{
+        display: inline-block;
+        vertical-align:middle;
+
+
+        }
+        .contact td img{
+            width: 50px;
+            height: 50px;
+            display: inline-block;
+            margin-right: 10px;
+
+            vertical-align:middle;
+
+        }
+        .contact td h3{
+            margin: 0;
+            font-size: 15px;
+            font-weight: lighter;
+        }
+         .contact td a{
+            margin: 0;
+            font-size: 20px;
+            font-weight: bolder;
+            color: #4CAF50;
+        }
+    .barbottom{
+        width: 100%;
+        height: 6px;
+        border-top: 6px solid #4CAF50;
+        position: absolute;
+        bottom: -10px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+ <div class="container">
+
+    <!-- HEADER (TABLE au lieu de flex → IMPORTANT PDF) -->
+    <table class="header-table">
+        <tr>
+            <td>
+                <img class="logo" th:src="'data:image/png;base64,' + ${logo}" />
+            </td>
+            <td class="title" th:text="${type}"></td>
+
+        </tr>
+    </table>
+
+    <!-- INFO -->
+    <div class="info">
+
+        <div class="info-row">
+            <span class="label">Nom :</span>
+            <span th:text="${nom}"></span>
+        </div>
+
+        <div class="info-row">
+            <span class="label">CIN :</span>
+            <span th:text="${cin}"></span>
+        </div>
+
+        <div class="info-row">
+            <span class="label">Email :</span>
+            <span th:text="${email}"></span>
+        </div>
+
+        <div class="info-row">
+            <span class="label">Téléphone :</span>
+            <span th:text="${phone}"></span>
+        </div>
+
+
+
+    </div>
+    <table class="ticket">
+        <tr>
+        <td>
+            <div class="info-row">
+                <span class="label">Code :</span>
+                <span th:text="${code}"></span>
+            </div>
+
+            <div class="info-row">
+                <span class="label">Date de début de stockage : </span>
+                <span th:text="${debut}"></span>
+            </div>
+
+            <div class="info-row">
+                <span class="label">Durée de stockage : </span>
+                <span th:text="${duree}"></span>
+            </div>
+
+            <div class="info-row">
+                <span class="label">Date de fin de stockage : </span>
+                <span th:text="${fin}"></span>
+            </div>
+        </td>
+        <td>
+            <h1>Emplacement du frigo</h1>
+            <div>
+                <div class="divlocation">
+                <img th:src="'data:image/png;base64,' + ${map}"/>
+                 </div>
+                 <div class="divlocation">
+                <a class="location" href="https://maps.app.goo.gl/D3TGZTZh1DEF3QZ6A"
+                >Tanger, Maroc</a>
+                </div>
+            </div>
+        </td>
+        </tr>
+    </table>
+    <table class="table">
+
+        <tr>
+            <th>Produit</th>
+            <th>Quantité en tonnes</th>
+            <th>Chambre</th>
+            <th>Température de stockage</th>
+            <th>Prix de stockage</th>
+
+        </tr>
+
+        <tr >
+
+            <td th:text="${nomProduit} "></td>
+
+            <td th:text="${quantite}"></td>
+
+            <td th:text="${chambre}"></td>
+
+            <td th:text="${temperature} + ' °C'"></td>
+
+            <td th:text="${prix} + ' DH'"></td>
+
+        </tr>
+
+    </table>
+
+
+    <h3 class="fait"> Reçu établi le <span th:text="${fait}"></span></h3>
+    <!-- FOOTER -->
+    <h1 class="conseil">Merci de présenter ce reçu ainsi que votre carte d’identité lors du dépôt de vos produits.</h1>
+
+    <div class="footer">
+        Merci pour votre réservation ️
+    </div>
+
+
+ </div>
+<table class="contact">
+   <tr>
+       <td>
+           <img th:src="'data:image/png;base64,' + ${support}"/>
+           <div>
+               <h3>Assistance téléphonique</h3>
+               <a>05 3000 3000</a>
+           </div>
+       </td>
+       <td>
+           <img th:src="'data:image/png;base64,' + ${whatsapp}"/>
+           <div>
+               <h3>Assistance Whatsapp</h3>
+               <a>05 3000 3000</a>
+           </div>
+       </td>
+       <td>
+           <img th:src="'data:image/png;base64,' + ${at}"/>
+           <div>
+               <h3>Assistance e-mail</h3>
+               <a>pacificfruit@gmail.com</a>
+           </div>
+       </td>
+   </tr>
+</table>
+</body>
+</html>

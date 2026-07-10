@@ -1,0 +1,91 @@
+#pdfopened{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:2%;
+    box-shadow: rgba(0,0,0,1) 0px 0px 5px;
+    transition: 1s ease;
+    position: fixed;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 200;
+    width: 700px;
+    background-color: white;
+    padding-block: 10px;
+    border-radius: 10px;
+    max-height: 985px;
+
+}
+#pdfopened>h1{
+    font-size: clamp(1.3rem, 1.5vw, 2rem);
+    font-weight: lighter;
+    margin: 0;
+    margin-bottom: 5px;
+}
+#pdfopened>div:first-of-type{
+    display: flex;
+    align-items: center;
+
+}
+#pdfopened>div:first-of-type h3{
+    font-size: clamp(1.3rem, 1.5vw, 2rem);
+    font-weight: lighter;
+    margin: 0;
+    
+}
+#pdfopened>div:first-of-type img{
+    width: 40px;
+    
+}
+#pdfopened>div:first-of-type button{
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.myDiv{
+    width: 85%;
+    height: 80dvh;
+    overflow: scroll;
+    scrollbar-width: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+#confirmerbuttons{
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   gap: 10px;
+}
+#confirmerbuttons button{
+     color: rgb(255, 255, 255);
+    text-decoration: none;
+    
+    
+    height: 50px;
+    background-image: linear-gradient(90deg,#0A8D47,#144B24);
+    border-radius: 5px;
+   
+    
+    font-size: clamp(0.8rem,1.2vw,1.3rem);
+    border: none;
+}
+#confirmerbuttons a{
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    width: 75%;
+    height: 50px;
+    background-image: linear-gradient(90deg,#0A8D47,#144B24);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(0.8rem,1.2vw,1.3rem);
+}

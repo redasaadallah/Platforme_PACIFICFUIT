@@ -1,0 +1,358 @@
+#dem1{
+    width: 95%;
+    margin: 0 auto;
+}
+#dem1>h1{
+    width: 100%;
+    font-size: clamp(1.3rem,4vw,6rem);
+    font-weight: lighter;
+    text-align: center;
+}
+#dem1>h1::before{
+     content: "";
+    position: absolute;
+    text-align: left;
+    border-radius: 50px;
+    border: solid 2px #0A8D47;
+    width: 400px;
+    max-width: 30vw; 
+}
+#dem1>h3{
+     width: 100%;
+    font-size: clamp(0.8rem,2vw,4rem);
+    font-weight: lighter;
+}
+#dem1>h3:last-of-type{
+    text-align: right;
+}
+#dem2{
+    width: 90%;
+    max-width: 800px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4); 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px auto;
+    position: relative;
+    gap:50px;
+    padding-block: 5%;
+}
+#dem2>h1{
+    width: 100%;
+    font-size: clamp(1rem,2vw,4rem);
+    font-weight: lighter;
+    text-align: center;
+    
+}
+#dem2>div:first-of-type{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    
+    
+}
+
+#dem2>div:nth-of-type(2){
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 90%;
+}
+#dem2>div:nth-of-type(2)>div:first-of-type{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    width: 90%;
+}
+#dem2>div:nth-of-type(2)>div:first-of-type h3{
+    font-size: clamp(1rem,1.3vw,2rem);
+    text-align: center;
+    font-weight: lighter;
+    margin: 0;
+}
+#dem2>div:nth-of-type(2)>div:first-of-type img{
+    width: 70px;
+}
+#dem2>div:nth-of-type(2)>h3{
+    width: 100%;
+    font-size: clamp(1rem,1vw,4rem);
+    font-weight: lighter;
+    text-align: center;
+}
+#dem2>div:nth-of-type(2)>div{
+    width: 100%;
+    
+}
+
+#dem2>div:nth-of-type(2)>div:nth-of-type(8){
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
+    
+}
+#dem2>div:nth-of-type(2)>div:nth-of-type(3)>div{
+    justify-content: flex-start;
+    
+    
+    
+
+}
+#dem2>div:nth-of-type(2)>div button{
+    width:40px;
+    height: 40px;
+    background-image: linear-gradient(90deg,#0A8D47,#144B24);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 10px;
+    border: none;
+}
+#dem2>div:nth-of-type(2)>div img{
+    width: 25px;
+}
+#dem2>div:nth-of-type(2)>div:last-of-type{
+    display: flex;
+    justify-content: flex-end;
+    
+}
+#dem2>div:nth-of-type(2)>div:last-of-type button{
+     color: rgb(255, 255, 255);
+    text-decoration: none;
+    width:100px;
+    height: 40px;
+    background-image: linear-gradient(90deg,#0A8D47,#144B24);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    min-width: 10px;
+    font-size: clamp(0.9rem,0.9vw,1rem);
+    border: none;
+    
+}
+
+#dem2>div:nth-of-type(2) button img{
+  width: 25px;
+}
+#dem2 > div:nth-last-of-type(2) {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex-wrap: wrap;
+  
+}
+
+#dem2 #produit{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4); 
+    border-radius: 5px;
+    padding: 2px 5px;
+    
+}
+.errors{
+    font-size: clamp(0.7rem,0.8vw,2rem);
+    margin-top: -20px;
+    margin-bottom: 0;
+    width: 90%;
+    color: red;
+    
+
+}
+#datefin{
+    font-size: clamp(0.7rem,0.8vw,2rem);
+    margin-top: -15px;
+    margin-bottom: 0;
+    width: 90%;
+    
+    
+
+}
+.nomfile{
+    font-size: clamp(0.9rem,1vw,2rem);
+    margin-top: -20px;
+    margin-bottom: 0;
+    width: 100%;
+    font-weight: bold;
+}
+#dem2 #produit p{
+width: 100%;
+    font-size: clamp(0.7rem,1vw,2rem);
+    font-weight: lighter;
+}
+#dem2 #produit img{
+    width: 25px;
+    height: 25px;
+}
+#dem2 #produit button{
+    display: flex;
+    border: none;
+    background: none;
+    align-items: center;
+    justify-content: center;
+}
+#dem2>p{
+    width: 90%;
+    font-size: clamp(1rem,1vw,2rem);
+    font-weight: bolder;
+    text-align: right;
+}
+#dem2>button{
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    width:300px;
+    height: 50px;
+    background-image: linear-gradient(90deg,#0A8D47,#144B24);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    min-width: 10px;
+    font-size: clamp(1rem,1.2vw,1.5rem);
+    border: none;
+}
+.reda{
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+select:focus{
+    outline: none;
+}
+.reda select{
+    width: 56%;
+    background: none;
+    height: 40px;
+    border:1px solid #0A8D47;
+      font-size: clamp(0.9rem,0.8vw,2rem);
+    
+}
+.typeemprunt{
+    
+    height: 40px;
+    border:1px solid #0A8D47;
+      font-size: clamp(0.9rem,0.8vw,2rem);
+    background: none;
+    width: 400px;
+    max-width: 30vw;
+}
+.option{
+    font-size: clamp(0.7rem,1vw,3rem);
+    width: 70%;
+
+}
+#warning{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+   gap: 5px;
+    width: 90%;
+    
+}
+#warning p{
+    font-size: clamp(0.7rem,1vw,1rem);
+    margin: 0;
+    
+}
+#warning img{
+    width: 25px;
+}
+#selectChambre{
+    
+    display: FLEX;
+    align-items: CENTER;
+    justify-content: space-between;
+}
+#selectChambre>label{
+            font-size: clamp(1rem,1vw,1.5rem);
+
+
+} 
+/* ============================================ */
+#dem3{
+    width: 100%;
+    background-color: #0A8D47;
+    padding-block: 50px;
+    margin-top: 200px;
+}
+#dem3>h1{
+    width: 100%;
+    font-size: clamp(1.5rem,3vw,6rem);
+    font-weight: lighter;
+    text-align: center;
+    color: white;
+}
+#dem3>div{
+    width: 100%;
+    
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+#dem3>div>div{
+    width: 600px;
+    min-width: 20%;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    max-width: 90%;
+    
+}
+#dem3>div>div:last-of-type{
+    margin-top: 200px;
+
+}
+#dem3>div>div>div{
+    position: relative;
+    
+
+
+}
+#dem3>div>div>div img{
+    width: 100%;
+    border-radius: 50px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.8); 
+
+}
+#dem3>div>div>div p{
+    position: absolute;
+     width: 100%;
+    font-size: clamp(1rem,2vw,2rem);
+    font-weight: lighter;
+    text-align: center;
+    z-index: 100;
+    color: white;
+    top: 50%;
+    transform: translateY(-100%);
+    
+}
+#dem3>div>div>div div{
+    position: absolute;
+    width: 100%;
+    height: 30%;
+    background-color: black;
+    opacity: 0.5;
+    top: 50%;
+    transform: translateY(-40%);
+}
+@media (max-width: 1240px)  {
+        #dem3>div>div:last-of-type{
+    margin-top: 0px;
+
+}
+    }
+
+

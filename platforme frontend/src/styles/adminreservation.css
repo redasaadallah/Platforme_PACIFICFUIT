@@ -1,0 +1,412 @@
+#areservation1{
+    width: 90%;
+    height: 250px;
+    margin-left: 10%;
+    margin-top: 10%;
+   
+    
+    
+}
+#areservation1 h1{
+     width: 100%;
+    font-size: clamp(1rem,2vw,6rem);
+    font-weight: lighter;
+    margin: 0;
+}
+#areservation1 p{
+     width: 100%;
+    font-size: clamp(1rem,1vw,2rem);
+    font-weight: lighter;
+    margin: 0;
+}
+#areservation1>div:first-of-type{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    margin-left: 2%;
+    
+}
+#areservation1>div:first-of-type>div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+#areservation1>div:first-of-type>div div{
+    width: 20px;
+    height: 20px;
+    background-color: #4EABFD;
+    border-radius: 50%;
+    
+   
+}
+#areservation1>div:first-of-type>div:nth-of-type(2) div{
+
+    background-color: #89E75A;
+    
+   
+}
+#areservation1>div:first-of-type>div:last-of-type div{
+
+    background-color: #FB4124;
+    
+   
+}
+#areservation1>div:first-of-type>div h3{
+    font-size: clamp(1rem,1.2vw,2rem);
+    font-weight: lighter;
+   
+}
+
+#areservation1>div>div{
+    width: 40%;
+}
+
+#areservation1>div>div:first-of-type{
+    width: 30%;
+    
+}
+#areservation1>div:last-of-type{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    width: 90%;
+    margin-top: 20px;
+
+    
+}
+#areservation1>div:last-of-type>div:first-of-type{
+    display: flex;
+    width: 15%;
+}
+#areservation1>div:last-of-type>div:nth-child(2){
+    display: flex;
+    width: 30%;
+}
+
+
+
+
+
+/* ----------------------------------------------------------------- */
+#areservation2{
+    width: 90%;
+    margin-left: 7%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    margin-bottom: 100px; 
+      
+
+
+    
+}
+
+
+
+
+#areservation2 table{
+   width: 90%;
+    font-size: clamp(1rem,1vw,2rem);
+    border-collapse:collapse ;
+    margin-left: 3%;
+    margin-bottom: 5%;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    
+
+
+
+}
+#areservation2 th{
+    
+    font-size: clamp(1rem,1vw,2rem);
+    font-weight: lighter;
+    padding-block: 10px;
+
+    
+
+}
+
+#areservation2 td{
+    
+    font-size: clamp(1rem,1vw,2rem);
+    font-weight: lighter;
+    text-align: center;
+    padding-block: 5px;
+
+}
+
+/* ========================================= */
+
+#rowreservation:hover td{
+      background: #f3f4ff;
+  cursor: pointer;
+    
+}
+#areservation2 tr th:last-of-type{
+    
+    border-radius: 0px 10px 0px 0;
+}
+#areservation2 tr th:first-of-type{
+    
+    border-radius: 10px 0px 0px 0px;
+}
+#areservation2  tr:first-of-type{
+   background: #667eea;
+  color: white;
+  font-weight: bold;
+  padding: 15px;
+  position: sticky;
+  top: 0;
+
+
+    
+}
+#areservation2 table tr:nth-of-type(n+2){
+padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  background: white;
+}
+#areservation2 table tr button{
+    background-color: #F2BC47;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+    padding: 8px 15px;
+    border: none;
+    font-size: clamp(1rem,1vw,6rem);
+    font-weight: lighter;
+    font-family: 'Playfair Display', serif;
+
+}
+#areservation2 table tr button:nth-of-type(2){
+    background-color: #0A8D47;
+     display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+#areservation2 table tr td:nth-of-type(3) div{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+#areservation2 table tr div{
+display: flex;
+align-items: center;
+justify-content: flex-start;
+gap: 20px;
+flex-direction: row-reverse;
+}
+#areservation2 table tr button:first-of-type{
+    background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+#areservation2 table img{
+    width: 25px;
+    height: 25px;
+}
+#areservation2 tr td:last-of-type{
+    text-align: right;
+    
+
+    width: 30%;
+    padding-right: 10px;
+}
+/* ========================================== */
+#resdetail{
+     position: fixed;
+    z-index: 200;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4); 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: white;
+    width: 80%;
+    padding: 20px;
+    max-width: 700px;
+    z-index: 201;
+    
+}
+#resdetail>div{
+    width: 100%;
+}
+#resdetail>div>div{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+}
+#resdetail>div>div img{
+    width: 50px;
+}
+#resdetail>div>div h1{
+    font-size: clamp(1rem,1.5vw,6rem);
+    font-weight: lighter;
+}
+#resdetail>div>table{
+    width: 100%;
+    font-size: clamp(1rem,1vw,6rem);
+    font-weight: lighter;
+}
+#resdetail>div>table td{
+    padding-block: 10px;
+    border: none;
+    
+    text-align:left;
+}
+
+#resdetail>div:nth-of-type(3) table tr td:last-of-type{
+    display: flex;
+    align-items: center;
+
+}
+#resdetail>div:nth-of-type(3) table tr td:last-of-type div{
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#resdetail>div:nth-of-type(3) table tr button{
+    background-color: #F2BC47;
+    border: none;
+    border-radius: 5px;
+    width: 40px;
+    height: 40px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+#resdetail>div:nth-of-type(3) table tr img{
+    width: 20px;
+    height: 20px;
+}
+#resdetail>div:last-of-type{
+    text-align: right;
+    padding-top: 30px;
+}
+#resdetail>div:last-of-type button{
+background-color: #F2BC47;
+    border: none;
+    border-radius: 5px;
+    width: 200px;
+    height: 40px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4); 
+    color: white;
+    font-size: clamp(1rem,1vw,1rem);
+    font-weight: lighter;
+   
+}
+/* ========================pour le select faite avec moi  */
+#areservation1>div:last-of-type>div:last-of-type{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 400px;
+    margin-left: 40px;
+}
+#areservation1>div:last-of-type>div:last-of-type label{
+    font-size: clamp(1rem,1vw,3rem);
+}
+.select-filter {
+  position: relative;
+  width: 70%;
+ height: 50px;
+  font-family: Arial, sans-serif;
+  display: flex;
+  
+  
+}
+
+.select-box-filter {
+  height: 48px;
+  width: 100%;
+  background-color: yellow;
+  padding: 0 14px;
+  border: 1px solid #0A8D47;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.select-box-filter span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.select-box-filter:hover {
+  border-color: #4caf50;
+}
+
+.select-options-filter {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  overflow: hidden;
+}
+
+.select-option-filter {
+  padding: 12px 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.select-option-filter div{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.select-option-filter:hover {
+  background-color: #f2f2f2;
+}
+
+.select-option-filter.active {
+  background-color: #0A8D47;
+  color: white;
+}
+/* Large laptops / small desktops */
+@media (min-width: 1024px) {
+  /* styles */
+}
+
+/* Desktops */
+@media (min-width: 1280px) {
+  /* styles */
+}
+
+/* Large desktops */
+@media (min-width: 1440px) {
+  #areservation2{
+    margin-top: 50px;
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1920px) {
+  /* styles */
+}

@@ -1,0 +1,178 @@
+#home1{
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#home1> img{
+    position: absolute;
+    width:100%;
+    height:100%;
+    /* animation: scale 1s linear; */
+
+}
+#home1> div:first-of-type{
+    position: absolute;
+    background-color: black;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+}
+#home1> h1{
+  font-family: 'Playfair Display', serif;
+      color: white;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      width: 90%;
+      font-size: clamp(1.5rem,6vw,6rem);
+      font-weight: lighter;
+      margin-top: 50px;
+      opacity: 0;
+        animation: apearh 1s 0.7s 1 forwards;
+
+
+      
+
+}
+
+#home1> h3{
+    font-family: "Luxurious Roman";
+    color: white;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      font-size: clamp(1rem,3vw,6rem);
+      
+      width: 90%;
+      font-weight: lighter;
+        font-family: 'Playfair Display', serif;
+    opacity: 0;
+        animation: apearh 1s 0.9s 1 forwards;
+
+
+
+}
+#home1> div:last-of-type{
+    position: relative;
+    z-index: 1;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+    
+    opacity: 0;
+        animation: apearh 1s 1.1s 1 forwards;
+
+
+}
+#home1> div:last-of-type button:first-of-type{
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    width:30%;
+    height: 50px;
+    background-image: linear-gradient(90deg,#0A8D47 40%,#144B24);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+    max-width: 400px;
+    border: none;
+   transition: 0.5s ease;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(0.9rem,1.3vw,2rem);
+}
+#home1> div:last-of-type button:first-of-type:hover{
+    
+    transform: translateY(-3px);
+}
+#home1> div:last-of-type button:first-of-type:active{
+    transform: scale(0.95);
+}
+#home1> div:last-of-type button:last-of-type{
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    width:30%;
+    height: 45px;
+    background: none;
+    border-radius: 5px;
+    border: solid #0A8D47 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+    max-width: 400px;
+    font-weight: lighter;
+    font-family: 'Playfair Display', serif;
+        font-size: clamp(0.9rem,1.3vw,2rem);
+        overflow: hidden;
+    transition: 0.5s ease;
+   
+}
+#home1> div:last-of-type button:last-of-type::before{
+    content: "";
+    position: absolute;
+    width: 0%;
+    background-color: #629170;
+    height: 45px;
+    transition: 0.3s ease;
+    left: 0;
+    z-index: -1;
+}
+#home1> div:last-of-type button:last-of-type:hover::before{
+width: 100%;
+}
+#home1> div:last-of-type button:last-of-type:hover{
+    
+    transform: translateY(-3px);
+}
+#home1> div:last-of-type button:last-of-type:active{
+    transform: scale(0.95);
+}
+@keyframes scale{
+    from{
+        opacity:0;
+        transform: scale(1.2);
+        
+    }
+    to{
+         opacity:1;
+        transform: scale(1);
+    }
+}
+@keyframes appear{
+    from{
+        opacity: 0;
+        filter: blur(5px);
+        
+    }
+    to{
+        opacity: 1;
+    }
+}
+@media (max-width: 900px)  {
+    #home1{
+        height: 50vh;
+        border-radius: 0 0 50px 50px;
+        animation:none;
+
+    }
+    #home1> img,#home1>div:first-of-type{
+        border-radius: 0 0 50px 50px;
+        box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
+
+
+    }
+    #home1> div:last-of-type button:first-of-type{
+        height: 35px;
+    }
+    #home1> div:last-of-type button:last-of-type{
+        height: 35px;
+    }
+}

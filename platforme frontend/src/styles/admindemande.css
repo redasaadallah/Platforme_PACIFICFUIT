@@ -1,0 +1,253 @@
+#ademande1{
+    width: 90%;
+    height: 200px;
+    margin-left: 10%;
+    margin-top: 10%;
+}
+#ademande1 h1{
+     width: 100%;
+    font-size: clamp(1rem,2vw,6rem);
+    font-weight: lighter;
+    margin: 0;
+}
+#ademande1 p{
+     width: 100%;
+    font-size: clamp(1rem,1vw,2rem);
+    font-weight: lighter;
+    margin: 0;
+}
+#ademande1>div{
+    display: flex;
+    align-items: center;
+    gap: 100px;
+    margin-left: 6%;
+}
+#ademande1>div>div{
+    width: 40%;
+}
+#ademande1>div>div:first-of-type{
+    width: 30%;
+}
+#ademande1>div>div:last-of-type{
+    display: flex;
+    align-items: center;
+    
+}
+#ademande1 input[type="checkbox"]{
+    margin-left: 20px;
+}
+#aucun{
+    text-align: center;
+    font-size: clamp(1rem,2vw,6rem);
+    font-weight: lighter;
+    margin-top: 150px;
+
+}
+#ademande2{
+    width: 90%;
+    margin-left: 10%;
+
+    
+    
+}
+
+#ademande2 table{
+    width: 90%;
+    font-size: clamp(1rem,1vw,2rem);
+    border-collapse:collapse ;
+    margin-left: 3%;
+    margin-bottom: 5%;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+
+    
+
+
+}
+#ademande2 th{
+    
+    font-size: clamp(1rem,1vw,2rem);
+    font-weight: lighter;
+    padding-block: 10px;
+}
+#ademande2 th:last-of-type{
+    
+    border-radius: 0px 10px 0px 0;
+}
+#ademande2 th:first-of-type{
+    
+    border-radius: 10px 0px 0px 0px;
+}
+#ademande2 table tr:first-of-type{
+    background: #667eea;
+  color: white;
+  font-weight: bold;
+  padding: 15px;
+  position: sticky;
+  top: 0;
+    
+
+    
+}
+#ademande2 table tr:nth-of-type(n+2){
+padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  background: white;
+}
+#rowinfo:hover td{
+    background: #f3f4ff;
+  cursor: pointer;
+    
+}
+
+
+
+#ademande2 td{
+    font-size: clamp(1rem,1vw,2rem);
+    font-weight: lighter;
+    text-align: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    background: white;
+
+}
+
+
+
+
+
+#ademande2 table button{
+    background-color: #F2BC47;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+    padding: 5px 15px;
+    border: none;
+    font-size: clamp(1rem,1vw,6rem);
+    font-weight: lighter;
+        font-family: 'Playfair Display', serif;
+
+}
+#ademande2 tr td:last-of-type{
+    text-align: right;
+}
+/* --------------------------------------- */
+
+#detailtest>div{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 1s ease;
+    
+    
+}
+#detailtest>div>div:first-of-type{
+        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+        width: 30%;
+        height: 300px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        gap: 0px;
+        justify-content: space-between;
+    
+}
+#detailtest>div>div:first-of-type>div:first-of-type{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+#detailtest>div>div:first-of-type>div:last-of-type{
+    width: 100%;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: 40px;
+}
+#detailtest>div>div:first-of-type>div:last-of-type p{
+    font-size: clamp(1rem,1.2vw,3rem);
+    margin: 0;
+}
+#detailtest>div>div:first-of-type>div:first-of-type img{
+    width: 50px;
+    height: 50px;
+}
+/* ==================================== */
+#detailtest>div>div:last-of-type{
+        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+        width: 70%;
+        height: 300px;
+        border-radius: 10px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        
+    
+}
+#detailtest>div>div:last-of-type>div:first-of-type{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+#detailtest>div>div:last-of-type>div:first-of-type img{
+width: 50px;
+height: 50px;
+}
+#detailtest>div>div:last-of-type>div:nth-of-type(2){
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    column-gap: 50px;
+    row-gap: 20px;
+    justify-content: center;
+    
+}
+#detailtest>div>div:last-of-type>div:nth-of-type(2) p{
+    font-size: clamp(1rem,1.2vw,3rem);
+    margin: 0;
+    
+}
+#detailtest>div>div:last-of-type>div:nth-of-type(3){
+    display: flex;
+    flex-wrap: wrap;
+
+    width: 100%;
+    column-gap: 50px;
+    row-gap: 20px;
+    justify-content: space-evenly;
+    
+}
+#detailtest>div>div:last-of-type>div:nth-of-type(3)>div{
+display: flex;
+align-items: center;
+gap: 10px;
+}
+#detailtest>div>div:last-of-type>div:nth-of-type(3)>div button{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#detailtest>div>div:last-of-type>div:nth-of-type(3)>div img{
+    width: 30px;
+    height: 30px;
+}
+#detailtest>div>div:last-of-type>div:last-of-type{
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+#detailtest>div>div:last-of-type>div:last-of-type button:first-of-type{
+    background-color: #47F280;
+}
+#detailtest>div>div:last-of-type>div:last-of-type button:nth-of-type(2){
+    background-color: #F27147;
+}
+/* ============================================ */

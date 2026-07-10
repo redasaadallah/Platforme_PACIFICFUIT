@@ -1,0 +1,66 @@
+#repondre{
+    position: fixed;
+    z-index: 200;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4); 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: white;
+    width: 80%;
+    padding: 10px;
+    max-width: 700px;
+    z-index: 201;
+    gap: 10px;
+}
+#repondre>div{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+
+}
+#repondre img{
+    width: 25px;
+    height: 25px;
+}
+#repondre h1{
+    font-size: clamp(0.8rem,1.4vw,4rem);
+    width: 95%;
+
+}
+#repondre h3{
+        font-size: clamp(0.8rem,1.2vw,4rem);
+
+}
+#repondre p{
+    font-size: clamp(0.8rem,1vw,3rem);
+    text-align: justify;
+    width: 90%;
+
+}
+#repondre textarea{
+    font-size: clamp(0.8rem,1.2vw,1.3rem);
+    width: 100%;
+    height: 200px;
+    border: solid 1px #0A8D47;
+    
+}
+#repondre textarea:focus{
+    outline: none;
+}
+#repondre button{
+    color: rgb(255, 255, 255);
+    border: none;
+    padding-inline: 20px;
+    height: 50px;
+    background-image: linear-gradient(90deg,#0A8D47,#144B24);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: clamp(0.8rem,1.2vw,1.3rem);
+}

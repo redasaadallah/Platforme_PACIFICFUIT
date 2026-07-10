@@ -1,0 +1,215 @@
+#pro{ position: fixed;
+    z-index: 200;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4); 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: white;
+    width: 85%;
+    padding: 10px;
+    max-width: 700px;
+    z-index: 201;
+}
+#pro>div:first-of-type{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+#pro>div:first-of-type img{
+    width: 25px;
+}
+#pro>div:nth-of-type(2){
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+}
+#pro>div:nth-of-type(2) img{
+width: 100px;
+}
+#pro>div:nth-of-type(2) h1{
+ font-size: clamp(1.2rem,1.5vw,2.8rem);
+font-weight: lighter;
+ margin-top: 0;
+
+}
+
+/* =============================type pour prelengemet========== */
+#prelengement>div{
+    background-color: #FFF9A4;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 10px;
+    width: 80%;
+    margin-inline:auto;
+    margin-bottom: 10px;
+    padding-block: 10px;
+}
+#prelengement>div p{
+    font-size: clamp(1rem,1vw,2.8rem);
+font-weight: lighter;
+ margin: 0;
+}
+#prelengement>form{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+#prelengement>form label{
+    font-size: clamp(0.8rem,1vw,2.8rem);
+    font-weight: lighter;
+}
+#prelengement>form input{
+   border: solid 1px #0A8D47;
+   height: 30px;
+
+}
+#prelengement>form button{
+   color: rgb(255, 255, 255);
+    border: none;
+    
+    padding-inline: 20px;
+    height: 35px;
+    background-image: linear-gradient(90deg,#0A8D47,#144B24);
+    border-radius: 5px;
+    min-width: 120px;
+    font-size: clamp(1rem,1.2vw,1.3rem);
+}
+#prelengement>p{
+    font-size: clamp(0.6rem,1vw,2.8rem);
+    font-weight: lighter;
+}
+/* ============================pour modier linfo pers */
+#changerinfo>form{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+#changerinfo>form label{
+    font-size: clamp(0.8rem,1vw,2.8rem);
+    font-weight: lighter;
+}
+#changerinfo>form input{
+   border: solid 1px #0A8D47;
+   height: 30px;
+
+}
+#changerinfo>form button{
+   color: rgb(255, 255, 255);
+    border: none;
+    
+    padding-inline: 20px;
+    height: 35px;
+    background-image: linear-gradient(90deg,#0A8D47,#144B24);
+    border-radius: 5px;
+    min-width: 120px;
+    font-size: clamp(1rem,1.2vw,1.3rem);
+}
+#changerinfo>p{
+    font-size: clamp(0.6rem,1vw,2.8rem);
+    font-weight: lighter;
+    text-align: center;
+}
+/* ======================changement de la mot de passe */
+#changerpasse>form{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+#changerpasse>form label{
+    font-size: clamp(0.8rem,1vw,2.8rem);
+    font-weight: lighter;
+}
+#changerpasse>form input{
+   border: solid 1px #0A8D47;
+   height: 30px;
+
+}
+#changerpasse>form button{
+   color: rgb(255, 255, 255);
+    border: none;
+    
+    padding-inline: 20px;
+    height: 35px;
+    background-image: linear-gradient(90deg,#0A8D47,#144B24);
+    border-radius: 5px;
+    min-width: 120px;
+    font-size: clamp(1rem,1.2vw,1.3rem);
+}
+#pro input:focus{
+    outline: none;
+}
+#addProduct{
+    
+    width: 100%;
+
+}
+#addProduct>h3{
+    font-size: clamp(1rem,1.2vw,1.3rem);
+    font-weight: lighter;
+    text-align: center;
+}
+#addProduct>div:first-of-type{
+    width: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+#addProduct>div:nth-of-type(2){
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 0px;
+    
+}
+#addProduct>div:nth-of-type(2)>div:not(:last-of-type){
+    display: flex;
+    width: 60%;
+}
+#addProduct>div:nth-of-type(2)>div button{
+    width:40px;
+    height: 40px;
+    background-image: linear-gradient(90deg,#0A8D47,#144B24);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 10px;
+    border: none;
+}
+#addProduct>div:nth-of-type(2)>div img{
+    width: 25px;
+}
+#addProduct>div:nth-of-type(2)>div:last-of-type{
+    display: flex;
+    justify-content: flex-end;
+   
+    
+}
+#addProduct>div:nth-of-type(2)>div:last-of-type button{
+     color: rgb(255, 255, 255);
+    text-decoration: none;
+    width:130px;
+    height: 40px;
+    background-image: linear-gradient(90deg,#0A8D47,#144B24);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    min-width: 10px;
+    font-size: clamp(0.9rem,1vw,2rem);
+    border: none;
+    
+}

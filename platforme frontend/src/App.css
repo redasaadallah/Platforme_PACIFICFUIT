@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+
+
+
+/* -------------------------------------splash========================================= */
+button:hover{
+    cursor: pointer;
+}
+.bien{
+    text-align: center;
+  font-size: clamp(4rem, 10vw, 12rem);
+    color: #0A8D47;
+    text-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+    animation: disapir 4s ease 1s 1 forwards;
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-100%);
+    z-index: 1;
+    
+}
+.bien span{
+    transition: 0.2s ease all;
+    opacity: 0;
+  animation: apir 2s ease calc(var(--index) * 0.1s) 1 forwards;
+}
+
+#logo{
+    width: 50%;
+    min-width: 300px;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+    opacity: 0;
+    animation: apir 2s ease 2s 1 forwards;
+}
+#l1{
+    position: absolute;
+    top: 20%;
+    left: 45vw;
+    transform: rotate(45deg);
+    opacity: 0;
+    min-width: 100px;
+    animation: apir 2s ease 1s 1 forwards;
+    animation: disapir 4s ease 0.5s 1 forwards;
+
+
+
+}
+#l2{
+    position: absolute;
+    top: 5%;
+    left: 0%;
+    transform: rotate(-45deg);
+    opacity: 0;
+    min-width: 100px;
+
+    animation: apir 2s ease 1s 1 forwards;
+    animation: disapir 4s ease 0.5s 1 forwards;
+
+}
+#l3{
+    position: absolute;
+    top: 65%;
+    left: 10%;
+    transform: rotate(-35deg);
+    opacity: 1;
+        min-width: 100px;
+
+    animation: apir 2s ease 1s 1 forwards;
+        animation: disapir 4s ease 0.5s 1 forwards;
+
+}
+#l4{
+    position: absolute;
+    top: 55%;
+    left: 30%;
+    transform: rotate(45deg);
+    opacity: 0;
+        min-width: 100px;
+
+    animation: apir 2s ease 1s 1 forwards;
+        animation: disapir 4s ease 0.5s 1 forwards;
+
+}
+#l5{
+    position: absolute;
+    top: 70%;
+    left: 60%;
+    transform: rotate(45deg);
+    opacity: 0;
+        min-width: 100px;
+
+    animation: apir 2s ease 1s 1 forwards;
+        animation: disapir 4s ease 0.5s 1 forwards;
+
+}
+#l6{
+    position: absolute;
+    top: 20%;
+    left: 80%;
+    transform: rotate(45deg);
+    opacity: 0;
+        min-width: 100px;
+
+    animation: apir 2s ease 1s 1 forwards;
+        animation: disapir 4s ease 0.5s 1 forwards;
+
+}
+
+.outlined:hover{
+    background-color: #0A8D47;
+}
+
+@keyframes apir {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+@keyframes disapir {
+    from{
+        opacity: 1;
+    }
+    to{
+        opacity: 0;
+    }
+}
+
+
+
+

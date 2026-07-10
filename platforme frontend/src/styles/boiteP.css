@@ -1,0 +1,497 @@
+#espace{
+     position: fixed;
+    z-index: 200;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4); 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: white;
+    padding: 10px;
+    width: 70%;
+    z-index: 201;
+}
+#espace>div:first-of-type{
+    width: 100%;
+    
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    
+}
+#espace>div:first-of-type img{
+    width:25px;
+    height: 25px;
+}
+#espace>div:nth-of-type(2){
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+#espace>div:nth-of-type(2) img{
+   width: 80px;
+   height: 80px;
+}
+#espace>div:nth-of-type(2) h1{
+   font-size: clamp(1rem,1.5vw,3rem);
+   font-weight: lighter;
+   margin: 0;
+}
+#espace>div:nth-of-type(3){
+    margin-top: 20px;
+    width: 100%;
+    
+}
+#espace>div:nth-of-type(3)>div:first-of-type{
+    max-height: 500px;
+    scrollbar-width: none;
+    overflow-y: scroll;
+    width: 90%;
+    margin: 0 auto;
+
+    
+    
+}
+#espace table{
+    
+    border-collapse: collapse;
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4); 
+
+
+    
+}
+#espace table tr:first-of-type{
+     background-color:#FFE489;
+      
+}
+
+#espace td{
+    
+    padding-block: 5px;
+    text-align: center;
+    
+    
+}
+#espace tr:nth-of-type(n+2){
+    border-bottom: solid 2px #F0B11F;
+}
+#espace th{
+    padding-block: 10px;
+    font-weight: lighter;
+    
+}
+#espace tr th:first-of-type{
+    border-radius: 10px 0 0px 10px;
+}
+#espace tr th:last-of-type{
+    border-radius: 0px 10px 10px 0px;
+}
+#espace tr td:last-of-type{
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    gap: 10px;
+    
+    
+}
+
+#espace tr button:first-of-type{
+    width: 35px;
+    height: 35px;
+    background: none;
+    border: none;
+}
+#espace tr button:first-of-type img{ 
+    width: 35px;
+    height: 35px;
+}
+#espace tr:nth-of-type(n+2) .delete{
+    width: 31px;
+    height: 31px;
+    background-color: red;
+    border-radius: 5px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+#espace tr:nth-of-type(n+2) .delete img{ 
+    width: 22px;
+    height: 22px;
+}
+#capacite>div:last-of-type{
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    
+}
+#capacite>div:last-of-type img{
+    width: 20px;
+    height: 20px;
+}
+#capacite>div:last-of-type button{
+    width: 31px;
+    height: 31px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 5px;
+    background-color: #128a30;
+}
+#capacite>div:last-of-type p{
+      font-size: clamp(1rem,1vw,3rem);
+}
+/* ==========================modifier le espace========================= */
+
+#espace1 form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding-block: 10px;
+}
+#espace1 input{
+    width: 40%;
+    height: 30px;
+    border: solid 1px #0A8D47;
+}
+#espace1 input:focus{
+    outline: none;
+}
+#espace1 div:last-of-type{
+    display: flex;
+    width: 40%;
+    justify-content: flex-end;
+    gap: 5px;
+}
+#espace1 div:last-of-type button{
+    width: 31px;
+    height: 31px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 5px;
+    background-color: #128a30;
+}
+#espace1 div:last-of-type img{
+width: 20px;
+    height: 20px;
+}
+#espace1 form>div:first-of-type{
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+#espace1 form>div:first-of-type div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#espace1 form>div:first-of-type label{
+    font-size: clamp(1rem,1.2vw,3rem);
+}
+#espace1 form>div:first-of-type input{
+    width: 20px;
+    accent-color: #0A8D47;
+}
+/* =====================ajouter un espace======================= */
+#espace2 form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding-block: 10px;
+}
+#espace2 input{
+    width: 40%;
+    height: 30px;
+    border: solid 1px #0A8D47;
+}
+#espace2 input:focus{
+    outline: none;
+}
+#espace2 div:last-of-type{
+    display: flex;
+    width: 40%;
+    justify-content: flex-end;
+    gap: 5px;
+}
+#espace2 div:last-of-type button{
+    width: 31px;
+    height: 31px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 5px;
+    background-color: #128a30;
+}
+#espace2 div:last-of-type img{
+width: 20px;
+    height: 20px;
+}
+/* =====================pour la duree minmale */
+#duree{
+    
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    
+}
+
+#duree h3{
+          font-size: clamp(1rem,1.3vw,3rem);
+          width: 80%;
+          font-weight: lighter;
+          
+
+}
+#duree>div{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+#duree>div>div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* width: 100%; */
+}
+#duree label{
+        font-size: clamp(1rem,1vw,3rem);
+
+}
+#duree>div>div>div{
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 10px;
+
+width: 400px;
+}
+#duree input[type="number"]{
+    width: 40%;
+    height: 30px;
+    border: solid 1px #0A8D47;
+}
+#duree input[type="radio"]{
+    width: 20px;
+    height: 20px;
+    accent-color: #0A8D47;
+}
+
+#duree input:focus{
+    outline: none;
+    
+}
+
+#duree>div button{
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    background-color: #128a30;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#duree>div img{
+    width: 20px;
+    height: 20px;
+}
+/* ============================prix de reservation=============== */
+#price{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0px;
+    gap: 0;
+    
+    
+}
+#price>div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+#price>div>div{
+    width: 100%;
+    
+}
+#price input{
+    width: 50%;
+    height: 30px;
+    border: solid 1px #0A8D47;
+}
+#price input:focus{
+    outline: none;
+}
+#price button{
+width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    background-color: #128a30;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#price img{
+width: 20px;
+    height: 20px;
+}
+#price div{
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+   
+}
+#price p{
+    margin: 0;
+}
+/* =================le delai======================== */
+#delai{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+#delai>div{
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    
+    
+
+    
+}
+#delai>div>div>div:last-of-type{
+    display: flex;
+    align-items: center;
+    
+}
+#delai>div>div>div:last-of-type p{
+    margin: 0;
+    
+}
+
+#delai>div>div{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 20px;
+
+}
+#delai button{
+    align-self: start;
+}
+#delai label{
+        font-size: clamp(1rem,0.8vw,3rem);
+
+}
+#delai>div>div>div{
+display: flex;
+align-items: center;
+justify-content: flex-start;
+gap: 10px;
+width: 100%;
+}
+#delai input[type="number"]{
+    width: 40%;
+    height: 30px;
+    border: solid 1px #0A8D47;
+}
+#delai input[type="radio"]{
+    width: 20px;
+    height: 20px;
+    accent-color: #0A8D47;
+}
+
+#delai input:focus{
+    outline: none;
+    
+}
+
+#delai>div button{
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    background-color: #128a30;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#delai>div img{
+    width: 20px;
+    height: 20px;
+}
+/* ============================mot de passe=============== */
+#passe{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+#passe>div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    gap: 10px;
+    
+}
+
+#passe input{
+    width: 50%;
+    height: 30px;
+    border: solid 1px #0A8D47;
+}
+#passe input:focus{
+    outline: none;
+}
+#passe button{
+width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    background-color: #128a30;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#passe img{
+width: 20px;
+    height: 20px;
+}
+
+#passe small{
+    margin: 0;
+    font-size: clamp(1rem,0.8vw,3rem);
+
+}
