@@ -36,4 +36,5 @@ uploads/*
 !uploads/.gitkeep
 ### Environment ###
 .env
-
+# Spring local configuration
+application-local.properties
