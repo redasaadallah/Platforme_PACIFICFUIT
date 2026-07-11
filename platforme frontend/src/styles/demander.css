@@ -271,8 +271,8 @@ select:focus{
 }
 #selectChambre{
     
-    display: FLEX;
-    align-items: CENTER;
+    display: flex;
+    align-items: center;
     justify-content: space-between;
 }
 #selectChambre>label{

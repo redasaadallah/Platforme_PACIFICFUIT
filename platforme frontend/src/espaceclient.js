@@ -22,6 +22,8 @@ import arowdown from "./img/down-arrow (1).png"
 import { RotateDirection } from "@react-pdf-viewer/core"
 import { toast } from "react-toastify";
 import loading from "./img/loading.gif"
+import SockJS from "sockjs-client";
+import { Client } from "@stomp/stompjs";
 function Espaceclient(){
     const [client, setClient] = useState( JSON.parse(localStorage.getItem("client")));
     const [produits,setProduits]=useState([])
@@ -53,6 +55,33 @@ function Espaceclient(){
     };
 
     fetchProduits();
+    // 2. WebSocket connection
+          const socket = new SockJS("http://localhost:8080/ws");
+      
+          const stompClient = new Client({
+            webSocketFactory: () => socket,
+            reconnectDelay: 5000,
+          });
+      
+          stompClient.onConnect = () => {
+              console.log("WebSocket connected");
+            //  Listen for new chambres
+            stompClient.subscribe("/topic/reservations", async() => {
+      
+              //  Auto refresh when admin adds chambre
+            //   fetchProduits();
+            try {
+                const response = await axios.get(`http://localhost:8080/api/clients/after-login/${client.cin}`);
+                setProduits(response.data);
+                console.log(response.data)
+                setAnnule(false)
+            } catch (error) {
+                console.error("Erreur lors de la récupération des produits :", error);
+            }
+            });
+          };
+      
+          stompClient.activate();
 
     
 

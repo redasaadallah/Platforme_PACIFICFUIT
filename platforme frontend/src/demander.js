@@ -64,10 +64,10 @@ const optionSelectionnee = chambres.find(option => option.id === filtre);
 
     stompClient.onConnect = () => {
         console.log("WebSocket connected");
-      // 🔥 Listen for new chambres
+      //  Listen for new chambres
       stompClient.subscribe("/topic/chambres", () => {
 
-        // 🔥 Auto refresh when admin adds chambre
+        //  Auto refresh when admin adds chambre
         fetchData();
       });
     };

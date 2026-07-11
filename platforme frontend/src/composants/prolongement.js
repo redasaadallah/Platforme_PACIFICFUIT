@@ -11,6 +11,9 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import change1 from "../img/exchange1.png"
 import Ouinon from "./ouinon"
+import arowdown from "../img/down-arrow (1).png"
+import SockJS from "sockjs-client";
+import { Client } from "@stomp/stompjs";
 
   const chambres = [
   { nom: "A", temperature: -5},
@@ -25,7 +28,6 @@ function Prolongement({close,type,idpro,client,onClientChange,onDemandeSent,prod
     const [nomProduit, setNomProduit] = useState("");
     const [quantite, setQuantite] = useState("");
     const [temperature,setTemperature]=useState("")
-    const [selectedChambre, setSelectedChambre] = useState(null);
     const [dateDebut,setDateDebut]=useState("")
     const [duree,setDuree]=useState("")
     const fileInputRef = useRef(null);
@@ -42,6 +44,12 @@ function Prolongement({close,type,idpro,client,onClientChange,onDemandeSent,prod
        const [boite1,setBoite1]=useState(false)
     const [files, setFiles]=useState([])
     const [error,setError]=useState("")
+      const [open, setOpen] = useState(false);
+      const [filtre, setFiltre] = useState(null);
+      
+      
+      const optionSelectionnee = chambres.find(option => option.id === filtre);
+    
     const [clientData,setClientData]=useState({
             cin:"",
             nom:"",
@@ -72,6 +80,25 @@ function Prolongement({close,type,idpro,client,onClientChange,onDemandeSent,prod
 
     fetchData();
       // Calculer la date minimale (demain)
+        // 2. WebSocket connection
+        const socket = new SockJS("http://localhost:8080/ws");
+    
+        const stompClient = new Client({
+          webSocketFactory: () => socket,
+          reconnectDelay: 5000,
+        });
+    
+        stompClient.onConnect = () => {
+            console.log("WebSocket connected");
+          //  Listen for new chambres
+          stompClient.subscribe("/topic/chambres", () => {
+    
+            //  Auto refresh when admin adds chambre
+            fetchData();
+          });
+        };
+    
+        stompClient.activate();
   const today = new Date();
   today.setDate(today.getDate() + 1);
   const minDate = today.toISOString().split("T")[0]; // format YYYY-MM-DD
@@ -362,13 +389,7 @@ return Object.keys(newErrors).length === 0;
 
 }
 
-//==========================obtenir la temperature selected
-const handleChambreChange = (e) => {
-  const chambre = chambres.find(
-    (c) => c.nom === e.target.value
-  );
-  setSelectedChambre(chambre);
-};
+
   //============================pour afficher la boite pour envoyer la demande
   const handleSubmit=async(e)=>{
     
@@ -389,7 +410,7 @@ const handleChambreChange = (e) => {
     const nouveauProduit = [{
       nomProduit: nomProduit,
       quantite: quantite,
-      temperatureStockage:selectedChambre.temperature,
+      chambre:optionSelectionnee,
       dateDebutStockage:dateDebut,
       dateFinStockage:dateFin.finReservation,
       dureeStockage:duree,
@@ -433,8 +454,9 @@ const handleChambreChange = (e) => {
     produits: nouveauProduit.map((produit) => ({
       nom: produit.nomProduit,
       quantite: produit.quantite,
-      temperatureStockage:selectedChambre.temperature,
-      nomChambre:selectedChambre.nom,
+      id:produit.chambre.id,
+      temperatureStockage:produit.chambre.temperature,
+      nomChambre:produit.chambre.nomChambre,
       dateDebutStockage:produit.dateDebutStockage,
       dateFinStockage:produit.dateFinStockage,
       dureeStockage:produit.dureeStockage,
@@ -650,21 +672,49 @@ const modifierProlongement = async (e) => {
         </label>
         </div>
           {errors1.quantite && <p style={{width:'90%',marginTop:"-15px"}} className="errors">{errors1.quantite}</p>}
-        <div  className="reda">
-        <label className='option'>Température de stockage :</label>
-        <select name="temperatureStockage"  value={temperature} onChange={(e) => {setErrors1({...errors1,[e.target.name]:""});setTemperature(e.target.value);handleChambreChange(e)}}>
-          <option value="" disabled>
-              Choisir une chambre
-            </option>
-
-            {chambres.map((chambre) => (
-              <option key={chambre.nom} value={chambre.nom}>
-                {chambre.nom} ({chambre.temperature}°C)
-              </option>
-            ))}
-        </select>
         
-        </div>
+        {/* ++++++++++++++++++++++++++++++++++++++++ */}
+          <div style={{width:"90%"}} id="selectChambre">
+  <label>Température de stockage : </label>
+
+  <div style={{width:"48%"}} className="select-filter">
+    <div
+      style={{height:"48px"}}
+      className="select-box-filter"
+      onClick={() => setOpen(!open)}
+    >
+      <span>
+        {optionSelectionnee
+          ? `${optionSelectionnee.nomChambre} (${optionSelectionnee.temperature} °C)`
+          : "Choisir une température"}
+      </span>
+
+      <span>
+        <img width="30px" src={arowdown} />
+      </span>
+    </div>
+
+    {open && (
+      <div className="select-options-filter">
+        {chambres.map((option) => (
+          <div
+            key={option.id}
+            className={`select-option-filter ${filtre === option.id ? "active" : ""}`}
+            onClick={() => {
+              setFiltre(option.id);
+              setOpen(false);
+              setErrors1({...errors1,temperature:""});setTemperature(option.nomChambre)
+            }}
+          >
+            {option.nomChambre} ({option.temperature} °C)
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</div>
+{errors1.temperature && <p style={{width:'100%'}} className="errors">{errors1.temperature}</p>}
+        {/* ++++++++++++++++++++++++++++++++++++++++++++ */}
         <div  className="reda">
         <label className='option'>Date de Stockage :</label>
         <input  className="typeemprunt" min={minDate} className="typeemprunt" type="date"  name="dateDebutStockage" value={dateDebut} onChange={(e)=>{setErrors1({...errors1,[e.target.name]:""});setDateDebut(e.target.value);calculateDateFin(e)}}/>
@@ -701,7 +751,7 @@ const modifierProlongement = async (e) => {
         {errors1.filename1 && <p className="errors">{errors1.filename1}</p>}
         {fileName1 && <p className="nomfile">{fileName1}</p>}
          <div className="reda">
-         <label className='option'>Registre de commerce (RC) :</label>
+         <label className='option'>IRC :</label>
         <button type="button" onClick={handleButtonClick2}   id="atphone"><img src={fileName2===""?add:change1}/></button>
         <input onChange={handleFileChange2} ref={fileInputRef2} accept="application/pdf" style={{ display: "none" }}  type="file"  />
         </div>

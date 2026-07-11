@@ -4,6 +4,7 @@ import com.example.demo.entity.Parametre;
 import com.example.demo.repository.ParametreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,8 @@ public class ParametreController {
 
     @Autowired
     private ParametreRepository parametreRepository;
+    @Autowired
+    private SimpMessagingTemplate template;
 
     // GET : tous les paramètres
     @GetMapping
@@ -56,6 +59,8 @@ public class ParametreController {
         param.setQuantiteMaxProduit(updatedParam.getQuantiteMaxProduit());
 
         parametreRepository.save(param);
+        template.convertAndSend("/topic/chambres", "paramettre");
+
         return ResponseEntity.ok(param);
     }
 

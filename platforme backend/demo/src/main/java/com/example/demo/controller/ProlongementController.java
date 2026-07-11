@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,6 +47,9 @@ public class ProlongementController {
 
     @Autowired
     private PdfService pdfService;
+
+    @Autowired
+    private SimpMessagingTemplate template;
 
     // Récupérer toutes les prolongations en attente
     @GetMapping("/pending")
@@ -91,6 +95,11 @@ public class ProlongementController {
         pr.setDateDemande(java.time.LocalDateTime.now());
 
         // Sauvegarder et retourner le prolongement
+        // 2. Notify admins
+        template.convertAndSend(
+                "/topic/demandes",
+                "demande"
+        );
         return prolongementRepository.save(pr);
     }
     @DeleteMapping("/{id}")
@@ -104,7 +113,11 @@ public class ProlongementController {
 
         // Option 1 : supprimer la ligne de la base
         prolongementRepository.delete(p);
-
+        // 2. Notify admins
+        template.convertAndSend(
+                "/topic/demandes",
+                "demande"
+        );
 
         return Map.of("message", "Prolongement annulé avec succès");
     }
@@ -129,7 +142,11 @@ public class ProlongementController {
             prolongement.setNouvelleDateFinDemandee(prolongement.getAncienneDateFin().plusDays(nbJours));
             prolongement.setPrixProlongement(prix);
         }
-
+        // 2. Notify admins
+        template.convertAndSend(
+                "/topic/demandes",
+                "demande"
+        );
         return prolongementRepository.save(prolongement);
     }
     //===================================================================
@@ -143,6 +160,10 @@ public class ProlongementController {
                 .orElseThrow(() -> new RuntimeException("Prolongation introuvable"));
         prolongement.setStatut("accepted");
         prolongementRepository.save(prolongement);
+        template.convertAndSend(
+                "/topic/reservations",
+                "reservation"
+        );
         Produit produit = prolongement.getProduit();
 
         Client client=produit.getClient();
@@ -193,6 +214,10 @@ public class ProlongementController {
                 .orElseThrow(() -> new RuntimeException("Produit introuvable"));
         prolongement.setStatut("refused");
         prolongementRepository.save(prolongement);
+        template.convertAndSend(
+                "/topic/reservations",
+                "reservation"
+        );
         Produit produit = prolongement.getProduit();
 
         //envoyer le email

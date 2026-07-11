@@ -22,6 +22,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -73,6 +74,9 @@ public class ProduitController {
 
     @Autowired
     private PdfService pdfService;
+
+    @Autowired
+    private SimpMessagingTemplate template;
 
 
 
@@ -234,6 +238,11 @@ public ResponseEntity<?> ajouterClientEtProduits(
         // Associer le document au produit
         document.setProduit(savedProduit);
         documentRepository.save(document);
+        // 2. Notify admins
+        template.convertAndSend(
+                "/topic/demandes",
+                "demande"
+        );
     }
 
     // ====================================
@@ -309,6 +318,10 @@ public ResponseEntity<?> ajouterClientEtProduits(
         if(envoyerMotDePasse){
         client.setMotDePasse(encoder.encode(client.getMotDePasse()));
         }
+        template.convertAndSend(
+                "/topic/reservations",
+                "reservation"
+        );
         return produitRepository.save(produit);
     }
 
@@ -350,6 +363,10 @@ public ResponseEntity<?> ajouterClientEtProduits(
             twilioService.envoyerMessageRefus(produit,message,1);
         produit.setStatut("refused");
         produitRepository.save(produit);
+        template.convertAndSend(
+                "/topic/reservations",
+                "reservation"
+        );
         return "refusée avec succès";
     }
 //==============================================================================

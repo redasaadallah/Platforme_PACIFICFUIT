@@ -13,6 +13,8 @@ import infopers from "./img/infopers.png"
 import { toast } from "react-toastify";
 import feature from "./img/features.png"
 import arowdown from "./img/down-arrow (1).png"
+import SockJS from "sockjs-client";
+import { Client } from "@stomp/stompjs";
 
 function Admindemande(){
     const navigate=useNavigate()
@@ -70,6 +72,25 @@ useEffect(() => {
       });
   }
   fetchDemande();
+   // 2. WebSocket connection
+      const socket = new SockJS("http://localhost:8080/ws");
+  
+      const stompClient = new Client({
+        webSocketFactory: () => socket,
+        reconnectDelay: 5000,
+      });
+  
+      stompClient.onConnect = () => {
+          console.log("WebSocket connected");
+        //  Listen for new chambres
+        stompClient.subscribe("/topic/demandes", () => {
+  
+          //  Auto refresh when admin adds chambre
+          fetchDemande();
+        });
+      };
+  
+      stompClient.activate();
 
 
 }, []);

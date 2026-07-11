@@ -46,7 +46,7 @@ public class ChambreController {
         Chambre saved =chambreRepository.save(chambre);
 
         // 2. Notify all clients in real time
-        template.convertAndSend("/topic/chambres", saved);
+        template.convertAndSend("/topic/chambres", "chambre");
 
         return chambreRepository.findAll();
     }
@@ -62,6 +62,7 @@ public class ChambreController {
         chambre.setCapaciteDisponible(chambreDetails.getCapaciteDisponible());
         chambre.setTemperature(chambreDetails.getTemperature());
         chambre.setVisible(chambreDetails.isVisible());
+        template.convertAndSend("/topic/chambres", "chambre");
 
         return chambreRepository.save(chambre);
     }
@@ -74,6 +75,7 @@ public class ChambreController {
                 .orElseThrow(() -> new RuntimeException("Chambre introuvable"));
 
         chambreRepository.delete(chambre);
+        template.convertAndSend("/topic/chambres", "chambre");
 
         return "Chambre supprimée avec succès";
     }
