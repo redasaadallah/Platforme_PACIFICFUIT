@@ -3,7 +3,7 @@ import Headeradmin from "./composants/headeradmin";
 import "./styles/admindemande.css"
 import openfile from "./img/open-file.png"
 import React,{useEffect,useState} from "react"
-import axios from "axios";
+import api from "./api/axios";
 import Ouinon from "./composants/ouinon";
 import {useNavigate} from "react-router-dom"
 import FileReader from "./composants/fileReader";
@@ -59,7 +59,7 @@ useEffect(() => {
 //  *********************************************************
   const fetchDemande=async()=>{
     // Requête GET vers l’endpoint Spring Boot
-    await axios.get("http://localhost:8080/api/produits/demandes-en-attente")
+    await api.get("http://localhost:8080/api/produits/demandes-en-attente")
       .then(response => {
         setReservations(response.data); // On stocke le tableau de DemandeCompletDTO
         setFiltredList(response.data)
@@ -111,13 +111,13 @@ useEffect(() => {
   }
 // =================================refuser la demande===========================
 const envoieRefuserReservation=async(reserv,text)=>{
-    const response = await axios.delete(
+    const response = await api.delete(
             `http://localhost:8080/api/produits/refuser/${reserv}/${encodeURIComponent(text)}`
         );
     return response
 }
 const envoieRefuserProlongation=async(reserv,text)=>{
-    const response = await axios.delete(
+    const response = await api.delete(
             `http://localhost:8080/api/prolongements/refuser/${reserv}/${encodeURIComponent(text)}`
         );
     return response
@@ -159,13 +159,13 @@ const refuser=async()=>{
 
 // =================================accepter la demande==========================
 const envoieAccepterReservation=async(reserv)=>{
-    const response = await axios.put(
+    const response = await api.put(
             `http://localhost:8080/api/produits/accepter/${reserv}`
         );
     return response
 }
 const envoieAccepterProlongation=async(reserv)=>{
-    const response = await axios.put(
+    const response = await api.put(
             `http://localhost:8080/api/prolongements/accepter/${reserv}`
         );
     return response
@@ -244,7 +244,7 @@ toast.update(toastId, {
     
 
      {refus && <Refus sendText={handleText}  refuser={refuser}  closeWindow={()=>setRefus(false)}/>}
-    {out && <Ouinon type={1} sortir={()=>{localStorage.removeItem("admin");navigate("/admin")}}  annuler={()=>setOut(false)}/>}
+    {out && <Ouinon type={1} sortir={()=>{localStorage.removeItem("admin");localStorage.removeItem("accessToken");localStorage.removeItem("refreshToken");localStorage.removeItem("type");navigate("/admin")}}  annuler={()=>setOut(false)}/>}
     {type && <Ouinon type={4} sortir={()=>{accepter()}}  annuler={()=>setType(false)}/>}
     {read && <FileReader produit={idpr} type={typeFile} suivant={setfile}  close={()=>{setFileUrl(null);setRead(false)}} url={fileUrl}/>}
     <Baradmin page={2} closeWindow={()=>{setOut(true)}}/>

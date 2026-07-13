@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/statistiques")
+@RequestMapping("/api/admin/statistiques")
 public class StatistiqueController {
 
     @Autowired

@@ -15,6 +15,8 @@ import product from "./img/product.png"
 import life from "./img/product-life.png"
 import Ouinon from "./composants/ouinon";
 import {useNavigate} from "react-router-dom"
+import api from "./api/axios";
+
 export default function Parametre(){
     const navigate=useNavigate()
     const [out,setOut]=useState(false)
@@ -31,7 +33,7 @@ useEffect(() => {
         setParametres(paramResponse.data[0]);
         console.log(paramResponse.data)
         // Récupérer toutes les chambres
-        const chambreResponse = await axios.get('http://localhost:8080/api/chambres');
+        const chambreResponse = await api.get('http://localhost:8080/api/chambres');
         setChambres(chambreResponse.data);
         console.log(chambreResponse.data)
       } catch (error) {
@@ -45,7 +47,7 @@ useEffect(() => {
     return(<>
      
     {change && <BoiteP onDelete={setChambres} admin={admin} onParamChange={setParametres} param={parametres} data={chambres} type={genre} icon={genre} closeWindow={()=>{setGenre("");setChange(false)}}/>}
-    {out && <Ouinon type={1} sortir={()=>{localStorage.removeItem("admin");navigate("/admin")}}  annuler={()=>setOut(false)}/>}
+    {out && <Ouinon type={1} sortir={()=>{localStorage.removeItem("admin");localStorage.removeItem("accessToken");localStorage.removeItem("refreshToken");localStorage.removeItem("type");navigate("/admin")}}  annuler={()=>setOut(false)}/>}
     
     <Baradmin page={5} closeWindow={()=>{setOut(true)}}/>
     <Headeradmin closeWindow={()=>{setOut(true)}}/>

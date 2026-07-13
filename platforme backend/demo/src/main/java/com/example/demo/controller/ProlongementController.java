@@ -16,6 +16,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,21 +52,20 @@ public class ProlongementController {
     @Autowired
     private SimpMessagingTemplate template;
 
-    // Récupérer toutes les prolongations en attente
-    @GetMapping("/pending")
-    public List<Prolongement> getProlongementsPending() {
-
-        return prolongementRepository.findByStatut("pending");
-    }
+//    // Récupérer toutes les prolongations en attente
+//    @GetMapping("/pending")
+//    public List<Prolongement> getProlongementsPending() {
+//
+//        return prolongementRepository.findByStatut("pending");
+//    }
 
 
 
 
 //=================================pour faire un prolongement=============================
     @PostMapping("/demande")
+    @PreAuthorize("hasAnyAuthority('CLIENT')")
     public Prolongement creerProlongementDirect(@RequestBody Map<String, Object> request) {
-
-
         // Récupérer les infos du client
         String codeProduit = (String) request.get("codeProduit");
         int nbJours = (Integer) request.get("nbJours");
@@ -102,7 +102,9 @@ public class ProlongementController {
         );
         return prolongementRepository.save(pr);
     }
+//    =============pour annuler un prolongation en atente
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('CLIENT')")
     public Map<String, String> supprimerProlongement(@PathVariable Long id) {
         Prolongement p = prolongementRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Prolongement introuvable"));
@@ -121,7 +123,10 @@ public class ProlongementController {
 
         return Map.of("message", "Prolongement annulé avec succès");
     }
+//    pour modifier une prolongation en atente
     @PutMapping("/modifier/{id}")
+    @PreAuthorize("hasAnyAuthority('CLIENT')")
+
     public Prolongement modifierProlongement(@PathVariable Long id,
                                              @RequestBody Map<String, Object> request) {
         Prolongement prolongement = prolongementRepository.findById(id)
@@ -152,6 +157,8 @@ public class ProlongementController {
     //===================================================================
 //=========================accepter une prolongation==================
     @PutMapping("/accepter/{code}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+
     public Prolongement accepterProlongation(@PathVariable Long code) throws Exception {
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -208,6 +215,8 @@ public class ProlongementController {
     //============================================================================
     //===========================refuse une reservation=======================
     @DeleteMapping("/refuser/{code}/{message}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+
     public String refuserReservation(@PathVariable Long code, @PathVariable String message) throws Exception {
 
         Prolongement prolongement = prolongementRepository.findById(code)
@@ -228,6 +237,7 @@ public class ProlongementController {
     }
     //=====================================telecharger le recu
     @GetMapping("/download/{id}")
+
     public ResponseEntity<byte[]> telechargerRecu(@PathVariable Long id) throws Exception {
 
         Prolongement prolongement = prolongementRepository.findById(id)
@@ -262,6 +272,8 @@ public class ProlongementController {
 //===================================================
 //===========================suprimer une prolongation=======================
 @DeleteMapping("/suprimer/{code}")
+@PreAuthorize("hasAnyAuthority('ADMIN')")
+
 public String supprimerProlongation(@PathVariable Long code) throws Exception {
 
     Prolongement prolongement = prolongementRepository.findById(code)

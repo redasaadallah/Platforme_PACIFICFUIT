@@ -1,9 +1,12 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Admin;
+import com.example.demo.entity.RefreshToken;
 import com.example.demo.repository.AdminRepository;
 import com.example.demo.service.CodeGeneratorService;
 import com.example.demo.service.EmailService;
+import com.example.demo.service.JwtService;
+import com.example.demo.service.RefreshTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailException;
@@ -27,40 +30,180 @@ public class AdminController {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private JwtService jwtService;
+
+    @Autowired
+    private RefreshTokenService refreshTokenService;
+
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    @PostMapping("/login")
-    public Map<String, Object> login(@RequestBody Map<String, String> request) {
+//    @PostMapping("/login")
+//    public Map<String, Object> login(@RequestBody Map<String, String> request) {
+//
+//        String email = request.get("email");
+//        String password = request.get("motDePasse");
+//
+//        Map<String, Object> response = new HashMap<>();
+//
+//        Optional<Admin> optionalAdmin = adminRepository.findByEmail(email);
+//
+//        if (optionalAdmin.isPresent()) {
+//            Admin admin = optionalAdmin.get();
+//
+//            if (encoder.matches(password, admin.getMotDePasse())) {
+//                response.put("success", true);
+//                response.put("message", "Login réussi");
+//                response.put("admin", admin);
+//            } else {
+//                response.put("success", false);
+//                response.put("message", "Mot de passe incorrect");
+//            }
+//
+//        } else {
+//            response.put("success", false);
+//            response.put("message", "Email introuvable");
+//        }
+//
+//        return response;
+//    }
+@PostMapping("/login")
+public ResponseEntity<?> login(
+        @RequestBody Map<String, String> request
+) {
 
-        String email = request.get("email");
-        String password = request.get("motDePasse");
 
-        Map<String, Object> response = new HashMap<>();
+    String email = request.get("email");
 
-        Optional<Admin> optionalAdmin = adminRepository.findByEmail(email);
+    String password = request.get("motDePasse");
 
-        if (optionalAdmin.isPresent()) {
-            Admin admin = optionalAdmin.get();
 
-            if (encoder.matches(password, admin.getMotDePasse())) {
-                response.put("success", true);
-                response.put("message", "Login réussi");
-                response.put("admin", admin);
-            } else {
-                response.put("success", false);
-                response.put("message", "Mot de passe incorrect");
-            }
 
-        } else {
-            response.put("success", false);
-            response.put("message", "Email introuvable");
-        }
+    Admin admin = adminRepository
+            .findByEmail(email)
+            .orElse(null);
 
-        return response;
+
+
+    if(admin == null) {
+
+        return ResponseEntity
+                .status(401)
+                .body(
+                        Map.of(
+                                "success", false,
+                                "message", "Email introuvable"
+                        )
+                );
+
     }
+
+
+
+    // Verify password
+
+    if(!encoder.matches(
+            password,
+            admin.getMotDePasse()
+    )) {
+
+
+        return ResponseEntity
+                .status(401)
+                .body(
+                        Map.of(
+                                "success", false,
+                                "message",
+                                "Mot de passe incorrect"
+                        )
+                );
+
+    }
+
+
+
+
+    // ============================
+    // Generate JWT Access Token
+    // ============================
+
+    String accessToken =
+            jwtService.generateToken(
+                    admin.getId().toString(),
+                    "ADMIN"
+            );
+
+
+
+
+    // ============================
+    refreshTokenService.deleteOldToken(
+            admin.getId().toString(),
+            "ADMIN"
+    );
+    // Generate Refresh Token
+    // ============================
+
+    RefreshToken refreshToken =
+            refreshTokenService.createRefreshToken(
+                    admin.getId().toString(),
+                    "ADMIN"
+            );
+
+
+
+
+    // ============================
+    // Response
+    // ============================
+
+    Map<String,Object> response =
+            new HashMap<>();
+
+
+    response.put(
+            "success",
+            true
+    );
+
+
+    response.put(
+            "message",
+            "Login réussi"
+    );
+
+
+    response.put(
+            "accessToken",
+            accessToken
+    );
+
+
+    response.put(
+            "refreshToken",
+            refreshToken.getToken()
+    );
+
+
+    response.put(
+            "type",
+            "ADMIN"
+    );
+
+
+    response.put(
+            "admin",
+            admin
+    );
+
+
+
+    return ResponseEntity.ok(response);
+
+}
     @PostMapping("/change-password")
     public Map<String, Object> changePassword(@RequestBody Map<String, String> request) {
 

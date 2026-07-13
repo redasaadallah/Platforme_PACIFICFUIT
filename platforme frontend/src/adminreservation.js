@@ -7,7 +7,7 @@ import trash from "./img/trash.png"
 import ares1 from "./img/ares1.png"
 import ares2 from "./img/ares2.png"
 import ares3 from "./img/ares3.png"
-import axios from "axios";
+import api from "./api/axios";
 import Ouinon from "./composants/ouinon";
 import Success from "./composants/success";
 import FileReader from "./composants/fileReader";
@@ -38,7 +38,7 @@ function Adminreservation(){
 //  *********************************************************
   const fetchDemande=async()=>{
     // Requête GET vers l’endpoint Spring Boot
-    await axios.get("http://localhost:8080/api/produits/demandes-accepted")
+    await api.get("http://localhost:8080/api/produits/demandes-accepted")
       .then(response => {
         setReservations(response.data); // On stocke le tableau de DemandeCompletDTO
         setFiltredList(response.data)
@@ -91,11 +91,11 @@ const etat = (dateDebut, dateFin) => {
 const supprimer=async()=>{
     try {
         if(rchoisi.type==="reservation"){
-        await axios.delete(
+        await api.delete(
             `http://localhost:8080/api/produits/suprimer/${rchoisi.codeProduit}`
         );}
         else{
-          await axios.delete(
+          await api.delete(
             `http://localhost:8080/api/prolongements/suprimer/${rchoisi.idProlongement}`
         );
         }
@@ -191,7 +191,7 @@ const telechargerRecu = (reserv) => {
 
     return(<>
     {read && <FileReader type={typeFile} produit={idpr} suivant={setfile}  close={()=>{setFileUrl(null);setRead(false);setshowdetails(true)}} url={fileUrl}/>}
-    {out && <Ouinon type={1} sortir={()=>{localStorage.removeItem("admin");navigate("/admin")}}  annuler={()=>setOut(false)}/>}
+    {out && <Ouinon type={1} sortir={()=>{localStorage.removeItem("admin");localStorage.removeItem("accessToken");localStorage.removeItem("refreshToken");localStorage.removeItem("type");navigate("/admin")}}  annuler={()=>setOut(false)}/>}
     {confirmer && <Ouinon sortir={supprimer} annuler={()=>{setConfirmer(false);setRchoisi({})}}  type={2}/>}
     <Baradmin page={3} closeWindow={()=>{setOut(true)}}/>
     <Headeradmin closeWindow={()=>{setOut(true)}}/>

@@ -6,12 +6,13 @@ import garage from "./img/garage.png"
 import {useNavigate} from "react-router-dom"
 import Ouinon from "./composants/ouinon";
 import React,{useEffect,useState} from "react"
-import axios from "axios";
 import outofstock from "./img/out-of-stock.png"
 import readystock from "./img/ready-stock (1).png"
 import { PieChart, Pie, Cell, Legend } from "recharts";
 import ExportDialog from "./composants/exportDialog";
 import refresh from "./img/refresh.png"
+import api from "./api/axios";
+
 import {
   BarChart,
   Bar,
@@ -34,8 +35,8 @@ function Statistic(){
 const [capchambres,setcapchambres]=useState({})
 const getChambreStats = async () => {
   try {
-    const response = await axios.get(
-      "http://localhost:8080/api/statistiques/chambres"
+    const response = await api.get(
+      "http://localhost:8080/api/admin/statistiques/chambres"
     );
 
     return response.data;
@@ -122,7 +123,7 @@ useEffect(() => {
     const fetchData=async()=>{
         try {
              const monthIndex = months.indexOf(currentMonth) + 1;
-      const res = await axios.get(`http://localhost:8080/api/statistiques/${currentYear}/${monthIndex}`);
+      const res = await api.get(`http://localhost:8080/api/admin/statistiques/${currentYear}/${monthIndex}`);
       console.log("demandes",res.data);
       setStats(res.data);
     } catch (error) {
@@ -133,7 +134,7 @@ useEffect(() => {
   }, []);
  const getStatsByMonth = async (year, month) => {
     const monthIndex = months.indexOf(month) + 1;
-  return await axios.get(`http://localhost:8080/api/statistiques/${year}/${monthIndex}`);
+  return await api.get(`http://localhost:8080/api/admin/statistiques/${year}/${monthIndex}`);
 };
 
   //  HANDLE SELECTION
@@ -186,7 +187,7 @@ const [dataBar, setDataBar] = useState([]);
     }
   };
 const getStatsByType = (year, type) => {
-  return axios.get(`http://localhost:8080/api/statistiques/bar/${year}/${type}`);
+  return api.get(`http://localhost:8080/api/admin/statistiques/bar/${year}/${type}`);
   
   
 };
@@ -200,7 +201,7 @@ useEffect(() => {
 
     const fetchStock = async () => {
       try {
-        const res = await axios.get("http://localhost:8080/api/statistiques/stock");
+        const res = await api.get("http://localhost:8080/api/admin/statistiques/stock");
 
         setProduits(res.data);
         console.log("produits",res.data)
@@ -215,7 +216,7 @@ useEffect(() => {
 
     return(<>
     {openDialog && <ExportDialog onClose={()=>setOpenDialog(false)}/>}
-    {out && <Ouinon type={1} sortir={()=>{localStorage.removeItem("admin");navigate("/admin")}}  annuler={()=>setOut(false)}/>}
+    {out && <Ouinon type={1} sortir={()=>{localStorage.removeItem("admin");localStorage.removeItem("accessToken");localStorage.removeItem("refreshToken");localStorage.removeItem("type");navigate("/admin")}}  annuler={()=>setOut(false)}/>}
     <Baradmin page={4} closeWindow={()=>{setOut(true)}}/>
     <Headeradmin closeWindow={()=>{setOut(true)}}/>
     <div id="statistic1">

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.entity.Chambre;
@@ -21,6 +22,7 @@ public class ChambreController {
 
     // Récupérer toutes les chambres
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<Chambre> getAllChambres() {
         return chambreRepository.findAll();
     }
@@ -33,6 +35,7 @@ public class ChambreController {
 
     // Récupérer une chambre par son id ==========================
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Chambre getChambreById(@PathVariable Long id) {
         return chambreRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Chambre introuvable"));
@@ -40,6 +43,7 @@ public class ChambreController {
 
     // Ajouter une chambre======================================
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<Chambre> createChambre(@RequestBody Chambre chambre) {
 
         // 1. Save in database
@@ -52,6 +56,7 @@ public class ChambreController {
     }
     // Modifier une chambre
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Chambre updateChambre(@PathVariable Long id,
                                  @RequestBody Chambre chambreDetails) {
 
@@ -69,6 +74,7 @@ public class ChambreController {
 
     // Supprimer une chambre=======================================
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteChambre(@PathVariable Long id) {
 
         Chambre chambre = chambreRepository.findById(id)

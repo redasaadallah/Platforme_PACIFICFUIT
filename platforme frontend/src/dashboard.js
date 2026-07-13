@@ -5,11 +5,10 @@ import clipboard from "./img/clipboard.png"
 import {useNavigate} from "react-router-dom"
 import React,{useEffect,useState} from "react"
 import Repondre from "./composants/repondre";
-import axios from "axios";
 import Ouinon from "./composants/ouinon";
 import coment from "./img/comment.png"
 import { toast } from "react-toastify";
-
+import api from "./api/axios";
 function Dashboard(){
     const navigate=useNavigate();
     const [message,setMessage]=useState([])
@@ -31,7 +30,7 @@ const currentYear = date.getFullYear();
   useEffect(() => {
   const getMessages = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/messages");
+      const response = await api.get("http://localhost:8080/api/messages");
 
       setMessage(response.data);
 
@@ -51,7 +50,7 @@ const repondreMessage=()=>{
 // ============================filtrer le message suprimer===================
 const deleteMessage = async (id) => {
   try {
-    await axios.delete(`http://localhost:8080/api/messages/${id}`);
+    await api.delete(`http://localhost:8080/api/messages/${id}`);
     toast.success("Le message a été supprimé avec succès")
     setMessage(message.filter((msg) => msg.id !== id));
 
@@ -76,8 +75,8 @@ useEffect(() => {
 
 const fetchStats = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:8080/api/statistiques/dashboard/current-month/simple"
+      const res = await api.get(
+        "http://localhost:8080/api/admin/statistiques/dashboard/current-month/simple"
       );
 
       setStats(res.data);
@@ -90,7 +89,7 @@ const fetchStats = async () => {
   fetchStats();
 const fetchDemande=async()=>{
     // Requête GET vers l’endpoint Spring Boot
-    await axios.get("http://localhost:8080/api/produits/demandes-en-attente")
+    await api.get("http://localhost:8080/api/produits/demandes-en-attente")
       .then(response => {
         setReservations(response.data); // On stocke le tableau de DemandeCompletDTO
         console.log("les dennes",response.data)
@@ -104,20 +103,14 @@ const fetchDemande=async()=>{
 
  
 }, []);
-const fakeReservations = Array.from({ length: 90 }, (_, index) => ({
-  clientNom: `Client ${index + 1}`,
-  clientCin: `Cin ${index + 1}`,
-  status: "en attente",
-  type: "Réservation",
-  dateDemande: new Date(2026, 0, (index % 30) + 1)
-}));
+
 
 // =============================================================================
 // =============================================================================
 
     return(<>
      
-    {out && <Ouinon type={1} sortir={()=>{localStorage.removeItem("admin");navigate("/admin")}}  annuler={()=>setOut(false)}/>}
+    {out && <Ouinon type={1} sortir={()=>{localStorage.removeItem("admin");localStorage.removeItem("accessToken");localStorage.removeItem("refreshToken");localStorage.removeItem("type");navigate("/admin")}}  annuler={()=>setOut(false)}/>}
     {repondre && <Repondre type={0} done={()=>{don===0?setDon(1):setDon(0)}} closeWindow={()=>{setRepondre(false)}} msg={selectedMessage}/>}
     <Baradmin page={1} closeWindow={()=>{setOut(true)}}/>
     <Headeradmin closeWindow={()=>{setOut(true)}}/>
@@ -168,7 +161,7 @@ const fakeReservations = Array.from({ length: 90 }, (_, index) => ({
             <div>
                 <div>
                     <h3>les nouvelles demandes à traiter</h3>
-                    <p>{fakeReservations.length} demandes</p>
+                    <p>{reservations.length} demandes</p>
                 </div>
                 <img src={clipboard}/>
             </div>
@@ -194,23 +187,7 @@ const fakeReservations = Array.from({ length: 90 }, (_, index) => ({
                 </div>
                 ))}
                 </div>
-                {/* BODY SCROLL */}
-                <div className="table-bodyd">
-               {fakeReservations.map((res, index) => (
-                    <div className="table-rowd" key={index}>
-                        <div>{res.clientNom}</div>
-                        <div>{res.clientCin}</div>
-                        <div>
-                        <div className="status">{res.status}</div>
-                        </div>
-                        <div>
-                        <div className="type">{res.type}</div>
-                        </div>
-                        <div>{new Date(res.dateDemande).toLocaleDateString()}</div>
-                    </div>
-                    ))}
-                                    
-                </div>
+               
                 </div>
                
             </div>

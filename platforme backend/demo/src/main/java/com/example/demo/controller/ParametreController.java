@@ -5,6 +5,7 @@ import com.example.demo.repository.ParametreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,8 +26,9 @@ public class ParametreController {
         return parametreRepository.findAll();
     }
 
-    // GET : un paramètre par id
+//    // GET : un paramètre par id
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Parametre> getParametreById(@PathVariable Long id) {
         Optional<Parametre> param = parametreRepository.findById(id);
         return param.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
@@ -34,12 +36,14 @@ public class ParametreController {
 
     // POST : créer un nouveau paramètre
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Parametre createParametre(@RequestBody Parametre parametre) {
         return parametreRepository.save(parametre);
     }
 
     // PUT : mettre à jour un paramètre existant
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Parametre> updateParametre(@PathVariable Long id, @RequestBody Parametre updatedParam) {
         Optional<Parametre> optionalParam = parametreRepository.findById(id);
         if (!optionalParam.isPresent()) {
@@ -66,6 +70,7 @@ public class ParametreController {
 
     // DELETE : supprimer un paramètre
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> deleteParametre(@PathVariable Long id) {
         if (!parametreRepository.existsById(id)) {
             return ResponseEntity.notFound().build();

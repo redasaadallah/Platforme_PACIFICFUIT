@@ -17,13 +17,14 @@ import Message from "./composants/message"
 import ad5 from "./img/add5.png"
 import warningrecu from "./img/warningrecu.png"
 import FileReader from "./composants/fileReader"
-import axios from "axios";
 import arowdown from "./img/down-arrow (1).png"
 import { RotateDirection } from "@react-pdf-viewer/core"
 import { toast } from "react-toastify";
 import loading from "./img/loading.gif"
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
+import api from "./api/axios";
+import axios from "axios"
 function Espaceclient(){
     const [client, setClient] = useState( JSON.parse(localStorage.getItem("client")));
     const [produits,setProduits]=useState([])
@@ -36,7 +37,7 @@ function Espaceclient(){
       if (!client?.cin) return;
 
       try {
-        const response = await axios.get(`http://localhost:8080/api/clients/after-login/${client.cin}`);
+        const response = await api.get(`http://localhost:8080/api/client/after-login`);
         setProduits(response.data);
         console.log(response.data)
         setAnnule(false)
@@ -69,9 +70,9 @@ function Espaceclient(){
             stompClient.subscribe("/topic/reservations", async() => {
       
               //  Auto refresh when admin adds chambre
-            //   fetchProduits();
+            
             try {
-                const response = await axios.get(`http://localhost:8080/api/clients/after-login/${client.cin}`);
+                const response = await api.get(`http://localhost:8080/api/client/after-login/${client.cin}`);
                 setProduits(response.data);
                 console.log(response.data)
                 setAnnule(false)
@@ -201,10 +202,13 @@ function messageReservation(dateDebut, dateFin) {
 const telechargerRecu = (codeProduit) => {
   window.open(`http://localhost:8080/api/produits/download/${codeProduit}`, "_blank");
 };
+const telechargerRecuP = (idProlongement) => {
+    window.open(`http://localhost:8080/api/prolongements/download/${idProlongement}`, "_blank");
+};
 //==================lannulation d'une demande en atente
 const supprimerProlongement = async (prolongementId) => {
   try {
-    const response = await axios.delete(`http://localhost:8080/api/prolongements/${prolongementId}`);
+    const response = await api.delete(`http://localhost:8080/api/prolongements/${prolongementId}`);
     toast.success(response.data.message); // "Prolongement supprimé avec succès"
     setshowpro(null)
     setAnnule(true)
@@ -274,7 +278,7 @@ function canRequestExtension(dateDebut, dateFin, delai) {
     {read && <FileReader produit={idpr} type={typeFile} suivant={setfile}  close={()=>{setFileUrl(null);setRead(false)}} url={fileUrl}/>}
      {message && <Message closeWindow={()=>setMessage(false)}/>}
     {prol && <Prolongement idpro={selectedPro}  onDemandeSent={changes}  onClientChange={setClient} produit={selectedProduit} client={client} type={type} close={()=>{setprol(false)}} />}
-    {out && <Ouinon type={1} sortir={()=>{localStorage.removeItem("client");navigate("/reservation")}} annuler={()=>{setout(false)}}/>}
+    {out && <Ouinon type={1} sortir={()=>{localStorage.removeItem("client");localStorage.removeItem("accessToken");localStorage.removeItem("refreshToken");localStorage.removeItem("type");navigate("/reservation")}} annuler={()=>{setout(false)}}/>}
     {annuleBoite && <Ouinon type={6} sortir={()=>{supprimerProlongement(selectedPro)}} annuler={()=>{setAnnuleBoite(false)}}/>}
 
     <div id="cheader">
@@ -521,7 +525,7 @@ function canRequestExtension(dateDebut, dateFin, delai) {
              <button onClick={()=>{setprol(true);setType(1);setSelectedProduit({...produit,dateDebutStockage:produit.prolongements[produit.prolongements.length-1].ancienneDateFin,dateFinStockage:produit.prolongements[produit.prolongements.length-1].nouvelleDateFinDemandee})}} >Demander une prolongation</button>
            
             
-            {openRow===produit.idProduit &&<button onClick={() => telechargerRecu(produit.idProduit)}>Télécharger le reçu</button>}</div>
+            {openRow===produit.idProduit &&<button onClick={() => telechargerRecuP(produit.prolongements[produit.prolongements.length-1].id)}>Télécharger le reçu</button>}</div>
         </div>
         </div>}
 </>

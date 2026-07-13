@@ -89,7 +89,25 @@ const validateStep1 = () => {
 
     if (response.data.success) {
       // login OK
+      // Remove all localStorage data
+    localStorage.clear();
       localStorage.setItem("admin", JSON.stringify(response.data.admin));
+      localStorage.setItem(
+    "accessToken",
+    response.data.accessToken
+        );
+
+
+        localStorage.setItem(
+            "refreshToken",
+            response.data.refreshToken
+        );
+
+
+        localStorage.setItem(
+            "type",
+            response.data.type
+        );
       navigate("/dashboard")
     } else {
       setError(response.data.message);

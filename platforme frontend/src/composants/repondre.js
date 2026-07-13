@@ -3,6 +3,7 @@ import close from "../img/close.png"
 import send from "../img/send1.png"
 import React,{useEffect,useState} from "react"
 import { toast } from "react-toastify";
+import api from "../api/axios";
 
 import axios from "axios";
 function Repondre({msg,closeWindow,done}){
@@ -27,7 +28,7 @@ function Repondre({msg,closeWindow,done}){
   const toastId = toast.loading("Envoi de la réponse en cours...");
 
   try {
-    const response = await axios.post(
+    const response = await api.post(
       "http://localhost:8080/api/messages/send",
       data,
       {

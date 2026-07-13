@@ -14,7 +14,7 @@ import Ouinon from "./ouinon"
 import arowdown from "../img/down-arrow (1).png"
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
-
+import api from "../api/axios";
   const chambres = [
   { nom: "A", temperature: -5},
   { nom: "B", temperature: -10},
@@ -79,7 +79,6 @@ function Prolongement({close,type,idpro,client,onClientChange,onDemandeSent,prod
     };
 
     fetchData();
-      // Calculer la date minimale (demain)
         // 2. WebSocket connection
         const socket = new SockJS("http://localhost:8080/ws");
     
@@ -143,8 +142,8 @@ const updateClient = async (e) => {
    }
    else{
   try {
-    const res = await axios.put(
-      `http://localhost:8080/api/clients/${client.cin}`,
+    const res = await api.put(
+      `http://localhost:8080/api/client/${client.cin}`,
       clientCh
     );
     if(res.success==="true"){
@@ -220,8 +219,8 @@ const modifierPassWord=async(e)=>{
     
     else{
         try {
-      const response = await axios.post(
-        "http://localhost:8080/api/clients/change-password",
+      const response = await api.post(
+        "http://localhost:8080/api/client/change-password",
         {
           cin: client.cin,
           oldPassword: passWord,
@@ -477,7 +476,7 @@ return Object.keys(newErrors).length === 0;
   
  
   try {
-    const response = await axios.post(
+    const response = await api.post(
       "http://localhost:8080/api/produits/add",
       formData,
       {
@@ -528,7 +527,7 @@ const envoyerProlongement = async () => {
     
     
   try {
-    const response = await axios.post(
+    const response = await api.post(
       "http://localhost:8080/api/prolongements/demande",
       {
         codeProduit: produit.idProduit,
@@ -582,7 +581,7 @@ const modifierProlongement = async (e) => {
     }else{
         try {
         
-    const response = await axios.put(
+    const response = await api.put(
       `http://localhost:8080/api/prolongements/modifier/${idpro}`,
       { nbJours : Number(value),
         prix:parseFloat(Number(parametres.prixPrelangemant)*Number(value)*Number(produit.quantite))

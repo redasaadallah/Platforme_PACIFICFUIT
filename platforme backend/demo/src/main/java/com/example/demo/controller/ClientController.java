@@ -8,16 +8,20 @@ import com.example.demo.repository.ProduitRepository;
 import com.example.demo.repository.ProlongementRepository;
 import com.example.demo.service.CodeGeneratorService;
 import com.example.demo.service.EmailService;
+import com.example.demo.service.JwtService;
+import com.example.demo.service.RefreshTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
 @RestController
-@RequestMapping("/api/clients")
+@RequestMapping("/api/client")
 public class ClientController {
 
     private final ClientRepository clientRepository;
@@ -31,6 +35,12 @@ public class ClientController {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private JwtService jwtService;
+
+    @Autowired
+    private RefreshTokenService refreshTokenService;
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -65,43 +75,120 @@ public class ClientController {
         return "Client supprimé avec succès";
     }
 
-    // Login avec CIN et mot de passe ===================
-    @PostMapping("/login")
-    public Map<String, Object> login(@RequestBody Map<String, String> request) {
+//    // Login avec CIN et mot de passe ===================
 
-        Map<String, Object> response = new HashMap<>();
+@PostMapping("/login")
+public ResponseEntity<?> login(
+        @RequestBody Map<String, String> request
+) {
 
-        String cin = request.get("cin");
-        String motDePasse = request.get("motDePasse");
-        Optional<Client> optionalClient = clientRepository.findById(cin);
 
-        if (optionalClient.isPresent()) {
-            Client client = optionalClient.get();
+    String cin = request.get("cin");
 
-            // Vérifier le mot de passe
-            if (passwordEncoder.matches(motDePasse, client.getMotDePasse())) {
+    String motDePasse = request.get("motDePasse");
 
-                response.put("success", true);
-                response.put("message", "Login réussi");
-                response.put("client", client);
 
-            } else {
-                response.put("success", false);
-                response.put("message", "Le mot de passe est incorrect");
-            }
+    Client client = clientRepository
+            .findById(cin)
+            .orElseThrow(
+                    () -> new RuntimeException(
+                            "Client not found"
+                    )
+            );
 
-        } else {
-            response.put("success", false);
-            response.put("message", "Aucun compte n’est associé à ce CIN");
-        }
 
-        return response;
+
+    // Check password
+
+    if(!passwordEncoder.matches(
+            motDePasse,
+            client.getMotDePasse()
+    )) {
+
+        return ResponseEntity
+                .status(401)
+                .body("Mot de passe incorrect");
+
     }
 
-//===========================recuperer les produit apres login==========================
-@GetMapping("/after-login/{cin}")
-public List<ProduitDTO> getProduitsParClient(@PathVariable String cin) {
 
+
+    // Create JWT Access Token
+
+    String accessToken =
+            jwtService.generateToken(
+                    client.getCin(),
+                    "CLIENT"
+            );
+
+
+    refreshTokenService.deleteOldToken(
+            client.getCin(),
+            "CLIENT"
+    );
+    // Create Refresh Token
+
+    RefreshToken refreshToken =
+            refreshTokenService.createRefreshToken(
+                    client.getCin(),
+                    "CLIENT"
+            );
+
+
+
+    Map<String,Object> response =
+            new HashMap<>();
+
+
+    response.put(
+            "success",
+            true
+    );
+
+
+    response.put(
+            "accessToken",
+            accessToken
+    );
+
+
+    response.put(
+            "refreshToken",
+            refreshToken.getToken()
+    );
+
+
+    response.put(
+            "type",
+            "CLIENT"
+    );
+
+
+    response.put(
+            "client",
+            client
+    );
+
+
+
+    return ResponseEntity.ok(response);
+
+}
+//===========================recuperer les produit apres login==========================
+//@GetMapping("/after-login/{cin}")
+@GetMapping("/after-login")
+//@PathVariable String cin
+public List<ProduitDTO> getProduitsParClient() {
+//    ********************************************
+    Authentication authentication =
+            SecurityContextHolder
+                    .getContext()
+                    .getAuthentication();
+
+
+    String cin =
+            authentication.getName();
+//    *************************************************
     List<Produit> produits = produitRepository.findByClientCin(cin);
 
     String baseUrl = "http://localhost:8080/uploads/";

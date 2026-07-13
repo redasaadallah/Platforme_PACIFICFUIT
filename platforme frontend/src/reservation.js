@@ -70,7 +70,7 @@ const handleSubmit=async(e)=>{
     
   try {
     const response = await axios.post(
-      "http://localhost:8080/api/clients/login",
+      "http://localhost:8080/api/client/login",
       dataForm
     );
     console.log(dataForm)
@@ -80,6 +80,22 @@ const handleSubmit=async(e)=>{
     localStorage.setItem(
     "client",
     JSON.stringify(response.data.client)
+);
+localStorage.setItem(
+    "accessToken",
+    response.data.accessToken
+);
+
+
+localStorage.setItem(
+    "refreshToken",
+    response.data.refreshToken
+);
+
+
+localStorage.setItem(
+    "type",
+    response.data.type
 );
             navigate("/espaceclient")
             

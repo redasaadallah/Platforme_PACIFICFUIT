@@ -23,6 +23,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -80,52 +81,52 @@ public class ProduitController {
 
 
 
-    // Récupérer les produits d'un client par son CIN
-    @GetMapping("/produits/client/{cin}")
-    public List<ProduitDTO> getProduitsByClient(@PathVariable String cin) {
-
-        String baseUrl = "http://localhost:8080/uploads/";
-
-
-        // Récupérer tous les produits du client
-        List<Produit> produits = produitRepository.findByClientCin(cin);
-
-        // Mapper chaque produit vers ProduitDTO complet
-        return produits.stream().map(p -> {
-            var d = p.getDocument();
-            var c = p.getClient();
-            var ch = p.getChambre();
-
-            return new ProduitDTO(
-                    p.getCodeProduit(),
-                    p.getNom(),
-                    p.getQuantite(),
-                    p.getPrix(),
-                    p.getTemperatureStockage(),
-                    p.getDateDebutStockage(),
-                    p.getDateFinStockage(),
-                    p.getDureeStockage(),
-                    p.getDateDemande(),
-                    p.getStatut(),
-
-                    d != null ? baseUrl + d.getFacture() : null,
-                    d != null ? baseUrl + d.getOnssa() : null,
-                    d != null ? baseUrl + d.getRc() : null,
-
-                    c != null ? c.getCin() : null,
-                    c != null ? c.getNom() : null,
-                    c != null ? c.getEmail() : null,
-                    c != null ? c.getTelephone() : null,
-
-                    ch != null ? ch.getNomChambre() : null,
-                    ch != null ? ch.getCapacite() : 0,
-                    ch != null ? ch.getCapaciteDisponible() : 0,
-                    ch != null ? ch.getTemperature() : 0,
-                    ch != null && ch.isVisible()
-
-            );
-        }).toList();
-    }
+//    // Récupérer les produits d'un client par son CIN
+//    @GetMapping("/produits/client/{cin}")
+//    public List<ProduitDTO> getProduitsByClient(@PathVariable String cin) {
+//
+//        String baseUrl = "http://localhost:8080/uploads/";
+//
+//
+//        // Récupérer tous les produits du client
+//        List<Produit> produits = produitRepository.findByClientCin(cin);
+//
+//        // Mapper chaque produit vers ProduitDTO complet
+//        return produits.stream().map(p -> {
+//            var d = p.getDocument();
+//            var c = p.getClient();
+//            var ch = p.getChambre();
+//
+//            return new ProduitDTO(
+//                    p.getCodeProduit(),
+//                    p.getNom(),
+//                    p.getQuantite(),
+//                    p.getPrix(),
+//                    p.getTemperatureStockage(),
+//                    p.getDateDebutStockage(),
+//                    p.getDateFinStockage(),
+//                    p.getDureeStockage(),
+//                    p.getDateDemande(),
+//                    p.getStatut(),
+//
+//                    d != null ? baseUrl + d.getFacture() : null,
+//                    d != null ? baseUrl + d.getOnssa() : null,
+//                    d != null ? baseUrl + d.getRc() : null,
+//
+//                    c != null ? c.getCin() : null,
+//                    c != null ? c.getNom() : null,
+//                    c != null ? c.getEmail() : null,
+//                    c != null ? c.getTelephone() : null,
+//
+//                    ch != null ? ch.getNomChambre() : null,
+//                    ch != null ? ch.getCapacite() : 0,
+//                    ch != null ? ch.getCapaciteDisponible() : 0,
+//                    ch != null ? ch.getTemperature() : 0,
+//                    ch != null && ch.isVisible()
+//
+//            );
+//        }).toList();
+//    }
 //    -------------------------------------------------------------------
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 @PostMapping("/add")
@@ -181,6 +182,7 @@ public ResponseEntity<?> ajouterClientEtProduits(
         client.setTelephone(telephone);
         String password = codeGeneratorService.generateUniqueClientPassword();
         client.setMotDePasse(password);
+        client.setRole("CLIENT");
         client = clientRepository.save(client);
     }
 
@@ -271,6 +273,7 @@ public ResponseEntity<?> ajouterClientEtProduits(
 //===================================================================
 //=========================accepter une reservation==================
     @PutMapping("/accepter/{code}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Produit accepterProduit(@PathVariable String code) throws Exception {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -352,6 +355,7 @@ public ResponseEntity<?> ajouterClientEtProduits(
 //============================================================================
     //===========================refuse une reservation=======================
     @DeleteMapping("/refuser/{code}/{message}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String refuserReservation(@PathVariable String code, @PathVariable String message) throws Exception {
 
         Produit produit = produitRepository.findById(code)
@@ -372,6 +376,7 @@ public ResponseEntity<?> ajouterClientEtProduits(
 //==============================================================================
     //===========================suprimer une reservation=======================
     @DeleteMapping("/suprimer/{code}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String supprimerReservation(@PathVariable String code) throws Exception {
 
         Produit produit = produitRepository.findById(code)
@@ -433,8 +438,9 @@ public ResponseEntity<?> ajouterClientEtProduits(
                 .body(pdfBytes);
     }
 //===================================================
-//===================pour les demande complet en atente
+//===================pour les demande complet en accepted
 @GetMapping("/demandes-accepted")
+@PreAuthorize("hasAnyAuthority('ADMIN')")
 public List<DemandeCompletDTO> getDemandesAccepted() {
 
     List<DemandeCompletDTO> demandes = new ArrayList<>();
@@ -535,6 +541,7 @@ public List<DemandeCompletDTO> getDemandesAccepted() {
 }
     //===================pour les demande complet en atente
     @GetMapping("/demandes-en-attente")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public List<DemandeCompletDTO> getDemandesEnAttente() {
 
         List<DemandeCompletDTO> demandes = new ArrayList<>();

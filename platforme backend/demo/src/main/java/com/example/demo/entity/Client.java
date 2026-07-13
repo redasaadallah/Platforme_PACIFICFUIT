@@ -25,6 +25,11 @@ public class Client {
     @Column(name = "mot_de_passe", length = 255)
     private String motDePasse;
 
+    // Nouveau attribut
+    @Column(name = "role", length = 20)
+    private String role;
+
+
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Produit> produits;
@@ -32,12 +37,13 @@ public class Client {
     public Client() {
     }
 
-    public Client(String cin, String nom, String email, String telephone, String motDePasse) {
+    public Client(String cin, String nom, String email, String telephone, String motDePasse, String role) {
         this.cin = cin;
         this.nom = nom;
         this.email = email;
         this.telephone = telephone;
         this.motDePasse = motDePasse;
+        this.role = role;
     }
 
     public String getCin() {
@@ -86,5 +92,13 @@ public class Client {
 
     public void setProduits(List<Produit> produits) {
         this.produits = produits;
+    }
+    public String getRole() {
+        return role;
+    }
+
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

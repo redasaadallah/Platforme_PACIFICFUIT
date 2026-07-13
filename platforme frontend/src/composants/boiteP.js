@@ -16,6 +16,7 @@ import life from "../img/product-life.png"
 import { toast } from "react-toastify";
 import Ouinon from "./ouinon"
 import axios from "axios";
+import api from "../api/axios";
 export default function BoiteP({admin,type,closeWindow,data,icon,param,onParamChange,onDelete}){
     const [typeP,setTypeP]=useState(type)
     const [chambres,setChambres]=useState(data)
@@ -26,7 +27,7 @@ export default function BoiteP({admin,type,closeWindow,data,icon,param,onParamCh
     // =====================supprimer une chambre=================
     const supprimer=async()=>{
          try {
-    await axios.delete(`http://localhost:8080/api/chambres/${selectedId}`);
+    await api.delete(`http://localhost:8080/api/chambres/${selectedId}`);
     const result = chambres.filter(item => item.id !== selectedId);
     setChambres(result);
     onDelete(result)
@@ -97,7 +98,7 @@ const exists = chambres.some(
 
     }else if(!exists){
         try {
-      await axios.put(
+      await api.put(
         `http://localhost:8080/api/chambres/${selectedChambre.id}`,
         updatedChambre
       );
@@ -163,7 +164,7 @@ return Object.keys(newErrors).length === 0;
   };
 
   try {
-    const response =await axios.post("http://localhost:8080/api/chambres", payload);
+    const response =await api.post("http://localhost:8080/api/chambres", payload);
 
     toast.success("Chambre ajoutée avec succès"); 
     setTypeP("espace")
@@ -230,7 +231,7 @@ const updateParametre = async (mode) => {
     if(choix===mode ){
         
   try {
-    const res = await axios.put(
+    const res = await api.put(
       `http://localhost:8080/api/parametres/${param.idParametre}`,
       parametre
     );
@@ -283,7 +284,7 @@ const modiferPassWord=async()=>{
         toast.error(validatePassword(passWord1))
     }else{
         try {
-      const response = await axios.post(
+      const response = await api.post(
         "http://localhost:8080/api/admin/change-password",
         {
           email: admin.email,

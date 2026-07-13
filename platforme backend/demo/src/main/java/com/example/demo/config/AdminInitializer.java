@@ -21,6 +21,7 @@ public class AdminInitializer {
                 Admin admin = new Admin();
                 admin.setEmail("redasaadallah77@gmail.com");
                 admin.setMotDePasse(encoder.encode("reda2001"));
+                admin.setRole("ADMIN");
 
                 adminRepository.save(admin);
 

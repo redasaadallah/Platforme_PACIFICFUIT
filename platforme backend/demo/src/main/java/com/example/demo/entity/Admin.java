@@ -16,12 +16,17 @@ public class Admin {
     @Column(nullable = false)
     private String motDePasse;
 
+    // Nouveau attribut
+    @Column(name = "role", length = 20)
+    private String role;
+
     public Admin() {
     }
 
-    public Admin(String email, String motDePasse) {
+    public Admin(String email, String motDePasse, String role) {
         this.email = email;
         this.motDePasse = motDePasse;
+        this.role = role;
     }
 
     // GETTERS
@@ -50,5 +55,12 @@ public class Admin {
 
     public void setMotDePasse(String motDePasse) {
         this.motDePasse = motDePasse;
+    }
+
+    public String getRole() {
+        return role;
+    }
+    public void setRole(String role) {
+        this.role = role;
     }
 }

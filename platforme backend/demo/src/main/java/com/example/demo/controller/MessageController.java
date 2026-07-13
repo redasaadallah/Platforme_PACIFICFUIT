@@ -5,6 +5,7 @@ import com.example.demo.repository.MessageRepository;
 import com.example.demo.service.EmailService;
 import com.example.demo.service.TwilioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,7 +13,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/messages")
-//@CrossOrigin(origins = "http://localhost:3000")
 public class MessageController {
     private final EmailService emailService;
     @Autowired
@@ -31,10 +31,12 @@ public class MessageController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<Message> getMessages() {
         return messageRepository.findAll();
     }
     @PostMapping("/send")
+     @PreAuthorize("hasAuthority('ADMIN')")
     public String envoyerContact(@RequestBody Map<String, String> data) throws Exception {
 
         String email = data.get("email");
@@ -49,6 +51,7 @@ public class MessageController {
         return "Message envoyé avec succès.";
     }
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteMessage(@PathVariable Long id) {
         messageRepository.deleteById(id);
         return "Message supprimé avec succès";

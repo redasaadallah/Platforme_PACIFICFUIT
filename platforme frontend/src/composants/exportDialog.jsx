@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../api/axios";
 
 export default function ExportDialog({onClose}) {
 
@@ -24,8 +24,8 @@ export default function ExportDialog({onClose}) {
 const exportCSV = async (year) => {
 
    try {
-      let url = "http://localhost:8080/api/statistiques/export/monthly";
-        const res = await axios.get(url, {
+      let url = "http://localhost:8080/api/admin/statistiques/export/monthly";
+        const res = await api.get(url, {
         params: {
           year
         },
@@ -50,8 +50,8 @@ const monthIndex = months.indexOf(month) + 1;
    try {
       
      
-        let url = "http://localhost:8080/api/statistiques/export/details";
-        const res = await axios.get(url, {
+        let url = "http://localhost:8080/api/admin/statistiques/export/details";
+        const res = await api.get(url, {
         params: {
           year,
           monthIndex
