@@ -99,7 +99,7 @@ function Oublier({onClose,type}){
         <img src={lock}/>
         <p>Entrez votre adresse email {type===2 && "administrateur"} afin de recevoir votre mot de passe.</p>
         <form onSubmit={handleSubmit}>
-            <div style={{width:"70%"}} className="wave-group">
+            <div style={{width:"70%",minWidth:"300px"}} className="wave-group">
         <input placeholder=" "  type="text" className="input" onChange={(e)=>{setEmail(e.target.value)}} name="email" value={email} />
         <span className="bar"></span>
         <label className="label">

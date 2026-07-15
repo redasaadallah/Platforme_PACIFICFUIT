@@ -16,6 +16,8 @@ import Oublier from "./composants/oublier";
 import axios from "axios"
 import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import FadeIn from "./composants/fadein";
+import { motion } from "framer-motion";
 function Reservation(){
     const navigate=useNavigate();
     const [show,setshow]=useState(0);
@@ -77,6 +79,8 @@ const handleSubmit=async(e)=>{
     console.log(response)
     if (response.data.success) {
       // login OK
+       
+    
     localStorage.setItem(
     "client",
     JSON.stringify(response.data.client)
@@ -117,13 +121,28 @@ localStorage.setItem(
     <Main back={img5}/>
     {/* ================================================ */}
     <div id="res1">
-        <div>
+        <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0 }}
+        viewport={{ once: true, amount: 0 }}
+        >
             <hr></hr>
             <h1>Accéder à ma <span className="span">réservation</span></h1>
-        </div>
-        <h3>Si votre demande de réservation a déjà été acceptée, vous pouvez accéder à votre espace client pour consulter les détails de votre réservation.</h3>
+        </motion.div>
+        <motion.h3
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0.3 }}
+        viewport={{ once: true, amount: 0 }}
+        >Si votre demande de réservation a déjà été acceptée, vous pouvez accéder à votre espace client pour consulter les détails de votre réservation.</motion.h3>
     </div>
-    <form onSubmit={handleSubmit} id="formres">
+    <motion.form
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1, delay:0.6 }}
+    viewport={{ once: true, amount: 0 }}
+    onSubmit={handleSubmit} id="formres">
         <div>
             <img src={login}/>
             <h3>Connexion à votre espace</h3>
@@ -163,35 +182,60 @@ localStorage.setItem(
         <div>
             <button  >Accéder à ma réservation</button>
             <hr/>
-            <button  type="button">Contactez-nous</button>
+            <button className="buttonvide" onClick={()=>navigate("/demander")}  type="button">Réserver un espace</button>
         </div>
-    </form>
+    </motion.form>
     {/* ================================================ */}
     <div id="res2">
         <div>
-            <div>
+            <motion.div
+            initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0 }}
+        viewport={{ once: true, amount: 0 }}
+            >
+            <hr/>
             <h1>Pourquoi <span className="span">réserver</span> chez <span className="span">nous ?</span></h1>
-            </div>
+            </motion.div>
         </div>
         <div>
-            <div>
+            <motion.div
+            initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0 }}
+        viewport={{ once: true, amount: 0 }}
+            >
                 <img src={img8}/>
                 <p>Processus simple et rapide</p>
-            </div>
-            <div>
-                 <div>
+            </motion.div>
+            <motion.div
+             initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0 }}
+        viewport={{ once: true, amount: 0 }}
+            >
+                 <div
+                
+                 >
                 <img src={img9}/>
                 <p>Confirmation rapide</p>
             </div>
-             <div>
+             <div
+            
+             >
                 <img src={img10}/>
                 <p>Conditions optimales de conservation</p>
             </div>
-            </div>
-             <div>
+            </motion.div>
+             <motion.div
+             initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0 }}
+        viewport={{ once: true, amount: 0 }}
+             >
                 <img src={img11}/>
                 <p>Espaces adaptés à vos besoins</p>
-            </div>
+            </motion.div>
         </div>
     </div>
     <Upfooter/>

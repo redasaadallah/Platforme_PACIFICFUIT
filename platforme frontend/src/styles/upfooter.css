@@ -5,20 +5,22 @@
     display: flex;
     flex-direction: column;
     margin-top: 100px;
+    margin-bottom: 50px;
 
 }
 #home5>h3{
     width: 100%;
-    font-size: clamp(1.2rem,2vw,2.3rem);
+    font-size: clamp(1rem,2vw,2.3rem);
     font-weight: lighter;
     z-index: 1;
-    margin-bottom: 1%;
+    margin-bottom: 20px;
 }
 #home5>h3:last-of-type{
     text-align: left;
 }
-#home5 a{
+#home5 button{
     color: black;
+    background: none;
     text-decoration: none;
     width:25%;
     min-width: 200px;
@@ -55,5 +57,9 @@
 @media (max-width: 900px)  {
    #home5 img{
     border-radius: 20px;
+   }
+   #home5>h3{
+    text-align: justify;
+    line-height: 30px;
    }
 }

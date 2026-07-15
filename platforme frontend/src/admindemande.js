@@ -63,7 +63,6 @@ useEffect(() => {
       .then(response => {
         setReservations(response.data); // On stocke le tableau de DemandeCompletDTO
         setFiltredList(response.data)
-        console.log("les dennes",response.data)
         
       })
       .catch(err => {
@@ -81,7 +80,7 @@ useEffect(() => {
       });
   
       stompClient.onConnect = () => {
-          console.log("WebSocket connected");
+
         //  Listen for new chambres
         stompClient.subscribe("/topic/demandes", () => {
   
@@ -173,28 +172,56 @@ const envoieAccepterProlongation=async(reserv)=>{
 const accepter=async()=>{
    // Affiche un toast de chargement
 const toastId = toast.loading("Acceptation en cours...");
+          
         try {
             setType(false)
             if(rchoisi.type==="reservation"){
-            const response = await envoieAccepterReservation(rchoisi.codeProduit)
-            }else{
+              
+              const response = await envoieAccepterReservation(rchoisi.codeProduit)
+            console.log("mmmmmmmmmmmmmmmmmmmmmm",response)
+            if(response.data.success){
+            toast.update(toastId, {
+                render: response.data.message,
+                type: "success",
+                isLoading: false,
+                autoClose: 3000
+            });  
+            setFiltredList(filtredListe.filter(r => r.codeProduit !== rchoisi.codeProduit));
+            setReservations(reservations.filter(r => r.codeProduit !== rchoisi.codeProduit));
+            setOpenRow(null)
+          }else{
+             toast.update(toastId, {
+                render: response.data.message,
+                type: "error",
+                isLoading: false,
+                autoClose: 3000
+            });  
+          }
+          }else{
                 const response=await envoieAccepterProlongation(rchoisi.idProlongement)
-            }
-toast.update(toastId, {
-        render: "La demande a été acceptée avec succès.",
-        type: "success",
-        isLoading: false,
-        autoClose: 3000
-    });        
-        if(rchoisi.type==="reservation"){
-        setFiltredList(filtredListe.filter(r => r.codeProduit !== rchoisi.codeProduit));
-        setReservations(reservations.filter(r => r.codeProduit !== rchoisi.codeProduit));
-        }else{
+            console.log("mmmmmmmmmmmmmmmmmmmmmm",response)
+            if(response.data.success){
+             toast.update(toastId, {
+                render: response.data.message,
+                type: "success",
+                isLoading: false,
+                autoClose: 3000
+            });  
             setFiltredList(filtredListe.filter(r => r.idProlongement !== rchoisi.idProlongement));
-        setReservations(reservations.filter(r => r.idProlongement !== rchoisi.idProlongement)); 
-        }
+            setReservations(reservations.filter(r => r.idProlongement !== rchoisi.idProlongement)); 
+             setOpenRow(null) 
+          }else{
+               toast.update(toastId, {
+                render: response.data.message,
+                type: "error",
+                isLoading: false,
+                autoClose: 3000
+            });  
+             }
+          }
+    
         
-        setOpenRow(null)
+        
 
     } catch (error) {
 

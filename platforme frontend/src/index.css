@@ -7,4 +7,39 @@ body {
 .span{
     color: #0A8D47;
 }
+/* ======================================= */
+button{
 
+    font-family: 'Playfair Display', serif;
+    transition: 0.5s ease;
+
+}
+button:hover{
+    
+    transform: translateY(-3px);
+}
+button:active{
+    transform: scale(0.99);
+}
+.buttonvide::before{
+    content: "";
+    position: absolute;
+    width: 0%;
+    background-color: #629772;
+    height: 45px;
+    transition: 0.3s ease;
+    left: 0;
+    z-index: -1;
+    opacity: 0.5;
+}
+.buttonvide:hover::before{
+width: 100%;
+border-radius: 5px;
+}
+input{
+        font-family: 'Playfair Display', serif;
+
+}
+imput:focus{
+    outline:none
+}

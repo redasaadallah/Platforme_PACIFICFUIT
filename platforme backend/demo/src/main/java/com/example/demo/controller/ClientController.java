@@ -6,10 +6,8 @@ import com.example.demo.entity.*;
 import com.example.demo.repository.ClientRepository;
 import com.example.demo.repository.ProduitRepository;
 import com.example.demo.repository.ProlongementRepository;
-import com.example.demo.service.CodeGeneratorService;
-import com.example.demo.service.EmailService;
-import com.example.demo.service.JwtService;
-import com.example.demo.service.RefreshTokenService;
+import com.example.demo.repository.VerificationCodeRepository;
+import com.example.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailException;
@@ -18,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @RestController
@@ -29,12 +28,18 @@ public class ClientController {
     @Autowired
     private  ProlongementRepository prolongementRepository;
 
+    @Autowired
+    private VerificationCodeRepository verificationRepository;
+
 
     @Autowired
     private CodeGeneratorService codeGeneratorService;
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private TwilioService twilioService;
 
     @Autowired
     private JwtService jwtService;
@@ -175,9 +180,7 @@ public ResponseEntity<?> login(
 
 }
 //===========================recuperer les produit apres login==========================
-//@GetMapping("/after-login/{cin}")
 @GetMapping("/after-login")
-//@PathVariable String cin
 public List<ProduitDTO> getProduitsParClient() {
 //    ********************************************
     Authentication authentication =
@@ -395,4 +398,144 @@ public ResponseEntity<?> updateClient(@PathVariable String id, @RequestBody Clie
 
         return response;
     }
+//=============envoyer le code de verification lors de demandedune reservation =============
+@PostMapping("/sendCode")
+public ResponseEntity<?> send(
+        @RequestBody Map<String,String> data
+){
+
+
+    String email=data.get("email");
+
+    String telephone=data.get("telephone");
+
+
+
+    String emailCode =
+            String.valueOf(
+                    new Random().nextInt(900000)+100000
+            );
+
+
+    String whatsappCode =
+            String.valueOf(
+                    new Random().nextInt(900000)+100000
+            );
+
+
+
+    VerificationCode v=new VerificationCode();
+
+
+    v.setEmail(email);
+
+    v.setTelephone(telephone);
+
+    v.setEmailCode(emailCode);
+
+    v.setWhatsappCode(whatsappCode);
+
+
+    v.setExpiration(
+            LocalDateTime.now().plusMinutes(5)
+    );
+
+
+
+    verificationRepository.save(v);
+
+
+
+    emailService.envoyerCode(
+            email,
+            emailCode
+    );
+
+
+
+    twilioService.envoyerOTP(
+            telephone,
+            whatsappCode
+    );
+
+
+
+    return ResponseEntity.ok(
+            Map.of(
+                    "success",true
+            )
+    );
+
+
+}
+//+++++++++++++++++++++++++pour recevoir le code de verification lors du demande
+@PostMapping("/verify")
+public ResponseEntity<?> verify(
+        @RequestBody Map<String,String> data
+){
+
+
+    VerificationCode v =
+            verificationRepository
+                    .findTopByTelephoneOrderByIdDesc(
+                            data.get("telephone")
+                    );
+
+
+
+    if(v==null){
+
+        return ResponseEntity.badRequest()
+                .body(
+                        Map.of(
+                                "success",false,
+                                "message",
+                                "Code introuvable"
+                        )
+                );
+
+    }
+
+
+
+
+    if(
+            !v.getEmailCode()
+                    .equals(data.get("emailCode"))
+
+                    ||
+
+                    !v.getWhatsappCode()
+                            .equals(data.get("whatsappCode"))
+
+    ){
+
+        return ResponseEntity.badRequest()
+                .body(
+                        Map.of(
+                                "success",false,
+                                "message",
+                                "L'un des deux codes ou les deux codes sont incorrects."
+                        )
+                );
+
+    }
+
+
+
+    v.setVerified(true);
+
+
+    verificationRepository.save(v);
+
+
+
+    return ResponseEntity.ok(
+            Map.of(
+                    "success",true
+            )
+    );
+
+
+}
 }

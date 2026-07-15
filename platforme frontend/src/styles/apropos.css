@@ -5,18 +5,23 @@
     display:flex;
     gap: 20px;
 }
+.apropos1>div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
 .apropos1>img{
     width: max(30%,350px);
     height: 350px;
     border-radius: 20px;
 }
 .apropos1 hr{
-    width: 25%;
+    width: 100px;
     border: 3px solid #0A8D47;
     text-align: left;
     border-radius: 50px;
     margin-right: 100%;
-    margin-bottom: -4%;
 }
 .apropos1 h1{
     width: 100%;
@@ -25,6 +30,7 @@
     font-weight: lighter;
     font-size: clamp(2rem,4vw,6rem);
     font-family: 'Playfair Display', serif;
+    margin: 0;
 
 }
 .apropos1 p{
@@ -33,6 +39,8 @@
     font-weight: lighter;
     font-size: clamp(1rem,2vw,4rem);
     text-align: justify;
+    width: 100%;
+    margin: 0;
 }
 #apropos1{
     flex-direction: row-reverse;
@@ -43,12 +51,11 @@
     margin: 100px auto;
 }
 #apropos2 hr{
-width: 25%;
+width: 100px;
     border: 3px solid #0A8D47;
     text-align: left;
     border-radius: 50px;
     
-    margin-bottom: -3%;
 }
 #apropos2 h1{
 width: 100%;
@@ -57,6 +64,8 @@ width: 100%;
     font-weight: lighter;
     font-size: clamp(2rem,4vw,6rem);
     font-family: 'Playfair Display', serif;
+    margin: 0;
+    margin-bottom: 20px;
 }
 #apropos2>div:last-of-type{
     display: flex;

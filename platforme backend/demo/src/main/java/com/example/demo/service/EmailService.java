@@ -281,4 +281,48 @@ public void sendEmailBeforeStart(Produit produit) {
 
         mailSender.send(message);
     }
+//=============pour envoyer le code de verification
+public void envoyerCode(
+        String email,
+        String code
+){
+
+
+    SimpleMailMessage message =
+            new SimpleMailMessage();
+
+
+
+    // Email du client
+    message.setTo(email);
+
+
+
+    // Sujet du mail
+    message.setSubject(
+            "Code de vérification"
+    );
+
+
+
+    // Contenu du mail
+    message.setText(
+            "Bonjour,\n\n"
+                    +
+                    "Votre code de vérification est : "
+                    +
+                    code
+                    +
+                    "\n\n"
+                    +
+                    "Ce code est valable pendant 5 minutes."
+    );
+
+
+
+    // Envoyer le mail
+    mailSender.send(message);
+
+
+}
 }

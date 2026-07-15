@@ -6,9 +6,7 @@ import com.example.demo.entity.Client;
 import com.example.demo.entity.Produit;
 import com.example.demo.entity.Document;
 import com.example.demo.repository.*;
-import com.example.demo.service.CodeGeneratorService;
-import com.example.demo.service.EmailService;
-import com.example.demo.service.PdfService;
+import com.example.demo.service.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.demo.dto.DemandeCompletDTO;
@@ -30,7 +28,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import jakarta.servlet.http.HttpServletRequest;
-import com.example.demo.service.TwilioService;
 
 import java.io.File;
 import java.io.IOException;
@@ -79,6 +76,8 @@ public class ProduitController {
     @Autowired
     private SimpMessagingTemplate template;
 
+    @Autowired
+    NotificationAsyncService notificationAsyncService;
 
 
 //    // Récupérer les produits d'un client par son CIN
@@ -272,62 +271,250 @@ public ResponseEntity<?> ajouterClientEtProduits(
     }
 //===================================================================
 //=========================accepter une reservation==================
+//    @PutMapping("/accepter/{code}")
+//    @PreAuthorize("hasAuthority('ADMIN')")
+//    public ResponseEntity<?> accepterProduit(@PathVariable String code) throws Exception {
+//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//
+//        Produit produit = produitRepository.findById(code)
+//                .orElseThrow(() -> new RuntimeException("Reservation introuvable"));
+//
+//        Chambre chambre = produit.getChambre();
+//         /*
+//     Vérification capacité selon la période
+//    */
+//
+//
+//        Double quantiteOccupee =
+//                produitRepository.getQuantiteOccupeePourPeriode(
+//                        chambre,
+//                        produit.getDateDebutStockage(),
+//                        produit.getDateFinStockage()
+//                );
+//
+//
+//        if(
+//                quantiteOccupee + produit.getQuantite()
+//                        > chambre.getCapacite()
+//        ){
+//
+//            return ResponseEntity
+//                    .ok(Map.of(
+//                                    "success", false,
+//                                    "message",
+//                                    "Capacité insuffisante pour cette période"
+//                            )
+//                    );
+//
+//        }
+//        produit.setStatut("accepted");
+//        Client client=produit.getClient();
+//
+//        // Vérifier si le client a déjà une réservation acceptée
+//        List<Produit> produitsAcceptes = produitRepository.findByClientAndStatutIn(client, List.of("accepted", "ended"));
+//        boolean envoyerMotDePasse = produitsAcceptes.isEmpty(); // true si c’est la première réservation acceptée
+//        String motpass=client.getMotDePasse();
+//
+//        // Générer le PDF
+//
+//        byte[] pdfBytes = pdfService.generatePdf(
+//                "Reçu de Réservation",
+//                client.getNom(),
+//                client.getEmail(),
+//                client.getCin(),
+//                client.getTelephone(),
+//                produit.getCodeProduit(),
+//                produit.getDateDebutStockage().toString(),
+//                String.valueOf(produit.getDureeStockage()),
+//                produit.getDateFinStockage().toString(),
+//                LocalDate.now().toString(),
+//                String.valueOf(produit.getPrix()),
+//                produit.getNom(),
+//                String.valueOf(produit.getQuantite()),
+//                produit.getChambre().getNomChambre(),
+//                String.valueOf(produit.getTemperatureStockage())
+//        );
+//
+//        // Sauvegarder le PDF
+//        String fileName = pdfService.savePdf(pdfBytes, produit.getCodeProduit());
+//
+//        // Créer l’URL du PDF
+//        String pdfUrl = baseUrl + "/api/produits/recus/" + fileName;
+//        int type=1;
+//        //envoyer le email
+//        emailService.envoyerEmail(produit,motpass,envoyerMotDePasse,type,"Reçu de Réservation");
+//        //emvoyer le message whatsapp
+//        twilioService.envoyerMessageWhatsApp(produit,motpass,pdfUrl,fileName,envoyerMotDePasse,type);
+//        if(envoyerMotDePasse){
+//        client.setMotDePasse(encoder.encode(client.getMotDePasse()));
+//        }
+//        template.convertAndSend(
+//                "/topic/reservations",
+//                "reservation"
+//        );
+//        return ResponseEntity.ok(
+//                Map.of(
+//                        "success", true,
+//                        "message", "La demande a été acceptée avec succès.",
+//                        "produit", produitRepository.save(produit)
+//                )
+//        );
+//    }
+//========================= accepter une reservation ==================
+
     @PutMapping("/accepter/{code}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public Produit accepterProduit(@PathVariable String code) throws Exception {
+    public ResponseEntity<?> accepterProduit(
+            @PathVariable String code
+    ) throws Exception {
+
+
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-        Produit produit = produitRepository.findById(code)
-                .orElseThrow(() -> new RuntimeException("Reservation introuvable"));
-        produit.setStatut("accepted");
-        Chambre chambre = produit.getChambre();
-        Client client=produit.getClient();
-        // Vérifier si le client a déjà une réservation acceptée
-        List<Produit> produitsAcceptes = produitRepository.findByClientAndStatutIn(client, List.of("accepted", "ended"));
-        boolean envoyerMotDePasse = produitsAcceptes.isEmpty(); // true si c’est la première réservation acceptée
-        String motpass=client.getMotDePasse();
-        Double reste=chambre.getCapaciteDisponible()-produit.getQuantite();
-        chambre.setCapaciteDisponible(reste);
-        // Générer le PDF
 
-        byte[] pdfBytes = pdfService.generatePdf(
-                "Reçu de Réservation",
-                client.getNom(),
-                client.getEmail(),
-                client.getCin(),
-                client.getTelephone(),
-                produit.getCodeProduit(),
-                produit.getDateDebutStockage().toString(),
-                String.valueOf(produit.getDureeStockage()),
-                produit.getDateFinStockage().toString(),
-                LocalDate.now().toString(),
-                String.valueOf(produit.getPrix()),
-                produit.getNom(),
-                String.valueOf(produit.getQuantite()),
-                produit.getChambre().getNomChambre(),
-                String.valueOf(produit.getTemperatureStockage())
+
+        Produit produit =
+                produitRepository.findById(code)
+                        .orElseThrow(
+                                () -> new RuntimeException(
+                                        "Reservation introuvable"
+                                )
+                        );
+
+
+
+        Chambre chambre = produit.getChambre();
+
+
+
+    /*
+        Vérification capacité selon la période
+    */
+
+        Double quantiteOccupee =
+                produitRepository.getQuantiteOccupeePourPeriode(
+                        chambre,
+                        produit.getDateDebutStockage(),
+                        produit.getDateFinStockage()
+                );
+
+
+
+        if(
+                quantiteOccupee + produit.getQuantite()
+                        >
+                        chambre.getCapacite()
+        ){
+
+            return ResponseEntity.ok(
+                    Map.of(
+                            "success", false,
+                            "message",
+                            "Capacité insuffisante pour cette période"
+                    )
+            );
+
+        }
+
+
+
+        // changer statut
+
+        produit.setStatut("accepted");
+
+
+
+        Client client =
+                produit.getClient();
+
+
+
+        // Vérifier première réservation acceptée
+
+        List<Produit> produitsAcceptes =
+                produitRepository.findByClientAndStatutIn(
+                        client,
+                        List.of(
+                                "accepted",
+                                "ended"
+                        )
+                );
+
+
+
+        boolean envoyerMotDePasse =
+                produitsAcceptes.isEmpty();
+
+
+
+        String motpass =
+                client.getMotDePasse();
+
+
+
+
+    /*
+        Sauvegarder avant notification
+    */
+
+        Produit produitSauvegarde =
+                produitRepository.save(produit);
+
+
+
+
+    /*
+        Envoyer PDF + Email + WhatsApp
+        en arrière-plan
+    */
+
+        notificationAsyncService.envoyerNotification(
+                produitSauvegarde,
+                motpass,
+                envoyerMotDePasse
         );
 
-        // Sauvegarder le PDF
-        String fileName = pdfService.savePdf(pdfBytes, produit.getCodeProduit());
 
-        // Créer l’URL du PDF
-        String pdfUrl = baseUrl + "/api/produits/recus/" + fileName;
-        int type=1;
-        //envoyer le email
-        emailService.envoyerEmail(produit,motpass,envoyerMotDePasse,type,"Reçu de Réservation");
-        //emvoyer le message whatsapp
-        twilioService.envoyerMessageWhatsApp(produit,motpass,pdfUrl,fileName,envoyerMotDePasse,type);
+
+    /*
+        Encoder mot de passe seulement
+        après préparation
+    */
+
         if(envoyerMotDePasse){
-        client.setMotDePasse(encoder.encode(client.getMotDePasse()));
+
+            client.setMotDePasse(
+                    encoder.encode(
+                            client.getMotDePasse()
+                    )
+            );
+
         }
+
+
+
+
         template.convertAndSend(
                 "/topic/reservations",
                 "reservation"
         );
-        return produitRepository.save(produit);
-    }
 
+
+
+        return ResponseEntity.ok(
+                Map.of(
+                        "success",
+                        true,
+
+                        "message",
+                        "La demande a été acceptée avec succès.",
+
+                        "produit",
+                        produitSauvegarde
+                )
+        );
+
+    }
 //________________________________________________________________________
 
 
@@ -374,34 +561,7 @@ public ResponseEntity<?> ajouterClientEtProduits(
         return "refusée avec succès";
     }
 //==============================================================================
-    //===========================suprimer une reservation=======================
-    @DeleteMapping("/suprimer/{code}")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public String supprimerReservation(@PathVariable String code) throws Exception {
 
-        Produit produit = produitRepository.findById(code)
-                .orElseThrow(() -> new RuntimeException("Produit introuvable"));
-        produit.setStatut("ended");
-        produitRepository.save(produit);
-        Chambre chambre = produit.getChambre();
-
-        // check if there is accepted prolongation linked
-        boolean hasActiveProlongation =
-                prolongementRepository.existsByProduitAndStatut(
-                        produit, "accepted"
-                );
-
-        if (!hasActiveProlongation) {
-
-            // only then we free capacity
-            chambre.setCapaciteDisponible(
-                    chambre.getCapaciteDisponible() + produit.getQuantite()
-            );
-
-            chambreRepository.save(chambre);
-        }
-        return "Supprimé avec succès";
-    }
 
 
 //=====================================telecharger le recu
@@ -447,7 +607,7 @@ public List<DemandeCompletDTO> getDemandesAccepted() {
     String baseUrl = "http://localhost:8080/uploads/";
 
     // Prolongements en attente
-    prolongementRepository.findByStatut("accepted").forEach(p -> {
+    prolongementRepository.findByStatutIn(List.of("accepted", "stocked")).forEach(p -> {
         DemandeCompletDTO dto = new DemandeCompletDTO();
         dto.setType("prolongation");
 
@@ -491,7 +651,10 @@ public List<DemandeCompletDTO> getDemandesAccepted() {
 
     // Produits qui sont des réservations en attente
     // On suppose que pour une réservation, le produit a un statut spécifique "reservationEnAttente"
-    List<Produit> produitsEnAttente = produitRepository.findByStatut("accepted");
+    List<Produit> produitsEnAttente =
+            produitRepository.findByStatutIn(
+                    List.of("accepted", "stocked")
+            );
     produitsEnAttente.forEach(prod -> {
         DemandeCompletDTO dto = new DemandeCompletDTO();
         dto.setType("reservation");
@@ -640,4 +803,195 @@ public List<DemandeCompletDTO> getDemandesAccepted() {
 
         return demandes;
     }
+//================================pour changer le statut to stocked
+@PutMapping("/statutstockage/{codeProduit}")
+@PreAuthorize("hasAuthority('ADMIN')")
+public ResponseEntity<?> changerStatutStockage(
+        @PathVariable String codeProduit,
+        @RequestBody Map<String,String> request
+) {
+
+
+    Produit produit =
+            produitRepository.findById(codeProduit)
+                    .orElseThrow(
+                            () -> new RuntimeException("Produit introuvable")
+                    );
+
+
+    String statut = request.get("statut");
+
+
+
+    Chambre chambre = produit.getChambre();
+
+
+
+    // Passage vers STOCKEE
+    if(statut.equals("stocked")){
+
+
+        // éviter de diminuer deux fois
+        if(!produit.getStatut().equals("stocked")){
+
+
+            if(chambre.getCapaciteDisponible()
+                    < produit.getQuantite()){
+
+
+                return ResponseEntity
+                        .badRequest()
+                        .body(
+                                Map.of(
+                                        "success",false,
+                                        "message",
+                                        "Capacité insuffisante"
+                                )
+                        );
+
+            }
+
+
+            chambre.setCapaciteDisponible(
+                    chambre.getCapaciteDisponible()
+                            -
+                            produit.getQuantite()
+            );
+
+
+            chambreRepository.save(chambre);
+
+        }
+
+    }
+
+
+
+    // Passage vers NON_STOCKEE
+    if(statut.equals("accepted")){
+
+
+        if(produit.getStatut().equals("stocked")){
+
+
+            chambre.setCapaciteDisponible(
+                    chambre.getCapaciteDisponible()
+                            +
+                            produit.getQuantite()
+            );
+
+
+            chambreRepository.save(chambre);
+
+        }
+
+    }
+
+
+
+    produit.setStatut(statut);
+
+    produitRepository.save(produit);
+
+
+
+    return ResponseEntity.ok(
+            Map.of(
+                    "success",true,
+                    "message",
+                    "Statut modifié avec succès",
+                    "statut",
+                    statut
+            )
+    );
+
+}
+//======================pour supprimer une reservation
+@PutMapping("/statut/{codeProduit}")
+@PreAuthorize("hasAuthority('ADMIN')")
+public ResponseEntity<?> changerStatutReservation(
+        @PathVariable String codeProduit,
+        @RequestBody Map<String,String> request
+) {
+
+
+    Produit produit =
+            produitRepository.findById(codeProduit)
+                    .orElseThrow(
+                            () -> new RuntimeException(
+                                    "Réservation introuvable"
+                            )
+                    );
+
+
+    String nouveauStatut =
+            request.get("statut");
+
+
+
+    if(
+            !nouveauStatut.equals("canceled")
+                    &&
+                    !nouveauStatut.equals("ended")
+    ){
+
+        return ResponseEntity
+                .badRequest()
+                .body(
+                        Map.of(
+                                "success",false,
+                                "message",
+                                "Statut non autorisé"
+                        )
+                );
+    }
+
+
+
+    // Si le produit était stocké
+    // on libère la capacité
+
+    if(
+            produit.getStatut().equals("stocked")
+                    &&
+                    nouveauStatut.equals("ended")
+    ){
+
+        Chambre chambre =
+                produit.getChambre();
+
+
+        chambre.setCapaciteDisponible(
+                chambre.getCapaciteDisponible()
+                        +
+                        produit.getQuantite()
+        );
+
+
+        chambreRepository.save(chambre);
+
+    }
+
+
+
+    produit.setStatut(
+            nouveauStatut
+    );
+
+
+    produitRepository.save(produit);
+
+
+
+    return ResponseEntity.ok(
+            Map.of(
+                    "success",true,
+                    "message",
+                    "Statut modifié avec succès",
+                    "statut",
+                    nouveauStatut
+            )
+    );
+
+}
 }

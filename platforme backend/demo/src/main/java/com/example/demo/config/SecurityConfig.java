@@ -155,6 +155,8 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/api/admin/login",
                                 "/api/client/login",
+                                "/api/client/sendCode",
+                                "/api/client/verify",
                                 "/api/auth/**"
                         )
                         .permitAll()

@@ -15,9 +15,16 @@ import {useNavigate} from "react-router-dom"
 import { toast } from "react-toastify";
 import arowdown from "./img/down-arrow (1).png"
 import invoice from "./img/invoice.png"
+import StockStatusCard from "./composants/StockStatusCard";
+import DeleteReservation from "./composants/DeleteReservation";
+import {
+    Package,
+    PackageX,
+    CheckSquare,
+    Info
+} from "lucide-react";
 function Adminreservation(){
     const navigate=useNavigate()
-    const [confirmer,setConfirmer]=useState(false)
     const [showdetails,setshowdetails]=useState(false);
     const [reservations,setReservations]=useState([])
     const [rchoisi,setRchoisi]=useState({})
@@ -32,6 +39,11 @@ function Adminreservation(){
     const [filtredListe,setFiltredList]=useState([])
     const [typeFile,setTypeFile]=useState("")
      const [error, setError] = useState(null);
+     const [status,setStatus] = useState(false);
+     const [deleted,setDeleted]=useState(false)
+     
+     
+     
     
   useEffect(() => {
 
@@ -87,38 +99,7 @@ const etat = (dateDebut, dateFin) => {
   // fallback (important)
   return "#000000";
 };
-//======================supprimer la reservation===============
-const supprimer=async()=>{
-    try {
-        if(rchoisi.type==="reservation"){
-        await api.delete(
-            `http://localhost:8080/api/produits/suprimer/${rchoisi.codeProduit}`
-        );}
-        else{
-          await api.delete(
-            `http://localhost:8080/api/prolongements/suprimer/${rchoisi.idProlongement}`
-        );
-        }
-        setRchoisi({})
-    setConfirmer(false)
-     if(rchoisi.type==="reservation"){
-    setFiltredList(filtredListe.filter(r => r.codeProduit !== rchoisi.codeProduit));
-    setReservations(reservations.filter(r => r.codeProduit !== rchoisi.codeProduit));
-  }else{
-    setFiltredList(filtredListe.filter(r => r.idProlongement !== rchoisi.idProlongement));
-    setReservations(reservations.filter(r => r.idProlongement !== rchoisi.idProlongement));
-  }
-        toast.success("La réservation a été bien supprimée.")
-    
 
-    
-    
-    } catch (error) {
-
-        console.log(error);
-
-    }
-}
 
 //===========================changer le fichier================================
 const [idpr,setidpr]=useState(null)
@@ -190,9 +171,133 @@ const telechargerRecu = (reserv) => {
         const optionsearchSelectionnee = optionsearch.find(option => option.value === filtresearch);
 
     return(<>
+    {status && <StockStatusCard onClose={()=>setStatus(false)} reservation={reservation}
+      onUpdate={(newStatus)=>{
+        if(reservation.type==="reservation"){
+    // update filtered list
+    setFiltredList(
+        filtredListe.map(r =>
+
+            r.codeProduit === reservation.codeProduit
+
+            ?
+            {
+                ...r,
+                statutProduit: newStatus
+            }
+
+            :
+            r
+
+        )
+    );
+
+
+    // update original list
+    setReservations(
+        reservations.map(r =>
+
+            r.codeProduit === reservation.codeProduit
+
+            ?
+            {
+                ...r,
+                statutProduit: newStatus
+            }
+
+            :
+            r
+
+        )
+    );}
+    else{
+      setFiltredList(
+        filtredListe.map(p =>
+
+            p.idProlongement === reservation.idProlongement
+            ?
+            {
+                ...p,
+                statutProduit:newStatus
+            }
+            :
+            p
+
+        )
+    );
+
+
+    setReservations(
+        reservations.map(p =>
+
+            p.idProlongement === reservation.idProlongement
+            ?
+            {
+                ...p,
+                statutProduit:newStatus
+            }
+            :
+            p
+
+        )
+    );
+    }
+
+
+}}
+      />}
+      {deleted &&  <DeleteReservation onClose={()=>setDeleted(false)} reservation={rchoisi}
+        onUpdate={(newStatus)=>{
+        // supprimer seulement si terminé ou annulé
+
+             if(
+    newStatus === "ended" || 
+    newStatus === "canceled"
+){
+
+    if(rchoisi.type === "reservation"){
+
+
+        setFiltredList(prev =>
+            prev.filter(
+                r => r.codeProduit !== rchoisi.codeProduit
+            )
+        );
+
+
+        setReservations(prev =>
+            prev.filter(
+                r => r.codeProduit !== rchoisi.codeProduit
+            )
+        );
+
+
+    }
+    else if(rchoisi.type === "prolongement"){
+
+
+        setFiltredList(prev =>
+            prev.filter(
+                r => r.idProlongement !== rchoisi.idProlongement
+            )
+        );
+
+
+        setReservations(prev =>
+            prev.filter(
+                r => r.idProlongement !== rchoisi.idProlongement
+            )
+        );
+
+
+    }
+
+}
+setRchoisi({})
+        }}
+        />}
     {read && <FileReader type={typeFile} produit={idpr} suivant={setfile}  close={()=>{setFileUrl(null);setRead(false);setshowdetails(true)}} url={fileUrl}/>}
     {out && <Ouinon type={1} sortir={()=>{localStorage.removeItem("admin");localStorage.removeItem("accessToken");localStorage.removeItem("refreshToken");localStorage.removeItem("type");navigate("/admin")}}  annuler={()=>setOut(false)}/>}
-    {confirmer && <Ouinon sortir={supprimer} annuler={()=>{setConfirmer(false);setRchoisi({})}}  type={2}/>}
     <Baradmin page={3} closeWindow={()=>{setOut(true)}}/>
     <Headeradmin closeWindow={()=>{setOut(true)}}/>
     <div id="areservation1">
@@ -352,9 +457,10 @@ const telechargerRecu = (reserv) => {
       <td>{new Date(res.dateDebutStockage).toLocaleDateString("fr-FR")}</td>
       <td>{new Date(res.dateFinStockage).toLocaleDateString("fr-FR")}</td>
       <td><div>
-        <button onClick={()=>{setConfirmer(true);setRchoisi(res)}}><img src={trash}/></button>
+        <button onClick={()=>{setDeleted(true);setRchoisi(res)}}><img src={trash}/></button>
         <button onClick={() => telechargerRecu(res)}><img src={invoice}/></button>
-        <button onClick={()=>{setshowdetails(true);setReservation(res);}}>Voir les détails</button>
+        <button onClick={()=>{setshowdetails(true);setReservation(res)}}>Voir les détails</button>
+        <button disabled={true} style={{backgroundColor:res.statutProduit==="stocked"?"#35D6FA":"#FFAD61"}} id="btnstock">{res.statutProduit==="stocked"?"Stocké":"Non stocké"}</button>
         
         </div></td>
     </tr>
@@ -367,7 +473,7 @@ const telechargerRecu = (reserv) => {
     {filtredListe.length===0 && 
     <h1 id="aucun">Aucune réservation trouvée.</h1>
     }
-    {/* ========================boite de details */}
+    {/* ========================boite de details======================================== */}
     {showdetails &&<>
     <div id="black"></div>
     <div id="resdetail">
@@ -423,22 +529,21 @@ const telechargerRecu = (reserv) => {
                 <h1>Documents du produit</h1>
             </div>
             
-                <table>
-                <tr>
-                   
-                    <td><div><label>Facture</label><button onClick={()=>{setFileUrl(reservation.facture);setTypeFile("Facture");setidpr(reservation);setRead(true);setshowdetails(false)}}><img src={openfile}/></button></div></td>
-                </tr>
-                <tr>
+                <div>
+                   <div>
+                    <div><label>Facture</label><button onClick={()=>{setFileUrl(reservation.facture);setTypeFile("Facture");setidpr(reservation);setRead(true);setshowdetails(false)}}><img src={openfile}/></button></div>
+                    <div><label>Attestation ONSSA</label><button onClick={()=>{setFileUrl(reservation.onssa);setTypeFile("ONSSA");setidpr(reservation);setRead(true);setshowdetails(false)}}><img src={openfile}/></button></div>
                     
-                    <td><div><label>Attestation ONSSA</label><button onClick={()=>{setFileUrl(reservation.onssa);setTypeFile("ONSSA");setidpr(reservation);setRead(true);setshowdetails(false)}}><img src={openfile}/></button></div></td>
-                </tr>
-                <tr>
-                    
-                    <td><div><label>IRC</label><button onClick={()=>{setFileUrl(reservation.rc);setTypeFile("IRC");setidpr(reservation);setRead(true);setshowdetails(false)}}><img src={openfile}/></button></div></td>
-                </tr>
-            </table>
+                  <div><label>IRC</label><button onClick={()=>{setFileUrl(reservation.rc);setTypeFile("IRC");setidpr(reservation);setRead(true);setshowdetails(false)}}><img src={openfile}/></button></div>
+               </div>
+               {/* ************************************ */}
+                    <div>
+                      <p>Le statut actuel de stockage est : {reservation.statutProduit==="accepted"?"non stocké":"stocké"}.</p>
+                      <button onClick={()=>{setStatus(true)}}>Changer le statut</button>
+                    </div>
+                {/* ****************************************** */}
            
-            
+            </div>
         </div>
         <div>
             <button onClick={()=>{setshowdetails(false)}}>Masquer les détails</button>

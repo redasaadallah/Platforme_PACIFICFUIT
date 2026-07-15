@@ -26,6 +26,7 @@ import "react-toastify/dist/ReactToastify.css";
 import PrivateRouteAdmin from "./composants/PrivateRouteAdmin";
 import PrivateRouteClient from "./composants/PrivateRouteClient";
 import Table from "./composants/table";
+import DeleteReservation from "./composants/DeleteReservation";
 function App() {
   
   return (
@@ -86,6 +87,7 @@ style={{
       }/>
         <Route path="/test" element={<Test/>}/>
       <Route path="/table" element={<Table/>}/>
+      <Route path="/delete" element={<DeleteReservation/>}/>
     </Routes>
     
     </>

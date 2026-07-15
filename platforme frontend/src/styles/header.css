@@ -4,6 +4,7 @@
     width: 80%;
     min-width: 350px;
     height: 60px;
+    
     background:transparent;
     z-index: 100;
     top: 20px;
@@ -29,7 +30,6 @@
     height: 100%;
     background-color: rgb(255, 255, 255);
     opacity: 1;
-    /* opacity: 0.3; */
     border-radius: 5px;
 }
 #header> img:first-of-type{
@@ -42,9 +42,11 @@
     z-index: 5;
     display: none;
     margin-right: 10px;
+   
+    
 }
 #header> div{
-    width: 60%;
+    width: 50%;
     z-index: 0;
     display: flex;
     list-style-type:none;
@@ -59,11 +61,10 @@
 #header>div button{
 color: rgb(0, 0, 0);
 font-family: 'Playfair Display', serif;
-font-size: clamp(1.3rem, 1.5vw, 1.5rem);
+font-size: clamp(1rem, 1.2vw, 1.5rem);
 background: none;
 border: none;
 cursor: pointer;
-
 transition: color 0.5s ease;
 }
 #header>div:hover button{
@@ -100,12 +101,13 @@ button{
     display: flex;
     flex-direction: column;
     gap: 2px;
-    padding: 10px;
+    padding: 20px;
     max-width: 300px;
     border-radius: 5px;
     align-items: center;
-    top: 70px;
-    left: 45%;
+    top: 200%;
+    left: 50%;
+    transform: translateX(-50%);
     font-size: clamp(1.3rem, 1.5vw, 1.2rem);
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
     background-color: white;
@@ -114,8 +116,8 @@ button{
 
 }
 
-#menuR>a{
-    z-index: 10;
+#menuR button {
+    white-space: nowrap;
 }
 #menuR>img{
     position: absolute;
@@ -128,9 +130,8 @@ button{
 
 #header> button{
 background-image: linear-gradient(90deg,#0A8D47 60%,#144B24);
-
-    min-width: 100px;
-    max-width: 150px;
+    
+    
     height: 45px;
     z-index: 1;
     display: flex;
@@ -138,7 +139,7 @@ background-image: linear-gradient(90deg,#0A8D47 60%,#144B24);
     border-radius: 5px;
     align-items: center;
     justify-content: space-around;
-    gap: 2%;
+    
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
     font-family: 'Playfair Display', serif;
       font-size: clamp(1rem, 1vw, 5rem);
@@ -148,7 +149,7 @@ background-image: linear-gradient(90deg,#0A8D47 60%,#144B24);
 
 }
 #header> button img{
-    width: 20px;
+    width: 25px;
 }
 .headermenu{
    display: none;
@@ -214,6 +215,7 @@ background-image: linear-gradient(90deg,#0A8D47 60%,#144B24);
         height: 100vh;
         background-color: white;
         opacity: 0.5;
+        
     }
     .showmenu>div:last-of-type{
         width: 80%;
@@ -225,37 +227,31 @@ background-image: linear-gradient(90deg,#0A8D47 60%,#144B24);
         justify-content: start;
         gap: 5%;
     }
-    .showmenu>div:last-of-type >div:last-of-type div{
-        position: absolute;
-        width: min(65%,400px);
+    #menuphone{
         height: auto;
-        top: 410px;
+        top: 100%;
+        left: 50%;
         z-index: 101;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding-block: 5%;
-        background-color: #0A8D47;
-        border-radius: 5px;
-        gap: 10px;
+        border: solid 2px #0A8D47;
+        border-radius: 8px;
+        
+        
+        
         
         
     }
-    .showmenu>div:last-of-type >div:last-of-type div>img{
-        width: 35px;
-        height: 35px;
-        position: absolute;
-        top: 110%;
-        border-radius: 50%;
-    }
-    .showmenu>div:last-of-type >div:last-of-type div button{
-        font-size: clamp(1rem, 5vw, 1.4rem);
-        text-decoration: none;
-        color: rgb(255, 255, 255);
-        background: none;
+    
+    #menuphone button{
+        font-size: clamp(1rem, 1vw, 3rem);
         border: none;
+        white-space: nowrap;
+        padding: 0;
     }
+    
     .showmenu>div:last-of-type>div:first-of-type {
         width: 95%;
         height: 20px;
@@ -279,7 +275,7 @@ background-image: linear-gradient(90deg,#0A8D47 60%,#144B24);
         flex-direction: column;
         gap: 10px;
     }
-    .showmenu>div:last-of-type> div:last-of-type> #atphone{
+     #atphone{
     color: rgb(255, 255, 255);
     text-decoration: none;
     width:100%;
@@ -298,7 +294,7 @@ background-image: linear-gradient(90deg,#0A8D47 60%,#144B24);
 
     }
    
-    .showmenu>div:last-of-type> div:last-of-type> button{
+    .showmenu>div:last-of-type> div:last-of-type button{
         color: rgb(0, 0, 0);
     text-decoration: none;
     width:100%;
@@ -316,29 +312,7 @@ background-image: linear-gradient(90deg,#0A8D47 60%,#144B24);
         width: 25px;
     }
    
-    .showmenu>div:last-of-type> button{
-    background-color: rgb(255, 255, 255);
-    min-width: 100px;
-    max-width: 150px;
-    height: 45px;
-    z-index: 1;
-    display: flex;
-    border: none;
-    border-radius: 5px;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2%;
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
-    font-family: 'Playfair Display', serif;
-      font-size: clamp(1rem, 1vw, 5rem);
-      margin-top: 100px;
-
-
-
-}
-.showmenu>div:last-of-type> button img{
-    width: 20px;
-}
+    
 
    
  }  /* small */

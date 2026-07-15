@@ -17,12 +17,7 @@ function Ouinon({sortir,annuler,type}){
             <button onClick={sortir}>Oui</button>
              <button onClick={annuler}>Non</button>
         </div></>}
-         {type===2 &&<><img src={question}/>
-        <h3>Êtes-vous sûr de vouloir supprimer cette réservation ?</h3>
-        <div>
-            <button onClick={sortir}>Supprimer</button>
-             <button onClick={annuler}>Annuler</button>
-        </div></>}
+         
          {type===3 &&<><img src={question}/>
         <h3>Voulez-vous supprimer cette chambre ?</h3>
         <div>

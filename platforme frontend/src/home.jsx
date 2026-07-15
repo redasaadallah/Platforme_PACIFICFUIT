@@ -74,49 +74,97 @@ function Home(){
 {/* ---------------------------------------------------------------- */}
 <div id="home3">
         <div>
-            <div>
+            <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, delay:0 }}
+                        viewport={{ once: true, amount: 0 }}
+            >
             <hr/>
             <h1> Comment <span className="span">ça</span> marche <span className="span">?</span></h1>
-            </div>
-            <h3>Un processus simple et rapide</h3>
+            </motion.div>
+            <motion.h3
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, delay:0.3 }}
+                        viewport={{ once: true, amount: 0 }}
+            >Un processus simple et rapide</motion.h3>
         </div>
         <div>
-            <div>
+            <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, delay:0 }}
+                        viewport={{ once: true, amount: 0 }}
+            >
             <img src={boking} alt=""/>
             <h3>Choisissez l’espace adapté à vos besoins</h3>
             <p>Sélectionnez la capacité de stockage et la durée qui correspondent à votre activité. Nos solutions sont flexibles et conçues pour s’adapter à différents volumes et types de produits frigorifiés.</p>
-        </div>
-            <div>
+        </motion.div>
+            <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, delay:0.3 }}
+                        viewport={{ once: true, amount: 0 }}
+            >
             <img src={send} alt=""/>
             <h3>Envoyez votre demande de réservation</h3>
             <p>Remplissez le formulaire en ligne en quelques clics. Indiquez les informations nécessaires concernant vos produits et vos besoins afin que nous puissions traiter votre demande rapidement.</p>
         
-            </div>
-            <div>
+            </motion.div>
+            <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, delay:0.6 }}
+                        viewport={{ once: true, amount: 0 }}
+            >
             <img src={ver} alt=""/>
             <h3>Recevez la confirmation</h3>
             <p>Notre équipe examine votre demande et vous envoie une confirmation dans les plus brefs délais. Vous recevez tous les détails relatifs à votre réservation et aux conditions de stockage.</p>
     
-            </div>
-            <div>
+            </motion.div>
+            <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, delay:0.9 }}
+                        viewport={{ once: true, amount: 0 }}
+            >
              <img src={ready} alt=""/>
             <h3>Stockez vos produits en toute sécurité</h3>
             <p>Déposez vos produits dans nos installations frigorifiques sécurisées, bénéficiant d’un contrôle rigoureux de la température et d’une surveillance continue pour garantir une conservation optimale.</p>
         
-            </div>
+            </motion.div>
         </div>
-        <a href="">Commencer votre réservation</a>
+        <motion.button
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        whileHover={{ y: -6 }}
+                        whileTap={{ scale: 0.97 }}
+                        transition={{ duration: 0, delay: 0 }}
+                        viewport={{ once: true }}
+                        onClick={() => navigate("/demander")}
+                        id="btnf">Commencer votre réservation</motion.button>
       </div>
       {/* -------------------------------------------------------------- */}
       <div id="home4">
         <div>
-            <div>
+            <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay:0 }}
+                        viewport={{ once: true, amount: 0 }}
+            >
             <hr/>
             <h1>Pourquoi <span className="span">nous</span> choisir <span className="span">?</span></h1>
-            </div>
+            </motion.div>
         </div>
         <div>
-            <div>
+            <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay:0.3 }}
+                        viewport={{ once: true, amount: 0 }}
+            >
                 <h3>Nos Avantages</h3>
                 <img src={logoo} alt=""/>
                 <p>Température contrôlée et surveillée</p>
@@ -124,8 +172,13 @@ function Home(){
                 <p>Réservation simple en ligne</p>
                 <p>Flexibilité selon vos besoins</p>
                 <p>Service professionnel et réactif</p>
-            </div>
-            <img src={img3} alt=""/>
+            </motion.div>
+            <motion.img
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay:0.6 }}
+                        viewport={{ once: true, amount: 0 }}
+            src={img3} alt=""/>
         </div>
        </div>
         <Upfooter/>

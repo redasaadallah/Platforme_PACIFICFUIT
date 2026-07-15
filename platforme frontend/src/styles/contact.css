@@ -228,13 +228,14 @@
 
 .wave-group .label {
   
-      font-size: clamp(1rem,1vw,3rem);
+      font-size: clamp(0.8rem,1vw,3rem);
 
   font-weight: normal;
   position: absolute;
   pointer-events: none;
   left: 5px;
-  top: 12px;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
 }
 

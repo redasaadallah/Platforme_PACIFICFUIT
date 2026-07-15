@@ -88,7 +88,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
  //  GET CURRENT DATE
   const today = new Date();
   const currentYear = today.getFullYear();
-
+  
   const months = [
   "Janvier",
   "Février",
@@ -114,7 +114,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
   );
  
   const [selectedYear,setSelectedYear]=useState(
-    `${currentYear}`
+    currentYear
   )
 
   const [open, setOpen] = useState(false);
@@ -176,6 +176,7 @@ const [dataBar, setDataBar] = useState([]);
   }, []);
 
   const loadStats = async (year,type) => {
+    setSelectedYear(year);
     try {
       const res = await getStatsByType(year, type);
       setDataBar(res.data);
@@ -485,8 +486,8 @@ useEffect(() => {
           {years.map(year =>(
            
               <div
-                key={`${year}`}
-                onClick={() => {setSelectedYear(year);loadStats(year,selectedType)}}
+                key={year}
+                onClick={() => {loadStats(year,selectedType)}}
                 style={{
                   padding: "8px",
                   cursor: "pointer",

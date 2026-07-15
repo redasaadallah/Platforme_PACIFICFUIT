@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -135,14 +136,33 @@ public StatistiquesDTO getStatistics(@PathVariable int year,
     StatistiquesDTO dto = new StatistiquesDTO();
 
     //  define date range (full month)
-    LocalDate startDate = LocalDate.of(year, month, 1);
-    LocalDate endDate = startDate.withDayOfMonth(startDate.lengthOfMonth());
+    LocalDateTime start =
+            LocalDateTime.of(
+                    year,
+                    month,
+                    1,
+                    0,
+                    0,
+                    0
+            );
+
+
+    LocalDateTime end =
+            LocalDateTime.of(
+                    year,
+                    month,
+                    start.toLocalDate()
+                            .lengthOfMonth(),
+                    23,
+                    59,
+                    59
+            );
 
     // ======================================================
     //  RESERVATIONS (PRODUITS)
     // ======================================================
     List<Produit> produits =
-            produitRepository.findByDateDebutStockageBetween(startDate, endDate);
+            produitRepository.findByDateDemandeBetween(start, end);
 
     long reservations = produits.size();
 
@@ -158,7 +178,7 @@ public StatistiquesDTO getStatistics(@PathVariable int year,
     //  PROLONGATIONS
     // ======================================================
     List<Prolongement> prolongements =
-            prolongementRepository.findByAncienneDateFinBetween(startDate, endDate);
+            prolongementRepository.findByDateDemandeBetween(start, end);
 
     long prolongations = prolongements.size();
 
@@ -246,16 +266,35 @@ public List<StatistiqueMensuelleDTO> getStatsByType(
 
     for (int month = 1; month <= 12; month++) {
 
-        LocalDate start = LocalDate.of(year, month, 1);
-        LocalDate end = start.withDayOfMonth(start.lengthOfMonth());
+        LocalDateTime start =
+                LocalDateTime.of(
+                        year,
+                        month,
+                        1,
+                        0,
+                        0,
+                        0
+                );
+
+
+        LocalDateTime end =
+                LocalDateTime.of(
+                        year,
+                        month,
+                        start.toLocalDate()
+                                .lengthOfMonth(),
+                        23,
+                        59,
+                        59
+                );
 
 
         List<Produit> produits =
-                produitRepository.findByDateDebutStockageBetween(start, end);
+                produitRepository.findByDateDemandeBetween(start, end);
 
 
         List<Prolongement> prolongements =
-                prolongementRepository.findByAncienneDateFinBetween(start, end);
+                prolongementRepository.findByDateDemandeBetween(start, end);
 
 
         long value = 0;
@@ -330,7 +369,7 @@ public List<StatistiqueMensuelleDTO> getStatsByType(
 @GetMapping("/stock")
 public List<StockProduitDTO> getStock() {
 
-    List<Object[]> results = produitRepository.getGroupedQuantities();
+    List<Object[]> results = produitRepository.getGroupedQuantitiesStat();
 
     //  Trier par quantité décroissante
     results.sort((a, b) ->
@@ -467,14 +506,26 @@ public ResponseEntity<byte[]> exportMonthly(@RequestParam int year) throws IOExc
 
     for (int m = 1; m <= 12; m++) {
 
-        LocalDate start = LocalDate.of(year, m, 1);
-        LocalDate end = start.withDayOfMonth(start.lengthOfMonth());
+        LocalDateTime start =
+                LocalDateTime.of(
+                        year,
+                        m,
+                        1,
+                        0,
+                        0
+                );
+
+
+        LocalDateTime end =
+                start
+                        .plusMonths(1)
+                        .minusSeconds(1);
 
         List<Produit> produits =
-                produitRepository.findByDateDebutStockageBetween(start, end);
+                produitRepository.findByDateDemandeBetween(start, end);
 
         List<Prolongement> prolongements =
-                prolongementRepository.findByAncienneDateFinBetween(start, end);
+                prolongementRepository.findByDateDemandeBetween(start, end);
 
         long resTotale = produits.size()+prolongements.size();
         long res= produits.size();
@@ -565,8 +616,27 @@ public ResponseEntity<byte[]> exportDetails(
         @RequestParam int year,
         @RequestParam int monthIndex) throws IOException {
 
-    LocalDate start = LocalDate.of(year, monthIndex, 1);
-    LocalDate end = start.withDayOfMonth(start.lengthOfMonth());
+    LocalDateTime start =
+            LocalDateTime.of(
+                    year,
+                    monthIndex,
+                    1,
+                    0,
+                    0,
+                    0
+            );
+
+
+    LocalDateTime end =
+            LocalDateTime.of(
+                    year,
+                    monthIndex,
+                    start.toLocalDate()
+                            .lengthOfMonth(),
+                    23,
+                    59,
+                    59
+            );
 
     Workbook workbook = new XSSFWorkbook();
     Sheet sheet = workbook.createSheet("Détails Réservations");
@@ -587,7 +657,7 @@ public ResponseEntity<byte[]> exportDetails(
     titleCell.setCellValue(" Détails des Réservations 0"+monthIndex+"/"+year);
     titleCell.setCellStyle(titleStyle);
 
-    sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 13));
+    sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 14));
 
     // =====================================================
     //  HEADER STYLE (GREEN + BORDER + CENTER)
@@ -656,10 +726,10 @@ public ResponseEntity<byte[]> exportDetails(
     int rowIndex = 2;
 
     List<Produit> produits =
-            produitRepository.findByDateDebutStockageBetween(start, end);
+            produitRepository.findByDateDemandeBetween(start, end);
 
     List<Prolongement> prolongements =
-            prolongementRepository.findByAncienneDateFinBetween(start, end);
+            prolongementRepository.findByDateDemandeBetween(start, end);
 
     // ================= RESERVATIONS =================
     for (Produit p : produits) {

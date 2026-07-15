@@ -273,4 +273,35 @@ public void envoyerMessageWhatsApp(Produit produit, String password, String pdfU
 
                         "Cordialement,\nL’équipe PACIFIC FRUIT").create();
     }
+//==============pour envoyer le code de verification
+public void envoyerOTP(
+        String telephone,
+        String code
+){
+    String numeroFormate = formaterNumeroMaroc(telephone);
+
+
+    String message =
+            "Votre code de vérification WhatsApp est : "
+                    +
+                    code
+                    +
+                    "\n\n"
+                    +
+                    "Ce code est valable pendant 5 minutes.";
+
+
+
+    Message.creator(
+
+            new PhoneNumber("whatsapp:" + numeroFormate),
+            new PhoneNumber("whatsapp:+14155238886"),
+
+
+            message
+
+    ).create();
+
+
+}
 }

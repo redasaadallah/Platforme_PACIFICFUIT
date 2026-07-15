@@ -169,7 +169,7 @@ padding: 12px 15px;
   border-bottom: 1px solid #eee;
   background: white;
 }
-#areservation2 table tr button{
+#areservation2 table tr button:nth-of-type(3){
     background-color: #F2BC47;
     border-radius: 5px;
     text-align: center;
@@ -182,6 +182,21 @@ padding: 12px 15px;
     font-family: 'Playfair Display', serif;
 
 }
+#areservation2 table tr button:last-child{
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+    padding: 8px 8px;
+    border: none;
+    font-size: clamp(0.7rem,0.8vw,3rem);
+    font-weight: lighter;
+    font-family: 'Playfair Display', serif;
+
+}
+#areservation2 table tr button:last-child:hover{
+    cursor: default;
+}
 #areservation2 table tr button:nth-of-type(2){
     background-color: #0A8D47;
      display: flex;
@@ -189,6 +204,9 @@ padding: 12px 15px;
     justify-content: center;
     width: 40px;
     height: 40px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+    border: none;
 }
 #areservation2 table tr td:nth-of-type(3) div{
     width: 25px;
@@ -210,6 +228,9 @@ flex-direction: row-reverse;
     justify-content: center;
     width: 40px;
     height: 40px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+    border: none;
 }
 #areservation2 table img{
     width: 25px;
@@ -239,6 +260,11 @@ flex-direction: row-reverse;
     padding: 20px;
     max-width: 700px;
     z-index: 201;
+    border-block: solid 5px #4caf50;
+    gap: 10px;
+    max-height: 90dvh;
+    overflow-y: scroll;
+    scrollbar-width: none;
     
 }
 #resdetail>div{
@@ -261,26 +287,40 @@ flex-direction: row-reverse;
     width: 100%;
     font-size: clamp(1rem,1vw,6rem);
     font-weight: lighter;
+    border: solid 1px #0A8D47;
+    border-radius: 5px;
+    border-collapse: separate;
+    overflow: hidden;  
 }
 #resdetail>div>table td{
-    padding-block: 10px;
     border: none;
-    
+    border-radius: 5px;
     text-align:left;
+    
 }
 
-#resdetail>div:nth-of-type(3) table tr td:last-of-type{
-    display: flex;
-    align-items: center;
+
+
+#resdetail>div:nth-of-type(3)>div:last-of-type {
+   display: flex;
 
 }
-#resdetail>div:nth-of-type(3) table tr td:last-of-type div{
-    width: 60%;
+#resdetail>div:nth-of-type(3)>div:last-of-type>div:first-of-type {
+   
+   width: 50%;
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+
+}
+#resdetail>div:nth-of-type(3)>div:last-of-type>div:first-of-type>div{
+    
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex: 1;
 }
-#resdetail>div:nth-of-type(3) table tr button{
+#resdetail>div:nth-of-type(3)>div:last-of-type>div:first-of-type>div button{
     background-color: #F2BC47;
     border: none;
     border-radius: 5px;
@@ -292,9 +332,40 @@ flex-direction: row-reverse;
     justify-content: center;
 
 }
-#resdetail>div:nth-of-type(3) table tr img{
+#resdetail>div:nth-of-type(3)>div:last-of-type>div:first-of-type>div img{
     width: 20px;
     height: 20px;
+}
+#resdetail>div:nth-of-type(3)>div:last-of-type>div:last-of-type{
+    width: 50%;
+    height: 100px;
+    border: solid 1px #4caf50;
+    border-radius:5px ;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+#resdetail>div:nth-of-type(3)>div:last-of-type>div:last-of-type p{
+    text-align: center;
+    font-size: clamp(0.8rem,1vw,2rem);
+    margin: 0;
+
+}
+#resdetail>div:nth-of-type(3)>div:last-of-type>div:last-of-type button{
+     color: rgb(255, 255, 255);
+    text-decoration: none;
+    height: 30px;
+    background-image: linear-gradient(90deg,#0A8D47,#144B24);
+    border-radius: 5px;
+    
+   
+    padding-inline: 10px;
+    
+    font-size: clamp(0.8rem,0.9vw,2rem);
+        font-family: 'Playfair Display', serif;
+    border: none;
 }
 #resdetail>div:last-of-type{
     text-align: right;
@@ -304,11 +375,12 @@ flex-direction: row-reverse;
 background-color: #F2BC47;
     border: none;
     border-radius: 5px;
-    width: 200px;
-    height: 40px;
+    height: 35px;
+    padding-inline: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4); 
     color: white;
-    font-size: clamp(1rem,1vw,1rem);
+    font-size: clamp(0.8rem,0.9vw,2rem);
+        font-family: 'Playfair Display', serif;
     font-weight: lighter;
    
 }
@@ -389,6 +461,7 @@ background-color: #F2BC47;
   background-color: #0A8D47;
   color: white;
 }
+
 /* Large laptops / small desktops */
 @media (min-width: 1024px) {
   /* styles */

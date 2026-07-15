@@ -4,8 +4,11 @@ import av from "../img/availability.png"
 import arroba from "../img/arroba.png"
 import logo from "../img/logo.png"
 import "../styles/footer.css"
+import FadeIn from "./fadein";
+
 function Footer(){
     return(<>
+    <FadeIn delay={0.3}> 
     <div class="bottom">
         <div class="bottom1">
             <div>
@@ -27,9 +30,10 @@ Faculté des Sciences et <br/>Techniques de Fès</h1>
         </div>
         <div class="bottom2">
             <img  id="logobottom" src={logo}/>
-            <h1 class="rights">© Tous droits réservés 2026 par PACIFIC FRUITS.</h1>
+            <h1 class="rights">© Tous droits réservés 2026 par PACIFIC FRUIT.</h1>
         </div>
     </div>
+    </FadeIn>
     </>);
 }
 export default Footer;

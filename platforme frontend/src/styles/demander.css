@@ -1,21 +1,21 @@
 #dem1{
     width: 95%;
     margin: 0 auto;
+    margin-top: 50px;
 }
-#dem1>h1{
+#dem1>div>h1{
     width: 100%;
     font-size: clamp(1.3rem,4vw,6rem);
     font-weight: lighter;
-    text-align: center;
+   margin: 0;
 }
-#dem1>h1::before{
-     content: "";
-    position: absolute;
+
+#dem1>div>hr{
+     width: 100px;
     text-align: left;
     border-radius: 50px;
-    border: solid 2px #0A8D47;
-    width: 400px;
-    max-width: 30vw; 
+    margin-right: 100%;
+    border: solid 3px #0A8D47;
 }
 #dem1>h3{
      width: 100%;
@@ -40,9 +40,10 @@
 }
 #dem2>h1{
     width: 100%;
-    font-size: clamp(1rem,2vw,4rem);
+    font-size: clamp(1.3rem,2vw,4rem);
     font-weight: lighter;
     text-align: center;
+    margin: 0;
     
 }
 #dem2>div:first-of-type{
@@ -221,6 +222,29 @@ width: 100%;
     font-size: clamp(1rem,1.2vw,1.5rem);
     border: none;
 }
+#verifier{
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    height: 50px;
+    background-image: linear-gradient(90deg,#0A8D47,#144B24);
+    border-radius: 5px;
+    font-size: clamp(0.8rem,1vw,1.5rem);
+    border: none;
+    padding-inline: 10px;
+    font-weight: lighter;
+    font-family: 'Playfair Display', serif;
+}
+#modifierverification{
+     padding:10px;
+    border-radius:5px;
+     border:solid 2px #13B35B;
+    background:none;
+    color:#13B35B;
+    font-size: clamp(0.7rem,1vw,3rem);
+    font-family: 'Playfair Display', serif;
+    
+    cursor:pointer;
+}
 .reda{
     width: 90%;
     display: flex;
@@ -262,7 +286,7 @@ select:focus{
     
 }
 #warning p{
-    font-size: clamp(0.7rem,1vw,1rem);
+    font-size: clamp(0.6rem,1vw,1rem);
     margin: 0;
     
 }
@@ -274,12 +298,9 @@ select:focus{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    
 }
-#selectChambre>label{
-            font-size: clamp(1rem,1vw,1.5rem);
 
-
-} 
 /* ============================================ */
 #dem3{
     width: 100%;
@@ -352,6 +373,25 @@ select:focus{
         #dem3>div>div:last-of-type{
     margin-top: 0px;
 
+}
+#dem1>h3:last-of-type{
+    text-align: left;
+}
+    }
+@media (max-width: 700px)  {
+
+#dem1>h3:last-of-type{
+    text-align: left;
+
+}
+#dem1>h3{
+    line-height: 30px;
+}
+#selectChambre label{
+   display: none;
+}
+#selectChambre>div:first-of-type{
+   flex: 1;
 }
     }
 

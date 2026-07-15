@@ -27,6 +27,7 @@ import arowdown from "./img/down-arrow (1).png"
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
 import api from "./api/axios";
+import VerificationModal from "./composants/VerificationModal";
 
 function Demander(){
     const navigate=useNavigate();
@@ -34,6 +35,7 @@ function Demander(){
     const [chambres,setChambres]=useState([])
     const [minDate,setMinDate]=useState()
     const [open, setOpen] = useState(false);
+    const [openVerification,setOpenVerification]=useState(false)
    
     const [filtre, setFiltre] = useState(null);
 
@@ -205,7 +207,7 @@ return Object.keys(newErrors).length === 0;
   }
   
   if (!clientData.cin.trim()) {
-    newErrors.cin = "Veuillez choisir votre CIN";
+    newErrors.cin = "Veuillez saisir votre CIN";
   }
   if (!clientData.email.trim()) {
     newErrors.email = "Veuillez saisir votre email";
@@ -390,8 +392,12 @@ const supprimerProduit = (indexProduit) => {
       console.log(done)
       console.log(done1)
     if(validateStep1() && produits.length>0){
-     
-      setBoite(true)
+      if(!verified){
+          toast.error("Veuillez vérifier vos coordonnées.")
+      }else{
+        setBoite(true)
+      }
+      
   
 
     }
@@ -480,18 +486,62 @@ const supprimerProduit = (indexProduit) => {
     console.error("Erreur :", error);
   }
   }
+  // ==================pour varifier le email et le phone
+  const [verified,setVerified]=useState(false);
+
+
+
+const verifierCoordonnees=async()=>{
+
+
+  if( validateStep1()){
+    await axios.post(
+        "http://localhost:8080/api/client/sendCode",
+        {
+            email:clientData.email,
+            telephone:clientData.telephone
+        }
+    );
+
+
+    setOpenVerification(true);
+
+}}
  
 
     // ============================
     return(<>
     {message && <Message closeWindow={()=>setMessage(false)}/>}
+      <VerificationModal
+
+    open={openVerification}
+
+    onClose={()=>
+        setOpenVerification(false)
+    }
+
+    email={clientData.email}
+
+    telephone={clientData.telephone}
+
+
+    onVerified={()=>{
+
+        setVerified(true);
+
+    }}
+
+/>
     {boite && <Ouinon type={0} sortir={()=>envoyerDemande()} annuler={()=>setBoite(false)} />}
     {show===0?<Loader />:<>
-    <Header at={2} atphone={2} at1={2}/>
+    <Header at={2} atphone={3} at1={2}/>
     <Main back={img3}/>
     {/* =================================== */}
     <div id="dem1">
+        <div>
+        <hr/>
         <h1>Réservez <span className="span">votre</span> espace <span className="span">frigorifique</span></h1>
+        </div>
         <h3>Remplissez le formulaire ci-dessous pour demander votre réservation.</h3>
         <h3>Notre équipe vous contactera rapidement pour confirmer la disponibilité.</h3>
     </div>
@@ -514,23 +564,33 @@ const supprimerProduit = (indexProduit) => {
         </label>
         </div>
         {errors.cin && <p className="errors">{errors.cin}</p>}
-         <div className="wave-group">
-        <input  placeholder=" "  type="text" className="input" name="email" value={clientData.email} onChange={onClientChange} />
+         <div style={{opacity:verified?"0.3":"1"}} className="wave-group">
+        <input disabled={verified?true:false}   placeholder=" "  type="text" className="input" name="email" value={clientData.email} onChange={onClientChange} />
         <span className="bar"></span>
         <label className="label">
         <span className="label-char" style={{ "--index": 0 }}>Email</span>
         </label>
         </div>
         {errors.email && <p className="errors">{errors.email}</p>}
-         <div className="wave-group">
-        <input  placeholder=" "  type="text" className="input" name="telephone" value={clientData.telephone} onChange={onClientChange} />
+         <div style={{opacity:verified?"0.3":"1"}} className="wave-group">
+        <input disabled={verified?true:false}  placeholder=" "  type="text" className="input" name="telephone" value={clientData.telephone} onChange={onClientChange} />
         <span className="bar"></span>
         <label className="label">
         <span className="label-char" style={{ "--index": 0 }}>Téléphone</span>
         </label>
         </div>
         {errors.telephone && <p className="errors">{errors.telephone}</p>}
-         
+         <div style={{display:"flex",gap:"10px",justifyContent:"flex-end",width:"90%"}}>
+        { verified && <button onClick={()=>setVerified(false)} type="button" id="modifierverification">Modifer</button>}
+        <button
+            id="verifier"
+            type="button"
+            onClick={verifierCoordonnees}
+        >
+            Vérifier mes coordonnées
+        </button>
+        
+        </div>
         </div>
         {/* ========================================================== */}
         {/* ########################################################### */}
@@ -556,16 +616,16 @@ const supprimerProduit = (indexProduit) => {
           {errors1.quantite && <p style={{width:'100%'}} className="errors">{errors1.quantite}</p>}
         
         {/* ++++++++++++++++++++++++++++++++++++++++++ */}
-       <div id="selectChambre">
-  <label>Température de stockage : </label>
+       <div style={{height:"40px",padding:"0"}} id="selectChambre">
+  <label style={{fontSize:"clamp(0.8rem,1vw,3rem)",marginBottom:"1%"}}>Température de stockage : </label>
 
-  <div style={{width:"44.5%"}} className="select-filter">
+  <div style={{width:"60%"}} className="select-filter">
     <div
-      style={{height:"40px"}}
+      style={{height:"39px"}}
       className="select-box-filter"
       onClick={() => setOpen(!open)}
     >
-      <span>
+      <span style={{fontSize:"clamp(0.8rem,1vw,3rem)",fontFamily: "'Playfair Display', serif"}}>
         {optionSelectionnee
           ? `${optionSelectionnee.nomChambre} (${optionSelectionnee.temperature} °C)`
           : "Choisir une température"}
@@ -599,8 +659,8 @@ const supprimerProduit = (indexProduit) => {
 
         {/* +++++++++++++++++++++++++++++++++++++++++++ */}
         <div  className="reda">
-        <label className='option'>Date de Stockage :</label>
-        <input  min={minDate} className="typeemprunt" type="date"  name="dateDebutStockage" value={dateDebut} onChange={(e)=>{setErrors1({...errors1,[e.target.name]:""});setDateDebut(e.target.value);calculateDateFin(e)}}  />
+        <label style={{width:"40%"}} className='option'>Date de Stockage :</label>
+        <input style={{width:"60%"}} min={minDate} className="typeemprunt" type="date"  name="dateDebutStockage" value={dateDebut} onChange={(e)=>{setErrors1({...errors1,[e.target.name]:""});setDateDebut(e.target.value);calculateDateFin(e)}}  />
         </div>
         {errors1.dateReservation && <p style={{width:"100%"}} className="errors">{errors1.dateReservation}</p>}
         {/* ======================================== */}
@@ -635,7 +695,7 @@ const supprimerProduit = (indexProduit) => {
         {errors1.filename1 && <p className="errors">{errors1.filename1}</p>}
         {fileName1 && <p className="nomfile">{fileName1}</p>}
          <div className="reda">
-        <label className='option'>Registre de commerce (RC) :</label>
+        <label className='option'>IRC :</label>
         <button type="button" onClick={handleButtonClick2}   id="atphone"><img src={fileName2===""?add:change1}/></button>
         <input onChange={handleFileChange2} ref={fileInputRef2} accept="application/pdf" style={{ display: "none" }}  type="file"  />
         </div>
