@@ -53,10 +53,17 @@ const repondreMessage=()=>{
 const deleteMessage = async (id) => {
   try {
     await api.delete(`http://localhost:8080/api/messages/${id}`);
-    toast.success("Le message a été supprimé avec succès")
+    toast.success("Le message a été supprimé avec succès",{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    })
     setMessage(message.filter((msg) => msg.id !== id));
 
-    console.log("Message supprimé");
+
   } catch (error) {
     console.error("Erreur lors de la suppression :", error);
   }
@@ -182,56 +189,47 @@ const fetchDemande=async()=>{
             <button onClick={()=>navigate("/statistic")}>Voir les détails</button>
         </motion.div>
     </div>
-  
+  {/*+++++++++++++++++++++++++++++++++++++++++++++++++  */}
     <div id="s2">
-        <div>
-            <div>
-                <motion.div
-                initial={{ opacity: 0, y: 50 }}
+        <motion.div
+        initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay:0 }}
+        transition={{ duration: 1, delay:0.6 }}
         viewport={{ once: true, amount: 0 }}
+        >
+            <div>
+                <div
+               
                 >
                     <h3>les nouvelles demandes à traiter</h3>
                     <p>{reservations.length} demandes</p>
-                </motion.div>
-                <motion.img 
-                initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay:0.3 }}
-        viewport={{ once: true, amount: 0 }}
+                </div>
+                <img 
+                
                 src={clipboard}/>
             </div>
             <div id="s2div">
         <div className="table-containerd">
                 {/* HEADER FIXED */}
-      <motion.div
-      initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay:0.6 }}
-        viewport={{ once: true, amount: 0 }}
+      <div
       className="table-headerd">
         <div>Nom</div>
         <div>CIN</div>
         <div>Statut</div>
         <div>Type</div>
         <div>Date de demande</div>
-      </motion.div>
+      </div>
       {/* BODY SCROLL */}
       <div className="table-bodyd">
                 {reservations.map((res,index)=>(
-                <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay:index*0.01 }}
-                viewport={{ once: true, amount: 0 }}
+                <div
                 className="table-rowd" key={index}>
                     <div>{res.nomClient}</div>
                     <div>{res.cinClient}</div>
                     <div><div className="status">en attente</div></div>
                     <div><div className="type">{res.type==="reservation"?"Réservation":"Prolongation"}</div></div>
                     <div>{new Date(res.dateDemande).toLocaleDateString("fr-FR")}</div>
-                </motion.div>
+                </div>
                 ))}
                 </div>
                
@@ -239,70 +237,58 @@ const fetchDemande=async()=>{
                
             </div>
             <div>
-                <motion.button
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay:0 }}
-                viewport={{ once: true, amount: 0 }}
-                onClick={()=>navigate("/admindemande")}>Voir les détails</motion.button>
+                <button
+                onClick={()=>navigate("/admindemande")}>Voir les détails</button>
             </div>
-            </div>
+            </motion.div>
         
         {/* ============================================================== */}
-        <div>
+        <motion.div
+         initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0.8 }}
+        viewport={{ once: true, amount: 0 }}
+        >
             <div>
-                <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay:0 }}
-                viewport={{ once: true, amount: 0 }}
+                <div
+               
                 >
                     <h3>les nouvelles messages a repondre</h3>
                     <p>{message.length} message</p>
-                </motion.div>
-                <motion.img
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay:0.3}}
-                viewport={{ once: true, amount: 0 }}
+                </div>
+                <img
+                
                 src={coment}/>
             </div>
             <div id="s2div">
               <div className="table-containerm">
                 {/* HEADER FIXED */}
-      <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1, delay:0.4 }}
-      viewport={{ once: true, amount: 0 }}
+      <div
       className="table-headerm">
         <div>Nom</div>
         <div>Afficher</div>
         <div>Supprimer</div>
         <div>Date d’envoi</div>
-      </motion.div>
+      </div>
       {/* BODY SCROLL */}
       <div className="table-bodym">
 
                 {message.map((msg,index)=>(
-                    <motion.div 
-                    initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay:index*0.01 }}
-                viewport={{ once: true, amount: 0 }}
+                    <div 
+                   
                     className="table-rowm" key={index}>
                     <div>{msg.nom} {msg.prenom}</div>
                     <div><button type="button" onClick={()=>{setSelectedMessage(msg);repondreMessage()}} className="afficher">Afficher</button></div>
                     <div><button type="button" onClick={() => deleteMessage(msg.id)}  className="supprimer">Supprimer</button></div>
                     <div>{new Date(msg.dateEnvoi).toLocaleDateString("fr-FR")}</div>
                     
-                </motion.div>
+                </div>
                 ))}
              </div>   
                
             </div>
             </div>
-        </div>
+        </motion.div>
         </div>
     
     </>);

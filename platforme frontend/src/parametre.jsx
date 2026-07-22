@@ -16,6 +16,8 @@ import life from "./img/product-life.png"
 import Ouinon from "./composants/ouinon";
 import {useNavigate} from "react-router-dom"
 import api from "./api/axios";
+import { motion } from "framer-motion";
+
 
 export default function Parametre(){
     const navigate=useNavigate()
@@ -51,10 +53,20 @@ useEffect(() => {
     
     <Baradmin page={5} closeWindow={()=>{setOut(true)}}/>
     <Headeradmin closeWindow={()=>{setOut(true)}}/>
-    <h1 id="tparam">Paramètres</h1>
+    <motion.h1
+     initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1, delay:0 }}
+    viewport={{ once: true, amount: 0 }}
+    id="tparam">Paramètres</motion.h1>
     <div id="param1">
         <div>
-            <div>
+            <motion.div
+            initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1, delay:0 }}
+    viewport={{ once: true, amount: 0 }}
+            >
                 <div>
                     <p>L’espace frigorifique en tonne</p>
                     <img src={param1}/>
@@ -67,8 +79,13 @@ useEffect(() => {
                     </p>
                     <button onClick={()=>{setChange(true);setGenre("espace")}}><img src={pencil}/></button>
                 </div>
-            </div>
-            <div>
+            </motion.div>
+            <motion.div
+            initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1, delay:0.2 }}
+    viewport={{ once: true, amount: 0 }}
+            >
                 <div>
                     <p> La durée d'une réservation</p>
                     <img src={param2}/>
@@ -86,11 +103,16 @@ useEffect(() => {
                 )}                
         <button onClick={()=>{setChange(true);setGenre("duree");}}><img src={pencil}/></button>
                 </div>
-            </div>
+            </motion.div>
         </div>
         {/* ================================ */}
         <div>
-            <div>
+            <motion.div
+            initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1, delay:0.4 }}
+    viewport={{ once: true, amount: 0 }}
+            >
                  <div>
                     <p>Tarif de réservation par tonne / jour</p>
                     <img src={param3}/>
@@ -100,8 +122,13 @@ useEffect(() => {
                     <p>Réservation : {parametres.prixReservation} DH, Prolongation : {parametres.prixPrelangemant} DH</p>}
                     <button onClick={()=>{setChange(true);setGenre("price")}}><img src={pencil}/></button>
                 </div>
-            </div>
-            <div>
+            </motion.div>
+            <motion.div
+            initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1, delay:0.6 }}
+    viewport={{ once: true, amount: 0 }}
+            >
                  <div>
                     <p>La durée d’une prolongation</p>
                     <img src={life}/>
@@ -119,12 +146,17 @@ useEffect(() => {
             )}      
                     <button onClick={()=>{setChange(true);setGenre("dureep")}}><img src={pencil}/></button>
                 </div>
-            </div>
+            </motion.div>
         </div>
     
     {/* ====================================== */}
     <div>
-            <div>
+            <motion.div
+            initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1, delay:0.8 }}
+    viewport={{ once: true, amount: 0 }}
+            >
                  <div>
                     <p>Délai avant stockage</p>
                     <img src={cooldown}/>
@@ -145,8 +177,13 @@ useEffect(() => {
                 )}  
                     <button onClick={()=>{setChange(true);setGenre("delai")}}><img src={pencil}/></button>
                 </div>
-            </div>
-            <div>
+            </motion.div>
+            <motion.div
+            initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1, delay:1 }}
+    viewport={{ once: true, amount: 0 }}
+            >
                  <div>
                     <p>Quantité à stocker en tonne</p>
                     <img src={product}/>
@@ -164,12 +201,17 @@ useEffect(() => {
             )}      
                     <button onClick={()=>{setChange(true);setGenre("quantite")}}><img src={pencil}/></button>
                 </div>
-            </div>
+            </motion.div>
         </div>
         {/* ================================ */}
         <div >
             
-            <div style={{backgroundColor:"rgb(221, 250, 221)"}}>
+            <motion.div
+            initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1, delay:1.2 }}
+    viewport={{ once: true, amount: 0 }}
+            style={{backgroundColor:"rgb(221, 250, 221)"}}>
                  <div>
                     <p>Le mot de passe</p>
                     <img src={param4}/>
@@ -178,7 +220,7 @@ useEffect(() => {
                     <p>********</p>
                     <button onClick={()=>{setChange(true);setGenre("passe")}}><img src={pencil}/></button>
                 </div>
-            </div>
+            </motion.div>
         </div>
     </div>
        

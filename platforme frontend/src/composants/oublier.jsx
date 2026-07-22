@@ -33,9 +33,12 @@ function Oublier({onClose,type}){
       if(!email.trim()){
           toast.error("Veuillez saisir votre Email", {
           style: {
-            width: "400px",
             textAlign: "center",
-            fontWeight: "500"
+            fontWeight: "500",
+            width: "auto",
+            maxWidth: "700px",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
           }
         })
 
@@ -43,14 +46,24 @@ function Oublier({onClose,type}){
       if(!isValidEmail(email)){
         toast.error("Veuillez saisir un email valide", {
           style: {
-            width: "400px",
             textAlign: "center",
-            fontWeight: "500"
+            fontWeight: "500",
+            width: "auto",
+            maxWidth: "700px",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
           }
         })
       }else{
      //Affiche un toast de chargement
-    const loadingToastId = toast.loading("Envoi du nouveau mot de passe...");
+    const loadingToastId = toast.loading("Envoi du nouveau mot de passe...",{
+      style:{
+        width: "auto",
+            maxWidth: "700px",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    });
 
     try {
       
@@ -66,7 +79,9 @@ function Oublier({onClose,type}){
            closeButton:true,
                   style: {
             textAlign: "center",
-            width:"500px"
+            width: "auto",
+            maxWidth: "700px",
+            fontFamily: "'Playfair Display', serif",
             
           }
         
@@ -81,7 +96,10 @@ function Oublier({onClose,type}){
           closeButton:true,
                   style: {
             textAlign: "center",
-            width:"500px"
+            width: "auto",
+            maxWidth: "700px",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
             
           }
         });

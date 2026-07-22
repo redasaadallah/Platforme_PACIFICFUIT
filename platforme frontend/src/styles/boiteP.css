@@ -14,6 +14,8 @@
     width: min(90%,1200px);
     z-index: 201;
     max-height: 80dvh;
+    animation: apear 1s 1 forwards;
+
 }
 #espace>div:first-of-type{
     width: 100%;
@@ -71,15 +73,14 @@
     
 }
 #capacite table tr:first-of-type{
-    font-size: clamp(0.7rem,1vw,1rem);
-
+    font-size: clamp(0.8rem,1vw,1rem);
 background: #667eea;
   color: white;
   font-weight: bold;
 }
 
 #capacite td{
-    height: 20px;
+    padding-block: 5px;
     text-align: center;
     
     
@@ -91,11 +92,13 @@ background: #f3f4ff;
 #capacite tr:nth-of-type(n+2){
   border-bottom: 1px solid #eee;
   background: white;
-      font-size: clamp(0.7rem,1vw,1rem);
+      font-size: clamp(0.8rem,1vw,1rem);
 
 }
 #capacite th{
     font-weight: lighter;
+        padding-block: 8px;
+
     
 }
 #capacite tr th:first-of-type{
@@ -191,7 +194,7 @@ background: #f3f4ff;
     
 }
 #espace1 table tr:first-of-type{
-    font-size: clamp(0.7rem,1vw,1rem);
+    font-size: clamp(0.8rem,1vw,1rem);
 
 background: #667eea;
   color: white;
@@ -199,7 +202,7 @@ background: #667eea;
 }
 
 #espace1 td{
-    height: 20px;
+    padding-block: 10px;
     text-align: center;
     
     
@@ -211,11 +214,13 @@ background: #f3f4ff;
 #espace1 tr:nth-of-type(n+2){
   border-bottom: 1px solid #eee;
   background: white;
-      font-size: clamp(0.7rem,1vw,1rem);
+      font-size: clamp(0.8rem,1vw,1rem);
 
 }
 #espace1 th{
     font-weight: lighter;
+        padding-block: 10px;
+
     
 }
 #espace1 tr th:first-of-type{
@@ -230,7 +235,7 @@ background: #f3f4ff;
 
 
 
-section{
+#espace1 section{
       max-height: 40dvh;
 
     scrollbar-width: none;
@@ -470,7 +475,7 @@ width: 20px;
 }
 #price p{
     margin: 0;
-    font-size: clamp(0.8rem,1vw,3rem);
+    font-size: clamp(0.8rem,0.9vw,2rem);
 
 }
 /* =================le delai======================== */

@@ -381,6 +381,8 @@ font-size: clamp(0.7rem,0.8vw,1.3rem);
   max-height: 300px;   /*  important */
   overflow-y: auto;
   scrollbar-width: none;
+  font-size: clamp(0.8rem,0.8vw,1.3rem);
+
 }
 
 /* ROW */

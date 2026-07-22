@@ -35,7 +35,14 @@ if(reservation.type==="reservation"){
 
             toast.success(
                 "Statut modifié avec succès"
-            );
+            ,{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    });
             // send new status to parent page
             onUpdate(
                 response.data.statut
@@ -48,7 +55,14 @@ if(reservation.type==="reservation"){
 
         toast.error(
             "Erreur modification statut"
-        );
+        ,{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    });
 
     }
 }else{
@@ -65,7 +79,14 @@ if(reservation.type==="reservation"){
 
             toast.success(
                 "Statut modifié avec succès"
-            );
+            ,{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    });
             // send new status to parent page
             onUpdate(
                 response.data.statut

@@ -166,7 +166,7 @@ public StatistiquesDTO getStatistics(@PathVariable int year,
     long reservations = produits.size();
 
     long reservationsAccepted = produits.stream()
-            .filter(p -> "accepted".equals(p.getStatut()) || "ended".equals(p.getStatut()))
+            .filter(p -> "accepted".equals(p.getStatut()) || "stocked".equals(p.getStatut())  || "canceled".equals(p.getStatut()) || "ended".equals(p.getStatut()))
             .count();
 
     long reservationsRefused = produits.stream()
@@ -182,7 +182,7 @@ public StatistiquesDTO getStatistics(@PathVariable int year,
     long prolongations = prolongements.size();
 
     long prolongationsAccepted = prolongements.stream()
-            .filter(p -> "accepted".equals(p.getStatut())|| "ended".equals(p.getStatut()))
+            .filter(p -> "accepted".equals(p.getStatut())|| "stocked".equals(p.getStatut())  || "canceled".equals(p.getStatut()) ||  "ended".equals(p.getStatut()))
             .count();
 
     long prolongationsRefused = prolongements.stream()
@@ -313,6 +313,7 @@ public List<StatistiqueMensuelleDTO> getStatsByType(
                 long prodAccepted = produits.stream()
                         .filter(p ->
                                 "accepted".equals(p.getStatut())
+                                        || "stocked".equals(p.getStatut())  || "canceled".equals(p.getStatut())
                                         || "ended".equals(p.getStatut()))
                         .count();
 
@@ -320,6 +321,7 @@ public List<StatistiqueMensuelleDTO> getStatsByType(
                 long proAccepted = prolongements.stream()
                         .filter(p ->
                                 "accepted".equals(p.getStatut())
+                                        || "stocked".equals(p.getStatut())  || "canceled".equals(p.getStatut())
                                         || "ended".equals(p.getStatut()))
                         .count();
 
@@ -529,7 +531,7 @@ public ResponseEntity<byte[]> exportMonthly(@RequestParam int year) throws IOExc
         long resTotale = produits.size()+prolongements.size();
         long res= produits.size();
         long resAcc = produits.stream().filter(p ->
-                "accepted".equals(p.getStatut()) || "ended".equals(p.getStatut())
+                "accepted".equals(p.getStatut()) || "stocked".equals(p.getStatut()) || "canceled".equals(p.getStatut()) || "ended".equals(p.getStatut())
         ).count();
 
         long resRef = produits.stream()
@@ -539,7 +541,7 @@ public ResponseEntity<byte[]> exportMonthly(@RequestParam int year) throws IOExc
         long pro = prolongements.size();
 
         long proAcc = prolongements.stream().filter(p ->
-                "accepted".equals(p.getStatut()) || "ended".equals(p.getStatut())
+                "accepted".equals(p.getStatut()) || "stocked".equals(p.getStatut()) || "canceled".equals(p.getStatut()) || "ended".equals(p.getStatut())
         ).count();
 
         long proRef = prolongements.stream()
@@ -551,14 +553,27 @@ public ResponseEntity<byte[]> exportMonthly(@RequestParam int year) throws IOExc
                 .distinct()
                 .count();
 
-        double quantite = produits.stream()
+        double quantiteR = produits.stream()
+                .filter(p -> "stocked".equals(p.getStatut()) || "ended".equals(p.getStatut()))
                 .mapToDouble(Produit::getQuantite)
                 .sum();
 
-        double chiffre = produits.stream()
-                .mapToDouble(Produit::getPrix)
+        double quantiteP = prolongements.stream()
+                .filter(p -> "stocked".equals(p.getStatut()) || "ended".equals(p.getStatut()))
+                .mapToDouble(p -> p.getProduit().getQuantite())
                 .sum();
 
+        double quantite=quantiteP+quantiteR;
+
+        double chiffreR = produits.stream()
+                .filter(p -> "stocked".equals(p.getStatut()) || "ended".equals(p.getStatut()))
+                .mapToDouble(Produit::getPrix)
+                .sum();
+        double chiffreP = prolongements.stream()
+                .filter(p -> "stocked".equals(p.getStatut()) || "ended".equals(p.getStatut()))
+                .mapToDouble(Prolongement::getPrixProlongement)
+                .sum();
+        double chiffre=chiffreP+chiffreR;
         Row row = sheet.createRow(rowIndex++);
 
         Object[] data = {
@@ -737,7 +752,7 @@ public ResponseEntity<byte[]> exportDetails(
 
         String statut = p.getStatut();
         String statutLabel = null;
-        if ("ended".equals(statut) || "accepted".equals(statut)) {
+        if ("ended".equals(statut) || "accepted".equals(statut) || "stocked".equals(statut) || "canceled".equals(statut)) {
 
             statutLabel = "accepté";
         }else if ("refused".equals(statut)) {
@@ -777,7 +792,7 @@ public ResponseEntity<byte[]> exportDetails(
 
         String statut = pr.getStatut();
         String statutLabel = null;
-        if ("ended".equals(statut) || "accepted".equals(statut)) {
+        if ("ended".equals(statut) || "accepted".equals(statut) || "stocked".equals(statut) || "canceled".equals(statut)) {
 
             statutLabel = "accepté";
         }else if ("refused".equals(statut)) {
@@ -823,10 +838,12 @@ public ResponseEntity<byte[]> exportDetails(
 // =====================================================
 
     double totalPrix = produits.stream()
+            .filter(p -> "stocked".equals(p.getStatut()) || "ended".equals(p.getStatut()))
             .mapToDouble(Produit::getPrix)
             .sum()
             +
             prolongements.stream()
+                    .filter(p -> "stocked".equals(p.getStatut()) || "ended".equals(p.getStatut()))
                     .mapToDouble(Prolongement::getPrixProlongement)
                     .sum();
 

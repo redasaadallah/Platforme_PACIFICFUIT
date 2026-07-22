@@ -17,6 +17,8 @@ import arowdown from "./img/down-arrow (1).png"
 import invoice from "./img/invoice.png"
 import StockStatusCard from "./composants/StockStatusCard";
 import DeleteReservation from "./composants/DeleteReservation";
+import { motion } from "framer-motion";
+
 import {
     Package,
     PackageX,
@@ -301,9 +303,24 @@ setRchoisi({})
     <Baradmin page={3} closeWindow={()=>{setOut(true)}}/>
     <Headeradmin closeWindow={()=>{setOut(true)}}/>
     <div id="areservation1">
-        <h1>Gestion des réservations</h1>
-        <p>{filtredListe.length} réservations</p>
-        <div>
+        <motion.h1
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0 }}
+        viewport={{ once: true, amount: 0 }}
+        >Gestion des réservations</motion.h1>
+        <motion.p
+         initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0.2 }}
+        viewport={{ once: true, amount: 0 }}
+        >{filtredListe.length} réservations</motion.p>
+        <motion.div
+         initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0.4 }}
+        viewport={{ once: true, amount: 0 }}
+        >
             <div>
                 <div></div>
                 <h3>Stockage à venir</h3>
@@ -316,10 +333,15 @@ setRchoisi({})
                 <div></div>
                 <h3>Stockage terminées</h3>
             </div>
-        </div>
+        </motion.div>
         <div>
            {/* ============================= */}
-           <div className="reda">
+           <motion.div
+            initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0.6 }}
+        viewport={{ once: true, amount: 0 }}
+           className="reda">
         <label style={{fontSize:"clamp(1rem,1vw,3rem)",flex:"1"}} className='option'>Chercher par :</label>
         {/* +++++++++++++++++++++++++++++++++++++++++++++++ */}
              <div style={{height:"40px",flex:"1"}} className="select-filter">
@@ -353,16 +375,26 @@ setRchoisi({})
 </div>
 
         {/* +++++++++++++++++++++++++++++++++++++++++++++++ */}
-        </div>
-         <div className="wave-group">
+        </motion.div>
+         <motion.div
+          initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0.8 }}
+        viewport={{ once: true, amount: 0 }}
+         className="wave-group">
         <input placeholder=" "  type="text" className="input" onChange={(e)=>{filterBySequentialLetters(e.target.value)}}  />
         <span className="bar"></span>
         <label className="label">
         <span className="label-char" style={{ "--index": 0 }}>Rechercher...</span>
         </label>
-        </div>
+        </motion.div>
        {/* =============================la section pour filtrer les listes */}
-    <div style={{width:"360px",marginLeft:"0"}}>
+    <motion.div
+     initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:1 }}
+        viewport={{ once: true, amount: 0 }}
+    style={{width:"360px",marginLeft:"0"}}>
        <label style={{fontSize:"clamp(1rem,1vw,3rem)"}}>Filtrer par : </label>
     <div style={{height:"40px",width:"70%"}} className="select-filter">
   <div
@@ -429,7 +461,7 @@ setRchoisi({})
     </div>
   )}
 </div>
-</div>
+</motion.div>
         </div>
     </div>
     {/* ====================================== */}
@@ -437,9 +469,16 @@ setRchoisi({})
 
     <div id="areservation2">
         
-        <table>
+        <motion.table
+          initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0.6 }}
+        viewport={{ once: true, amount: 0 }}
+        >
            
-            <tr>
+            <tr
+       
+            >
                 <th>CIN</th>
                 <th>Nom du client</th>
                 <th>État</th>
@@ -452,7 +491,12 @@ setRchoisi({})
     {filtredListe.map((res,index)=>(
         <>
         
-        <tr id="rowreservation" key={index} >
+        <motion.tr
+         initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0 }}
+        viewport={{ once: true, amount: 0 }}
+        id="rowreservation" key={index} >
       <td>{res.cinClient} ({res.type==="reservation"?"R":"P"})</td>
       <td>{res.nomClient}</td>
       <td><div style={{backgroundColor:etat(res.dateDebutStockage,res.dateFinStockage)}}></div></td>
@@ -465,12 +509,12 @@ setRchoisi({})
         <button disabled={true} style={{backgroundColor:res.statutProduit==="stocked"?"#35D6FA":"#FFAD61"}} id="btnstock">{res.statutProduit==="stocked"?"Stocké":"Non stocké"}</button>
         
         </div></td>
-    </tr>
+    </motion.tr>
         </>
 ))}
   
  
-        </table>
+        </motion.table>
     </div>}
     {filtredListe.length===0 && 
     <h1 id="aucun">Aucune réservation trouvée.</h1>

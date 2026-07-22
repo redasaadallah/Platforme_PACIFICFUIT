@@ -12,7 +12,7 @@ import { PieChart, Pie, Cell, Legend } from "recharts";
 import ExportDialog from "./composants/exportDialog";
 import refresh from "./img/refresh.png"
 import api from "./api/axios";
-
+import { motion } from "framer-motion";
 import {
   BarChart,
   Bar,
@@ -220,12 +220,22 @@ useEffect(() => {
     {out && <Ouinon type={1} sortir={()=>{localStorage.removeItem("admin");localStorage.removeItem("accessToken");localStorage.removeItem("refreshToken");localStorage.removeItem("type");navigate("/admin")}}  annuler={()=>setOut(false)}/>}
     <Baradmin page={4} closeWindow={()=>{setOut(true)}}/>
     <Headeradmin closeWindow={()=>{setOut(true)}}/>
-    <div id="statistic1">
+    <motion.div
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1, delay:0 }}
+    viewport={{ once: true, amount: 0 }}
+    id="statistic1">
         <h1>Statistiques et rapports</h1>
         <button onClick={()=>{setOpenDialog(true)}}><img src={csv}/>Exporter en CSV</button>
-        </div>
+        </motion.div>
         <div id="statistic2">
-            <div>
+            <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay:0.3 }}
+            viewport={{ once: true, amount: 0 }}
+            >
                 <div>
                 <div>
                     <div>
@@ -286,9 +296,14 @@ useEffect(() => {
                     </div>
                 </div>
                 </div>
-            </div>
+            </motion.div>
             {/* statistic des demande progress bar */}
-            <div>
+            <motion.div
+            initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, delay:0.6 }}
+                        viewport={{ once: true, amount: 0 }}
+            >
             <div>
                 <h1>Statistiques des demandes clients</h1>
                 <div>
@@ -439,11 +454,16 @@ useEffect(() => {
                     </div>
                 </div>
             </div>
-            </div>
+            </motion.div>
         </div>
 
         <div id="statistic3">
-            <div>
+            <motion.div
+            initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, delay:0.8 }}
+                        viewport={{ once: true, amount: 0 }}
+            >
                 <div>
                     <h3>Évolution {getLabel(selectedType)} en {selectedYear}</h3>
                     <div>
@@ -620,9 +640,14 @@ useEffect(() => {
                         
                     
                 </div>
-            </div>
+            </motion.div>
             {/* ========================================= */}
-            <div>
+            <motion.div
+            initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, delay:1 }}
+                        viewport={{ once: true, amount: 0 }}
+            >
                 <h3>Répartition des produits stockés dans le frigo</h3>
                <div className="table-containerp">
                 {/* HEADER FIXED */}
@@ -656,7 +681,7 @@ useEffect(() => {
                             ))}
                     </div>  
                     </div>
-            </div>
+            </motion.div>
         </div>
     
 

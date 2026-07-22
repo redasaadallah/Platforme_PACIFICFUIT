@@ -15,6 +15,8 @@
     padding-block: 10px;
     border-radius: 10px;
     max-height: 985px;
+        animation: apear 1s 1 forwards;
+
 
 }
 #pdfopened>h1{

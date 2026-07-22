@@ -15,6 +15,7 @@ import feature from "./img/features.png"
 import arowdown from "./img/down-arrow (1).png"
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
+import { motion } from "framer-motion";
 
 function Admindemande(){
     const navigate=useNavigate()
@@ -123,7 +124,22 @@ const envoieRefuserProlongation=async(reserv,text)=>{
 }
 const refuser=async()=>{
     // Affiche un toast de chargement
-    const toastId = toast.loading("Refus de la demande en cours…");
+    const toastId = toast.loading("Refus de la demande en cours…",{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px",
+            
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      
+    }
+      }
+    });
      try {
             setRefus(false)
             if(rchoisi.type==="reservation"){
@@ -136,7 +152,15 @@ const refuser=async()=>{
         render: "La demande a été refusée avec succès.",
         type: "success",
         isLoading: false,
-        autoClose: 3000
+        autoClose: 3000,
+        
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    
     }); 
             setOpenRow(null)
     if(rchoisi.type==="reservation"){
@@ -171,7 +195,14 @@ const envoieAccepterProlongation=async(reserv)=>{
 }
 const accepter=async()=>{
    // Affiche un toast de chargement
-const toastId = toast.loading("Acceptation en cours...");
+const toastId = toast.loading("Acceptation en cours...",{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    });
           
         try {
             setType(false)
@@ -184,7 +215,15 @@ const toastId = toast.loading("Acceptation en cours...");
                 render: response.data.message,
                 type: "success",
                 isLoading: false,
-                autoClose: 3000
+                autoClose: 3000,
+                
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    
             });  
             setFiltredList(filtredListe.filter(r => r.codeProduit !== rchoisi.codeProduit));
             setReservations(reservations.filter(r => r.codeProduit !== rchoisi.codeProduit));
@@ -194,7 +233,15 @@ const toastId = toast.loading("Acceptation en cours...");
                 render: response.data.message,
                 type: "error",
                 isLoading: false,
-                autoClose: 3000
+                autoClose: 3000,
+               
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      
+    }
             });  
           }
           }else{
@@ -205,7 +252,15 @@ const toastId = toast.loading("Acceptation en cours...");
                 render: response.data.message,
                 type: "success",
                 isLoading: false,
-                autoClose: 3000
+                autoClose: 3000,
+                
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+    
+    }
             });  
             setFiltredList(filtredListe.filter(r => r.idProlongement !== rchoisi.idProlongement));
             setReservations(reservations.filter(r => r.idProlongement !== rchoisi.idProlongement)); 
@@ -215,7 +270,15 @@ const toastId = toast.loading("Acceptation en cours...");
                 render: response.data.message,
                 type: "error",
                 isLoading: false,
-                autoClose: 3000
+                autoClose: 3000,
+                
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      
+    }
             });  
              }
           }
@@ -277,13 +340,23 @@ const toastId = toast.loading("Acceptation en cours...");
     <Baradmin page={2} closeWindow={()=>{setOut(true)}}/>
     <Headeradmin closeWindow={()=>{setOut(true)}}/>
     <div id="ademande1">
-      <div>
+      <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, delay:0 }}
+      viewport={{ once: true, amount: 0 }}
+      >
         <h1>Demandes de réservation/prolongation</h1>
         <p>{filtredListe.length} demandes</p>
-        </div>
+        </motion.div>
         <div>
             {/* ============================= */}
-           <div className="reda">
+           <motion.div
+           initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay:0.2 }}
+            viewport={{ once: true, amount: 0 }}
+           className="reda">
         <label style={{fontSize:"clamp(1rem,1vw,3rem)",flex:"1"}} className='option'>Chercher par :</label>
         {/* +++++++++++++++++++++++++++++++++++++++++++++++ */}
              <div style={{height:"40px",flex:"1"}} className="select-filter">
@@ -317,18 +390,28 @@ const toastId = toast.loading("Acceptation en cours...");
 </div>
 
         {/* +++++++++++++++++++++++++++++++++++++++++++++++ */}
-        </div>
+        </motion.div>
         
         {/* =========================================== */}
-         <div className="wave-group">
+         <motion.div
+         initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay:0.4 }}
+          viewport={{ once: true, amount: 0 }}
+         className="wave-group">
         <input placeholder=" " type="text" className="input" onChange={(e)=>{filterBySequentialLetters(e.target.value)}} />
         <span className="bar"></span>
         <label className="label">
         <span className="label-char" style={{ "--index": 0 }}>Rechercher...</span>
         </label>
-        </div>
+        </motion.div>
        {/* ___________________________________ */}
-       <div style={{gap:"10px"}}>
+       <motion.div
+       initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0.6 }}
+        viewport={{ once: true, amount: 0 }}
+       style={{gap:"10px"}}>
        <label style={{fontSize:"clamp(1rem,1vw,3rem)",flex:"1"}}>Filtrer par : </label>
     <div style={{height:"40px",flex:"1"}} className="select-filter">
   <div
@@ -367,15 +450,22 @@ const toastId = toast.loading("Acceptation en cours...");
     </div>
   )}
 </div>
-</div>
+</motion.div>
        {/* ____________________________________ */}
         </div>
     </div>
     {/* ====================================== */}
    {filtredListe.length!==0 &&
     <div id="ademande2">
-        <table>
-            <tr>
+        <motion.table
+         initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay:0.3 }}
+            viewport={{ once: true, amount: 0 }}
+        >
+            <tr
+           
+            >
                 <th>CIN</th>
                 <th>Nom du client</th>
                 <th>Type de demande</th>
@@ -390,14 +480,19 @@ const toastId = toast.loading("Acceptation en cours...");
                 {/* =============================== */}
                  {filtredListe.map((res,index)=>(
                     <>
-               <tr id="rowinfo" key={index} >
+               <motion.tr
+               initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, delay:0 }}
+                        viewport={{ once: true, amount: 0 }}
+               id="rowinfo" key={index} >
                 <td >{res.cinClient}</td>
                 <td>{res.nomClient}</td>
                 <td>{res.type==="reservation"?"Réservation":"Prolongation"}</td>
                 <td>En attente</td>
                 <td>{new Date(res.dateDemande).toLocaleDateString("fr-FR")}</td>
                 <td>{openRow!==index &&<button onClick={()=>{setshowdetails(true);setRchoisi(res);setOpenRow(index)}}>Voir les détails</button>}</td>
-                </tr>
+                </motion.tr>
                 {openRow ===index &&
         <tr ><td id="detailtest" colSpan={6}>
                     <div>
@@ -446,7 +541,7 @@ const toastId = toast.loading("Acceptation en cours...");
            
             
             
-        </table>
+        </motion.table>
     </div>}
     {filtredListe.length===0 && 
     <h1 id="aucun">Aucune demande trouvée.</h1>

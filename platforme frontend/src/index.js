@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import App from './App.js';
+import App from './App.jsx';
 import { HashRouter, Routes, Route } from "react-router-dom"; // ← make sure to import these
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

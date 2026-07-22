@@ -129,16 +129,53 @@ const clientChange = (e) => {
 const updateClient = async (e) => {
     e.preventDefault();
    if(!value.trim()){
-    toast.error("Veuillez remplir le champs")
+    toast.error("Veuillez remplir le champs",{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    })
    }else if(!isValidPhone(value) && type===3){
-    toast.error("Veuillez saisir un numéro de téléphone valide")
+    toast.error("Veuillez saisir un numéro de téléphone valide",
+      {
+        style:{
+          width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+        }
+      }
+    )
    }else if(!isValidEmail(value) && type===4){
-        toast.error("Veuillez saisir un email valide")
+        toast.error("Veuillez saisir un email valide",{
+          style:{
+            width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+          }
+        })
    }else if(value===client.telephone && type===3){
-          toast.error("Le numéro de téléphone saisi est identique à celui déjà enregistré")
+          toast.error("Le numéro de téléphone saisi est identique à celui déjà enregistré",{
+            style:{
+              width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+            }
+          })
    }
    else if(value===client.email && type===4){
-          toast.error("L’adresse email saisie est identique à celle déjà enregistrée")
+          toast.error("L’adresse email saisie est identique à celle déjà enregistrée",{
+            style:{
+              width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+            }
+          })
    }
    else{
   try {
@@ -148,9 +185,23 @@ const updateClient = async (e) => {
     );
     if(res.success==="true"){
     if(type===3){
-    toast.success("Le numéro de téléphone a été mis à jour avec succès");}
+    toast.success("Le numéro de téléphone a été mis à jour avec succès",{
+      style:{
+         width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    });}
     else if(type===4){
-    toast.success("L’adresse email a été mise à jour avec succès");}
+    toast.success("L’adresse email a été mise à jour avec succès",{
+      style:{
+         width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    });}
     onClientChange(res.data);
     setValue("")
     localStorage.setItem(
@@ -158,12 +209,26 @@ const updateClient = async (e) => {
     JSON.stringify(res.data)
 );}else{
 
-  toast.error(res.message)
+  toast.error(res.message,{
+    style:{
+       width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+    }
+  })
 }
     
 
   } catch (error) {
-    toast.error("Erreur lors de la mise à jour");
+    toast.error("Erreur lors de la mise à jour",{
+      style:{
+         width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    });
     console.error(error);
   }}
 };
@@ -206,15 +271,43 @@ function isValidEmail(email) {
 const modifierPassWord=async(e)=>{
     e.preventDefault();
     if(!passWord.trim() || !passWord1.trim() || !passWord2.trim()){
-        toast.error("Veuillez remplir les trois champs.")
+        toast.error("Veuillez remplir les trois champs.",{
+          style:{
+             width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+          }
+        })
     }
     else if(passWord1!==passWord2){
-        toast.error("Les nouveaux mots de passe saisis ne sont pas identiques")
+        toast.error("Les nouveaux mots de passe saisis ne sont pas identiques",{
+          style:{
+             width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+          }
+        })
     }
     else if(validatePassword(passWord1)!=="valide"){
-        toast.error(validatePassword(passWord1))
+        toast.error(validatePassword(passWord1),{
+          style:{
+             width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+          }
+        })
     }else if(passWord===passWord1){
-      toast.error("Le mot de passe saisi est identique à celui déjà enregistré")
+      toast.error("Le mot de passe saisi est identique à celui déjà enregistré",{
+        style:{
+           width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+        }
+      })
     }
     
     else{
@@ -229,14 +322,35 @@ const modifierPassWord=async(e)=>{
       );
 
       if (response.data.status === "success") {
-        toast.success(response.data.message);
+        toast.success(response.data.message,{
+          style:{
+             width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+          }
+        });
         close()
       } else {
-        toast.error(response.data.message);
+        toast.error(response.data.message,{
+          style:{
+             width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+          }
+        });
       }
     } catch (error) {
       console.error(error);
-      toast.error("Erreur lors de la modification du mot de passe");
+      toast.error("Erreur lors de la modification du mot de passe",{
+        style:{
+           width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+        }
+      });
     }
     }
 }
@@ -540,7 +654,14 @@ const envoyerProlongement = async () => {
     setBoite1(false)
     close()
     onDemandeSent(false,true,false)
-    toast.success("Votre prolongement de 20 jours a été enregistré avec succès et est en attente de validation.")
+    toast.success("Votre prolongement de 20 jours a été enregistré avec succès et est en attente de validation.",{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    })
     console.log("Prolongement créé :", response.data);
   } catch (error) {
     console.error("Erreur lors de l'envoi du prolongement :", error);
@@ -591,11 +712,25 @@ const modifierProlongement = async (e) => {
     onDemandeSent(false,true,false)
 
 
-    toast.success("Prolongement modifié avec succès");
+    toast.success("Prolongement modifié avec succès",{
+      style:{
+         width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    });
     
   } catch (error) {
     console.error("Erreur lors de la modification :", error.response?.data || error.message);
-    toast.error("Impossible de modifier ce prolongement");
+    toast.error("Impossible de modifier ce prolongement",{
+      style:{
+         width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    });
   }
     }}
   

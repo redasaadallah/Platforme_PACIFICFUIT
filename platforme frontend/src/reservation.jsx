@@ -105,7 +105,14 @@ localStorage.setItem(
             
     } 
     else {
-      toast.error(response.data.message);
+      toast.error(response.data.message,{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    });
       
     }
 

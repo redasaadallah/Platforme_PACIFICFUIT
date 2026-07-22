@@ -19,34 +19,30 @@ import Adminreservation from "./adminreservation";
 import Statistic from "./statistic";
 import Espaceclient from "./espaceclient";
 import Parametre from "./parametre";
-import { Toaster } from 'react-hot-toast';
-import Test from "./test";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PrivateRouteAdmin from "./composants/PrivateRouteAdmin";
 import PrivateRouteClient from "./composants/PrivateRouteClient";
-import Table from "./composants/table";
-import DeleteReservation from "./composants/DeleteReservation";
 function App() {
   
   return (
     <>
-   
-     <ToastContainer
-  position="top-center"
-  autoClose={5000}
-  hideProgressBar={false}   // ✔ progress bar activée
-  newestOnTop
-  closeOnClick
-  pauseOnHover
-  draggable
-  closeButton={true} 
-style={{
-  textAlign: "center",
-  width: "1000px"
-}}
-/>
+   <div style={{position:"relative"}}>
 
+  <ToastContainer
+    position="top-center"
+    autoClose={5000}
+    newestOnTop
+    closeOnClick
+    pauseOnHover
+    draggable
+    closeButton
+    style={{
+        textAlign:"center"
+        
+    }}
+/>
+</div>
     <Routes>
     <Route path="/" element={<Splash/>} />
     <Route path="/home" element={<Home/>} />
@@ -85,9 +81,6 @@ style={{
       <Espaceclient/>
       </PrivateRouteClient>
       }/>
-        <Route path="/test" element={<Test/>}/>
-      <Route path="/table" element={<Table/>}/>
-      <Route path="/delete" element={<DeleteReservation/>}/>
     </Routes>
     
     </>

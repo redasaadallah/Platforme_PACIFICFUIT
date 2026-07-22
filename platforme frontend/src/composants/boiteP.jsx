@@ -31,10 +31,24 @@ export default function BoiteP({admin,type,closeWindow,data,icon,param,onParamCh
     const result = chambres.filter(item => item.id !== selectedId);
     setChambres(result);
     onDelete(result)
-    toast.success("Chambre supprimée avec succès");
+    toast.success("Chambre supprimée avec succès",{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    });
 
   } catch (error) {
-    toast.error("Erreur lors de la suppression");
+    toast.error("Erreur lors de la suppression",{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    });
     console.error(error);
   }
   setShowSup(false)
@@ -92,9 +106,23 @@ const exists = chambres.some(
 );
     
     if(updatedChambre.nomChambre===selectedChambre.nomChambre && updatedChambre.capacite===selectedChambre.capacite && updatedChambre.temperature===selectedChambre.temperature && updatedChambre.visible===selectedChambre.visible){
-        toast.error("Aucune modification détectée")
+        toast.error("Aucune modification détectée",{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    })
     }else if(updatedChambre.capacite<selectedChambre.capacite-selectedChambre.capaciteDisponible){
-        toast.error("La capacité ne peut pas être inférieure à la capacité disponible.")
+        toast.error("La capacité ne peut pas être inférieure à la capacité disponible.",{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    })
 
     }else if(!exists){
         try {
@@ -103,7 +131,14 @@ const exists = chambres.some(
         updatedChambre
       );
 
-      toast.success("Chambre modifiée avec succès");
+      toast.success("Chambre modifiée avec succès",{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    });
        setChambres((prev) =>
         prev.map((c) =>
         c.nomChambre === selectedChambre.nomChambre ? updatedChambre : c
@@ -112,10 +147,24 @@ const exists = chambres.some(
     setTypeP("espace")
 
     } catch (error) {
-      toast.error("Erreur lors de la modification");
+      toast.error("Erreur lors de la modification",{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    });
       console.error(error);
     }}else{
-        toast.error("Ce nom de chambre existe déjà. Veuillez choisir un autre nom.")
+        toast.error("Ce nom de chambre existe déjà. Veuillez choisir un autre nom.",{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    })
     }
     }
     // pour garentir que les champs sont remplis
@@ -166,15 +215,36 @@ return Object.keys(newErrors).length === 0;
   try {
     const response =await api.post("http://localhost:8080/api/chambres", payload);
 
-    toast.success("Chambre ajoutée avec succès"); 
+    toast.success("Chambre ajoutée avec succès",{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    }); 
     setTypeP("espace")
     setChambres(response.data);
         
   } catch (error) {
-    toast.error("Erreur lors de l'ajout");
+    toast.error("Erreur lors de l'ajout",{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    });
   }
         }else if(exists){
-            toast.error("Ce nom de chambre existe déjà. Veuillez choisir un autre nom.")
+            toast.error("Ce nom de chambre existe déjà. Veuillez choisir un autre nom.",{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    })
         }
     }
     //   ==========================================================
@@ -236,14 +306,28 @@ const updateParametre = async (mode) => {
       parametre
     );
 
-    toast.success("Paramètres mis à jour avec succès");
+    toast.success("Paramètres mis à jour avec succès",{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    });
     setParametre(res.data)
     onParamChange(res.data);
     setValue("")
     setValue1("")
 
   } catch (error) {
-    toast.error("Erreur lors de la mise à jour");
+    toast.error("Erreur lors de la mise à jour",{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    });
     console.error(error);
   }}
 };
@@ -275,13 +359,34 @@ const modiferPassWord=async()=>{
     console.log(admin)
     console.log(admin.id)
     if(!passWord.trim() || !passWord1.trim() || !passWord2.trim()){
-        toast.error("Veuillez remplir les trois champs.")
+        toast.error("Veuillez remplir les trois champs.",{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    })
     }
     else if(passWord1!==passWord2){
-        toast.error("Les nouveaux mots de passe saisis ne sont pas identiques")
+        toast.error("Les nouveaux mots de passe saisis ne sont pas identiques",{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    })
     }
     else if(validatePassword(passWord1)!=="valide"){
-        toast.error(validatePassword(passWord1))
+        toast.error(validatePassword(passWord1),{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    })
     }else{
         try {
       const response = await api.post(
@@ -294,14 +399,35 @@ const modiferPassWord=async()=>{
       );
 
       if (response.data.status === "success") {
-        toast.success(response.data.message);
+        toast.success(response.data.message,{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    });
         closeWindow()
       } else {
-        toast.error(response.data.message);
+        toast.error(response.data.message,{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    });
       }
     } catch (error) {
       console.error(error);
-      toast.error("Erreur lors de la modification du mot de passe");
+      toast.error("Erreur lors de la modification du mot de passe",{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    });
     }
     }
 }

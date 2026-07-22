@@ -37,7 +37,14 @@ if(reservation.type==="reservation"){
 
             toast.success(
                 response.data.message
-            );
+            ,{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    });
             setStatus(response.statut)
             // send new status to parent page
             onUpdate(
@@ -54,7 +61,14 @@ if(reservation.type==="reservation"){
             error.response?.data?.message
             ||
             "Erreur changement statut"
-        );
+        ,{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    });
 
 
     }
@@ -71,7 +85,14 @@ if(reservation.type==="reservation"){
 
             toast.success(
                 response.data.message
-            );
+            ,{
+      style:{
+        width: "auto",
+            maxWidth: "90%",
+            fontFamily: "'Playfair Display', serif",
+            marginTop:"20px"
+      }
+    });
             setStatus(response.statut)
             // send new status to parent page
             onUpdate(

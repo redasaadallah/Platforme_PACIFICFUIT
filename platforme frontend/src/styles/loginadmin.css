@@ -52,11 +52,12 @@
 }
 
 #la2{
-    width: 100%;
+    width: 90%;
     text-align: left;
     border-radius: 50px;
     font-size: clamp(1rem,2vw,6rem);
-    font-weight: lighter;margin-left: 20px;
+    font-weight: lighter;
+    margin-left: 20px;
 
 }
 #la3{
