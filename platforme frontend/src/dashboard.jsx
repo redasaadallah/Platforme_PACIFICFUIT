@@ -9,6 +9,8 @@ import Ouinon from "./composants/ouinon";
 import coment from "./img/comment.png"
 import { toast } from "react-toastify";
 import api from "./api/axios";
+import { motion } from "framer-motion";
+
 function Dashboard(){
     const navigate=useNavigate();
     const [message,setMessage]=useState([])
@@ -117,74 +119,119 @@ const fetchDemande=async()=>{
         
     <div id="s1">
         <div>
-        <div>
+        <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0 }}
+        viewport={{ once: true, amount: 0 }}
+        >
             <h1>Nombre total de réservations</h1>
             <div>
                 <h3>{currentMonth} {currentYear}</h3>
                 <h1>{stats.reservations}</h1>
             </div>
             
-        </div>
-        <div>
+        </motion.div>
+        <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0.2 }}
+        viewport={{ once: true, amount: 0 }}
+        >
             <h1>Nombre total de prolongations</h1>
             <div>
                 <h3>{currentMonth} {currentYear}</h3>
                 <h1>{stats.prolongations}</h1>
             </div>
             
-        </div>
-        <div>
+        </motion.div>
+        <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0.6 }}
+        viewport={{ once: true, amount: 0 }}
+>
             <h1>Demandes acceptées</h1>
             <div>
                 <h3>{currentMonth} {currentYear}</h3>
                 <h1>{stats.accepted}</h1>
             </div>
             
-        </div>
-        <div>
+        </motion.div>
+        <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0.8 }}
+        viewport={{ once: true, amount: 0 }}
+        >
             <h1>Demandes  refusées</h1>
             <div>
                 <h3>{currentMonth} {currentYear}</h3>
                 <h1>{stats.refused}</h1>
             </div>
             
-        </div>
+        </motion.div>
         
         </div>
-        <div>
+        <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0.6 }}
+        viewport={{ once: true, amount: 0 }}
+        >
             <button onClick={()=>navigate("/statistic")}>Voir les détails</button>
-        </div>
+        </motion.div>
     </div>
   
     <div id="s2">
         <div>
             <div>
-                <div>
+                <motion.div
+                initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0 }}
+        viewport={{ once: true, amount: 0 }}
+                >
                     <h3>les nouvelles demandes à traiter</h3>
                     <p>{reservations.length} demandes</p>
-                </div>
-                <img src={clipboard}/>
+                </motion.div>
+                <motion.img 
+                initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0.3 }}
+        viewport={{ once: true, amount: 0 }}
+                src={clipboard}/>
             </div>
             <div id="s2div">
         <div className="table-containerd">
                 {/* HEADER FIXED */}
-      <div className="table-headerd">
+      <motion.div
+      initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0.6 }}
+        viewport={{ once: true, amount: 0 }}
+      className="table-headerd">
         <div>Nom</div>
         <div>CIN</div>
         <div>Statut</div>
         <div>Type</div>
         <div>Date de demande</div>
-      </div>
+      </motion.div>
       {/* BODY SCROLL */}
       <div className="table-bodyd">
                 {reservations.map((res,index)=>(
-                <div className="table-rowd" key={index}>
+                <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay:index*0.01 }}
+                viewport={{ once: true, amount: 0 }}
+                className="table-rowd" key={index}>
                     <div>{res.nomClient}</div>
                     <div>{res.cinClient}</div>
                     <div><div className="status">en attente</div></div>
                     <div><div className="type">{res.type==="reservation"?"Réservation":"Prolongation"}</div></div>
                     <div>{new Date(res.dateDemande).toLocaleDateString("fr-FR")}</div>
-                </div>
+                </motion.div>
                 ))}
                 </div>
                
@@ -192,39 +239,64 @@ const fetchDemande=async()=>{
                
             </div>
             <div>
-                <button onClick={()=>navigate("/admindemande")}>Voir les détails</button>
+                <motion.button
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay:0 }}
+                viewport={{ once: true, amount: 0 }}
+                onClick={()=>navigate("/admindemande")}>Voir les détails</motion.button>
             </div>
             </div>
         
         {/* ============================================================== */}
         <div>
             <div>
-                <div>
+                <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay:0 }}
+                viewport={{ once: true, amount: 0 }}
+                >
                     <h3>les nouvelles messages a repondre</h3>
                     <p>{message.length} message</p>
-                </div>
-                <img src={coment}/>
+                </motion.div>
+                <motion.img
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay:0.3}}
+                viewport={{ once: true, amount: 0 }}
+                src={coment}/>
             </div>
             <div id="s2div">
               <div className="table-containerm">
                 {/* HEADER FIXED */}
-      <div className="table-headerm">
+      <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, delay:0.4 }}
+      viewport={{ once: true, amount: 0 }}
+      className="table-headerm">
         <div>Nom</div>
         <div>Afficher</div>
         <div>Supprimer</div>
         <div>Date d’envoi</div>
-      </div>
+      </motion.div>
       {/* BODY SCROLL */}
       <div className="table-bodym">
 
                 {message.map((msg,index)=>(
-                    <div className="table-rowm" key={index}>
+                    <motion.div 
+                    initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay:index*0.01 }}
+                viewport={{ once: true, amount: 0 }}
+                    className="table-rowm" key={index}>
                     <div>{msg.nom} {msg.prenom}</div>
                     <div><button type="button" onClick={()=>{setSelectedMessage(msg);repondreMessage()}} className="afficher">Afficher</button></div>
                     <div><button type="button" onClick={() => deleteMessage(msg.id)}  className="supprimer">Supprimer</button></div>
                     <div>{new Date(msg.dateEnvoi).toLocaleDateString("fr-FR")}</div>
                     
-                </div>
+                </motion.div>
                 ))}
              </div>   
                

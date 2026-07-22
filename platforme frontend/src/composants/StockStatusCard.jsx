@@ -89,7 +89,7 @@ if(reservation.type==="reservation"){
         <div id="black" style={{zIndex:"300"}}></div>
         <div
             style={{
-                width:"430px",
+                width:"min(75%,430px)",
                 background:"#ffffff",
                 borderRadius:"10px",
                 padding:"35px",
@@ -102,7 +102,9 @@ if(reservation.type==="reservation"){
                 left:"50%",
                 top:"50%",
                 transform:"translate(-50%,-50%)",
-                borderBlock: "solid 5px #4caf50"
+                borderBlock: "solid 5px #4caf50",
+                animation: "apear 1s 1 forwards"
+
 
             }}
         >
@@ -180,7 +182,7 @@ if(reservation.type==="reservation"){
                 <div
                     style={{
                         color:"#64748B",
-                        fontSize: "clamp(0.7rem,1.5vw,3rem)",
+                        fontSize: "clamp(0.8rem,1.2vw,3rem)",
                         fontWeight: "lighter",
                         fontFamily: "'Playfair Display', serif",
                         marginBottom:"8px"
@@ -193,7 +195,8 @@ if(reservation.type==="reservation"){
                 <div
                     style={{
                         color:"#0A8D47",
-                        fontSize:"24px",
+                        fontSize: "clamp(0.8rem,1.2vw,3rem)",
+
                         fontWeight:"700",
                         display:"flex",
                         justifyContent:"center",
@@ -226,7 +229,7 @@ if(reservation.type==="reservation"){
             <h3
                 style={{
                     color:"#1E293B",
-                    fontSize: "clamp(0.7rem,1.5vw,3rem)",
+                    fontSize: "clamp(0.8rem,1vw,3rem)",
                     
                     fontFamily: "'Playfair Display', serif",
                     marginBottom:"18px"
@@ -307,7 +310,7 @@ if(reservation.type==="reservation"){
                     <div
                         style={{
                             fontWeight:"700",
-                            fontSize: "clamp(0.7rem,1.5vw,3rem)",
+                            fontSize: "clamp(0.8rem,1vw,3rem)",
                             fontFamily: "'Playfair Display', serif",
                             color:"#1E293B"
                         }}
@@ -320,7 +323,7 @@ if(reservation.type==="reservation"){
                         style={{
                             color:"#64748B",
                             marginTop:"5px",
-                            fontSize: "clamp(0.7rem,0.8vw,3rem)",
+                            fontSize: "clamp(0.7rem,0.7vw,3rem)",
                             fontWeight: "lighter",
                             fontFamily: "'Playfair Display', serif",
                         }}
@@ -407,7 +410,7 @@ if(reservation.type==="reservation"){
                     <div
                         style={{
                             fontWeight:"700",
-                            fontSize: "clamp(0.7rem,1.5vw,3rem)",
+                            fontSize: "clamp(0.8rem,1vw,3rem)",
                             fontFamily: "'Playfair Display', serif",
                         }}
                     >
@@ -419,7 +422,7 @@ if(reservation.type==="reservation"){
                         style={{
                             color:"#64748B",
                             marginTop:"5px",
-                            fontSize: "clamp(0.7rem,0.8vw,3rem)",
+                            fontSize: "clamp(0.7rem,0.7vw,2rem)",
                             fontWeight: "lighter",
                             fontFamily: "'Playfair Display', serif",
                         }}
@@ -456,7 +459,7 @@ if(reservation.type==="reservation"){
                     background:"none",
                     
                     color:"#13B35B",
-                    fontSize: "clamp(0.7rem,1vw,3rem)",
+                    fontSize: "clamp(0.7rem,0.8vw,3rem)",
                     fontFamily: "'Playfair Display', serif",
                     fontWeight:"700",
                     cursor:"pointer",
@@ -475,7 +478,7 @@ if(reservation.type==="reservation"){
                     background:
                     "linear-gradient(135deg,#0A8D47,#13B35B)",
                     color:"#fff",
-                    fontSize: "clamp(0.7rem,1vw,3rem)",
+                    fontSize: "clamp(0.7rem,0.8vw,3rem)",
                     fontFamily: "'Playfair Display', serif",
                     fontWeight:"700",
                     cursor:"pointer",

@@ -16,7 +16,7 @@ function Oublier({onClose,type}){
     }
   
     const sendEmailClient=async(email)=>{
-        const response = await axios.post("http://localhost:8080/api/clients/forgot-password", {
+        const response = await axios.post("http://localhost:8080/api/client/forgot-password", {
     email:email,
   });
 

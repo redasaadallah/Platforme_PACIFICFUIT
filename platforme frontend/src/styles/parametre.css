@@ -1,13 +1,14 @@
 #tparam{
-    margin-top:10%;
-    margin-left: 10%;
-    font-size: clamp(0.8rem,2.5vw,4rem);
+    margin-top:150px;
+    margin-left: 150px;
+    font-size: clamp(1.5rem,2.5vw,4rem);
     font-weight: lighter;
+    
 }
 #param1{
     width: 85%;
-    margin-left: 10%;
-    
+    margin-left: 150px;
+    margin-bottom: 100px;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -20,6 +21,7 @@
     gap: 15px;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
 
 }
 #param1>div>div{
@@ -30,6 +32,7 @@
     flex: 1;
     flex-direction: column;
     padding-inline: 5px;
+    min-width: 360px;
     
 }
 #param1>div>div div{
@@ -42,12 +45,12 @@ justify-content: space-between;
     font-weight: lighter;
 }
 #param1>div>div div>img{
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
 }
 #param1>div>div div>button{
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     background: none;
     display: flex;
     align-items: center;
@@ -55,6 +58,18 @@ justify-content: space-between;
     border: none;
 }
 #param1>div>div div>button img{
-     width: 40px;
-    height: 40px;
+     width: 35px;
+    height: 35px;
 }
+@media (max-width:767px) {
+#param1{
+    width: 90%;
+    margin-inline: auto;
+}
+#tparam{
+    width: 90%;
+    margin-inline: auto;
+}
+    
+}
+

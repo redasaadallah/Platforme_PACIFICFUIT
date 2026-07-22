@@ -81,21 +81,25 @@ const monthIndex = months.indexOf(month) + 1;
             width: "100%",
             height: "100%",
             background: "rgba(0,0,0,0.5)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 1000
+            zIndex: 1000,
+
           }}
         >
 
           {/*  BOX */}
           <div
             style={{
-              width: "600px",
+              width: "min(80%,600px)",
               background: "white",
               borderRadius: "12px",
               padding: "20px",
-              boxShadow: "0 10px 30px rgba(0,0,0,0.2)"
+              boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
+              position:"fixed",
+              top:"50%",
+              left:"50%",
+              transform:"translateX(-50%)",
+              animation: "apear 1s 1 forwards",
+
             }}
           >
 

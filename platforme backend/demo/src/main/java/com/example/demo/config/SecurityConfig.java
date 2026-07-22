@@ -155,6 +155,7 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/api/admin/login",
                                 "/api/client/login",
+                                "/api/client/forgot-password",
                                 "/api/client/sendCode",
                                 "/api/client/verify",
                                 "/api/auth/**"

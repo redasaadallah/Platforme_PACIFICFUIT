@@ -614,7 +614,7 @@ const modifierProlongement = async (e) => {
             <img onClick={close} src={clos}/>
         </div>
         <div>
-            <img src={type===0?extention:type===1?extention:type===3?extention:type===4?editProfil:type===2?add6:lock}/>
+            <img src={type===0?extention:type===1?extention:type===3?editProfil:type===4?editProfil:type===2?add6:lock}/>
             <h1>{type===0?"Modification de prolongement":type===1?"Demande de prolongation":type===3?"Modifier mes informations personnelles":type===4?"Modifier mes informations personnelles":type===2?"Nouvelle demande de stockage":"Modification du mot de passe"}</h1>
         </div>
         {type===1 && 
@@ -631,7 +631,7 @@ const modifierProlongement = async (e) => {
         </form>
         {error && <p style={{marginTop:"0px"}} className="errors">{error}</p>}
 
-        <p>Date de fin de votre réservation après prolongation : {newDateFin ? newDateFin.toLocaleDateString() : "–"}</p>
+        <p>Date de fin de votre réservation après prolongation : {newDateFin ? newDateFin.toLocaleDateString("fr-FR") : "–"}</p>
         </div>
             }
             {type===0 && 
@@ -648,7 +648,7 @@ const modifierProlongement = async (e) => {
         </form>
         {error && <p style={{marginTop:"0px"}} className="errors">{error}</p>}
 
-        <p>Date de fin de votre réservation après prolongation : {newDateFin ? newDateFin.toLocaleDateString() : "–"}</p>
+        <p>Date de fin de votre réservation après prolongation : {newDateFin ? newDateFin.toLocaleDateString("fr-FR") : "–"}</p>
         </div>
             }
         {type===2 &&
@@ -661,7 +661,7 @@ const modifierProlongement = async (e) => {
         <span className="label-char" style={{ "--index": 0 }}> Nom du produit</span>
         </label>
         </div>
-        {errors1.nomProduit && <p  style={{width:'90%',marginTop:"-15px"}} className="errors">{errors1.nomProduit}</p>}
+        {errors1.nomProduit && <p  style={{width:'90%',marginTop:"-10px"}} className="errors">{errors1.nomProduit}</p>}
         {/* ============================================================= */}
          <div className="wave-group">
         <input placeholder=" "  type="number" min="0" step="0.01" className="input" name="quantite" value={quantite} onChange={(e) => {setErrors1({...errors1,[e.target.name]:""});setQuantite(e.target.value)}} />
@@ -670,15 +670,15 @@ const modifierProlongement = async (e) => {
         <span className="label-char" style={{ "--index": 0 }}> Quantité en tonne</span>
         </label>
         </div>
-          {errors1.quantite && <p style={{width:'90%',marginTop:"-15px"}} className="errors">{errors1.quantite}</p>}
+          {errors1.quantite && <p style={{width:'90%',marginTop:"-10px"}} className="errors">{errors1.quantite}</p>}
         
         {/* ++++++++++++++++++++++++++++++++++++++++ */}
           <div style={{width:"90%"}} id="selectChambre">
   <label>Température de stockage : </label>
 
-  <div style={{width:"48%"}} className="select-filter">
+  <div style={{width:"48%",height:"40px"}} className="select-filter">
     <div
-      style={{height:"48px"}}
+      style={{height:"40px"}}
       className="select-box-filter"
       onClick={() => setOpen(!open)}
     >
@@ -712,13 +712,13 @@ const modifierProlongement = async (e) => {
     )}
   </div>
 </div>
-{errors1.temperature && <p style={{width:'100%'}} className="errors">{errors1.temperature}</p>}
+{errors1.temperature && <p style={{width:'90%',marginTop:"-10px"}} className="errors">{errors1.temperature}</p>}
         {/* ++++++++++++++++++++++++++++++++++++++++++++ */}
         <div  className="reda">
         <label className='option'>Date de Stockage :</label>
         <input  className="typeemprunt" min={minDate} className="typeemprunt" type="date"  name="dateDebutStockage" value={dateDebut} onChange={(e)=>{setErrors1({...errors1,[e.target.name]:""});setDateDebut(e.target.value);calculateDateFin(e)}}/>
         </div>
-        {errors1.dateReservation && <p className="errors">{errors1.dateReservation}</p>}
+        {errors1.dateReservation && <p className="errors" style={{marginTop:"-10px"}}>{errors1.dateReservation}</p>}
         {/* ======================================== */}
         <div className="wave-group">
         <input  placeholder=" "  type="number"  className="input" name="dureeStockage" value={duree} onChange={(e)=>{setErrors1({...errors1,[e.target.name]:""});setDuree(e.target.value);calculateDateFin(e)}}  />
@@ -727,7 +727,7 @@ const modifierProlongement = async (e) => {
         <span className="label-char" style={{ "--index": 0 }}>Durée de stockage en jour</span>
         </label>
         </div>
-        {errors1.dureeReservation && <p style={{marginTop:"-15px"}} className="errors">{errors1.dureeReservation}</p>}
+        {errors1.dureeReservation && <p style={{marginTop:"-10px"}} className="errors">{errors1.dureeReservation}</p>}
         <div style={{width:"90%"}}>
         {dateFin.finReservation && <p   id="datefin">Date de fin de votre stockage est : {dateFin.finReservation}</p>}
 
@@ -740,24 +740,24 @@ const modifierProlongement = async (e) => {
         <button type="button" onClick={handleButtonClick}   id="atphone"><img src={fileName===""?add:change1}/></button>
         <input onChange={handleFileChange} ref={fileInputRef} accept="application/pdf" style={{ display: "none" }}  type="file"  />
         </div>
-        {errors1.filename && <p className="errors">{errors1.filename}</p>}
+        {errors1.filename && <p className="errors" style={{marginTop:"-10px"}}>{errors1.filename}</p>}
         {fileName && <p className="nomfile">{fileName}</p>}
          <div className="reda">
         <label className='option'>Attestation ONSSA :</label>
         <button type="button" onClick={handleButtonClick1}   id="atphone"><img src={fileName1===""?add:change1}/></button>
         <input onChange={handleFileChange1} ref={fileInputRef1} accept="application/pdf" style={{ display: "none" }}  type="file"  />
         </div>
-        {errors1.filename1 && <p className="errors">{errors1.filename1}</p>}
-        {fileName1 && <p className="nomfile">{fileName1}</p>}
+        {errors1.filename1 && <p className="errors" style={{marginTop:"-10px"}}>{errors1.filename1}</p>}
+        {fileName1 && <p className="nomfile" >{fileName1}</p>}
          <div className="reda">
          <label className='option'>IRC :</label>
         <button type="button" onClick={handleButtonClick2}   id="atphone"><img src={fileName2===""?add:change1}/></button>
         <input onChange={handleFileChange2} ref={fileInputRef2} accept="application/pdf" style={{ display: "none" }}  type="file"  />
         </div>
-        {errors1.filename2 && <p className="errors">{errors1.filename2}</p>}
-        {fileName2 && <p className="nomfile">{fileName2}</p>}
+        {errors1.filename2 && <p className="errors" style={{marginTop:"-10px"}}>{errors1.filename2}</p>}
+        {fileName2 && <p className="nomfile" >{fileName2}</p>}
         <div>
-        <button><img src={addproduct}/>Envoyer</button>
+        <button style={{gap:"5px",width:"auto"}}><img src={addproduct}/>Envoyer</button>
 
         </div>
         </div>

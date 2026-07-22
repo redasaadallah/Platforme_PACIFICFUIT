@@ -11,8 +11,9 @@
     transform: translate(-50%,-50%);
     background-color: white;
     padding: 10px;
-    width: 70%;
+    width: min(90%,1200px);
     z-index: 201;
+    max-height: 80dvh;
 }
 #espace>div:first-of-type{
     width: 100%;
@@ -41,59 +42,71 @@
    font-weight: lighter;
    margin: 0;
 }
-#espace>div:nth-of-type(3){
+#capacite{
     margin-top: 20px;
     width: 100%;
     
 }
-#espace>div:nth-of-type(3)>div:first-of-type{
-    max-height: 500px;
+#capacite>div:first-of-type{
+    max-height: 40dvh;
+
     scrollbar-width: none;
-    overflow-y: scroll;
-    width: 90%;
+    overflow-x: scroll;
     margin: 0 auto;
+    padding-block: 20px;
 
     
     
 }
-#espace table{
+#capacite table{
     
     border-collapse: collapse;
     width: 90%;
     margin: 0 auto;
     border-radius: 10px 10px 0 0;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4); 
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    min-width: 650px;
 
 
     
 }
-#espace table tr:first-of-type{
-     background-color:#FFE489;
-      
+#capacite table tr:first-of-type{
+    font-size: clamp(0.7rem,1vw,1rem);
+
+background: #667eea;
+  color: white;
+  font-weight: bold;
 }
 
-#espace td{
-    
-    padding-block: 5px;
+#capacite td{
+    height: 20px;
     text-align: center;
     
     
 }
-#espace tr:nth-of-type(n+2){
-    border-bottom: solid 2px #F0B11F;
+#capacite table tr:hover td{
+background: #f3f4ff;
+  cursor: pointer;
 }
-#espace th{
-    padding-block: 10px;
+#capacite tr:nth-of-type(n+2){
+  border-bottom: 1px solid #eee;
+  background: white;
+      font-size: clamp(0.7rem,1vw,1rem);
+
+}
+#capacite th{
     font-weight: lighter;
     
 }
-#espace tr th:first-of-type{
-    border-radius: 10px 0 0px 10px;
+#capacite tr th:first-of-type{
+        border-radius: 10px 0px 0px 0px;
+
 }
-#espace tr th:last-of-type{
-    border-radius: 0px 10px 10px 0px;
+#capacite tr th:last-of-type{
+        border-radius: 0px 10px 0px 0;
+
 }
-#espace tr td:last-of-type{
+#capacite tr td:last-of-type{
     display: flex;
     align-items: center;
     justify-content:center;
@@ -102,17 +115,17 @@
     
 }
 
-#espace tr button:first-of-type{
+#capacite tr button:first-of-type{
     width: 35px;
     height: 35px;
     background: none;
     border: none;
 }
-#espace tr button:first-of-type img{ 
+#capacite tr button:first-of-type img{ 
     width: 35px;
     height: 35px;
 }
-#espace tr:nth-of-type(n+2) .delete{
+#capacite tr:nth-of-type(n+2) .delete{
     width: 31px;
     height: 31px;
     background-color: red;
@@ -123,7 +136,7 @@
     justify-content: center;
     
 }
-#espace tr:nth-of-type(n+2) .delete img{ 
+#capacite tr:nth-of-type(n+2) .delete img{ 
     width: 22px;
     height: 22px;
 }
@@ -155,6 +168,9 @@
 }
 /* ==========================modifier le espace========================= */
 
+#espace1{
+    width: 100%;
+}
 #espace1 form{
     display: flex;
     flex-direction: column;
@@ -162,8 +178,72 @@
     gap: 5px;
     padding-block: 10px;
 }
+#espace1 table{
+    
+    border-collapse: collapse;
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    min-width: 650px;
+
+
+    
+}
+#espace1 table tr:first-of-type{
+    font-size: clamp(0.7rem,1vw,1rem);
+
+background: #667eea;
+  color: white;
+  font-weight: bold;
+}
+
+#espace1 td{
+    height: 20px;
+    text-align: center;
+    
+    
+}
+#espace1 table tr:hover td{
+background: #f3f4ff;
+  cursor: pointer;
+}
+#espace1 tr:nth-of-type(n+2){
+  border-bottom: 1px solid #eee;
+  background: white;
+      font-size: clamp(0.7rem,1vw,1rem);
+
+}
+#espace1 th{
+    font-weight: lighter;
+    
+}
+#espace1 tr th:first-of-type{
+        border-radius: 10px 0px 0px 0px;
+
+}
+#espace1 tr th:last-of-type{
+        border-radius: 0px 10px 0px 0;
+
+}
+
+
+
+
+section{
+      max-height: 40dvh;
+
+    scrollbar-width: none;
+    overflow-x: scroll;
+    margin: 0 auto;
+    padding-block: 20px;
+    overflow: auto;
+    
+}
+
+
 #espace1 input{
-    width: 40%;
+    width: min(90%,400px);
     height: 30px;
     border: solid 1px #0A8D47;
 }
@@ -172,9 +252,14 @@
 }
 #espace1 div:last-of-type{
     display: flex;
-    width: 40%;
     justify-content: flex-end;
     gap: 5px;
+
+}
+
+#espace1 form>div:last-of-type{
+        width: min(90%,400px);
+
 }
 #espace1 div:last-of-type button{
     width: 31px;
@@ -191,7 +276,7 @@ width: 20px;
     height: 20px;
 }
 #espace1 form>div:first-of-type{
-    width: 40%;
+    width: min(90%,400px);
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -209,15 +294,19 @@ width: 20px;
     accent-color: #0A8D47;
 }
 /* =====================ajouter un espace======================= */
+#espace2{
+    width: 100%;
+}
 #espace2 form{
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 5px;
     padding-block: 10px;
+
 }
 #espace2 input{
-    width: 40%;
+    width: min(90%,400px);
     height: 30px;
     border: solid 1px #0A8D47;
 }
@@ -229,6 +318,8 @@ width: 20px;
     width: 40%;
     justify-content: flex-end;
     gap: 5px;
+    width: min(90%,400px);
+
 }
 #espace2 div:last-of-type button{
     width: 31px;
@@ -251,6 +342,7 @@ width: 20px;
     flex-direction: column;
     gap: 10px;
     align-items: center;
+    width: 100%;
     
 }
 
@@ -258,6 +350,8 @@ width: 20px;
           font-size: clamp(1rem,1.3vw,3rem);
           width: 80%;
           font-weight: lighter;
+              width: min(90%,700px);
+
           
 
 }
@@ -266,16 +360,17 @@ width: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: min(90%,700px);
+
     
 }
 #duree>div>div{
     display: flex;
     align-items: center;
     justify-content: center;
-    /* width: 100%; */
 }
 #duree label{
-        font-size: clamp(1rem,1vw,3rem);
+        font-size: clamp(0.8rem,1vw,3rem);
 
 }
 #duree>div>div>div{
@@ -283,11 +378,11 @@ display: flex;
 align-items: center;
 justify-content: center;
 gap: 10px;
+flex: 1;
 
-width: 400px;
 }
 #duree input[type="number"]{
-    width: 40%;
+    width: 30%;
     height: 30px;
     border: solid 1px #0A8D47;
 }
@@ -316,13 +411,18 @@ width: 400px;
     width: 20px;
     height: 20px;
 }
+#duree p{
+    font-size: clamp(0.8rem,1vw,3rem);
+
+}
 /* ============================prix de reservation=============== */
 #price{
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 0px;
-    gap: 0;
+    
     
     
 }
@@ -331,6 +431,8 @@ width: 400px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 20px;
+    min-width: 330px;
     
 }
 #price>div>div{
@@ -368,6 +470,8 @@ width: 20px;
 }
 #price p{
     margin: 0;
+    font-size: clamp(0.8rem,1vw,3rem);
+
 }
 /* =================le delai======================== */
 #delai{
@@ -375,13 +479,15 @@ width: 20px;
     flex-direction: row;
     justify-content: center;
     width: 100%;
+    flex-wrap: wrap;
 }
 #delai>div{
     
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    width: 50%;
+    min-width: 360px;
     
     
 
@@ -410,7 +516,8 @@ width: 20px;
     align-self: start;
 }
 #delai label{
-        font-size: clamp(1rem,0.8vw,3rem);
+        font-size: clamp(0.8rem,0.8vw,3rem);
+        width: auto;
 
 }
 #delai>div>div>div{
@@ -421,7 +528,7 @@ gap: 10px;
 width: 100%;
 }
 #delai input[type="number"]{
-    width: 40%;
+    width: 10%;
     height: 30px;
     border: solid 1px #0A8D47;
 }
@@ -450,6 +557,10 @@ width: 100%;
     width: 20px;
     height: 20px;
 }
+#delai p{
+    font-size: clamp(0.8rem,0.8vw,3rem);
+
+}
 /* ============================mot de passe=============== */
 #passe{
     display: flex;
@@ -457,18 +568,22 @@ width: 100%;
     align-items: center;
     justify-content: center;
     gap: 5px;
+    margin-top: 20px;
+    width:100%
 }
 #passe>div{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 70%;
+    flex-wrap: wrap;
+    width: 100%;
     gap: 10px;
+    margin-bottom: 20px;
     
 }
 
 #passe input{
-    width: 50%;
+    width: 300px;
     height: 30px;
     border: solid 1px #0A8D47;
 }
@@ -492,6 +607,8 @@ width: 20px;
 
 #passe small{
     margin: 0;
-    font-size: clamp(1rem,0.8vw,3rem);
+    font-size: clamp(0.8rem,0.8vw,3rem);
+    width: 100%;
+    text-align: center;
 
 }

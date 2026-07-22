@@ -47,12 +47,12 @@ public interface ProduitRepository extends JpaRepository<Produit, String> {
     FROM Produit p
     LEFT JOIN Prolongement pr
         ON pr.produit = p
-    WHERE p.statut = 'accepted'
+    WHERE p.statut = 'stocked'
     AND p.dateDebutStockage <= CURRENT_TIMESTAMP
     AND (
         pr IS NULL
         OR (
-            pr.statut = 'accepted'
+            pr.statut = 'stocked'
             AND pr.ancienneDateFin <= CURRENT_TIMESTAMP
         )
     )

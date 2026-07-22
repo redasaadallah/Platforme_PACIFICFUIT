@@ -277,15 +277,18 @@ const toastId = toast.loading("Acceptation en cours...");
     <Baradmin page={2} closeWindow={()=>{setOut(true)}}/>
     <Headeradmin closeWindow={()=>{setOut(true)}}/>
     <div id="ademande1">
+      <div>
         <h1>Demandes de réservation/prolongation</h1>
         <p>{filtredListe.length} demandes</p>
+        </div>
         <div>
             {/* ============================= */}
            <div className="reda">
-        <label className='option'>Chercher par :</label>
+        <label style={{fontSize:"clamp(1rem,1vw,3rem)",flex:"1"}} className='option'>Chercher par :</label>
         {/* +++++++++++++++++++++++++++++++++++++++++++++++ */}
-             <div className="select-filter">
+             <div style={{height:"40px",flex:"1"}} className="select-filter">
   <div
+    style={{height:"40px"}}
     className="select-box-filter"
     onClick={() => setOpensearch(!opensearch)}
   >
@@ -294,7 +297,7 @@ const toastId = toast.loading("Acceptation en cours...");
   </div>
 
   {opensearch && (
-    <div className="select-options-filter">
+    <div  className="select-options-filter">
         
       {optionsearch.map((option) => (
         <div
@@ -325,10 +328,11 @@ const toastId = toast.loading("Acceptation en cours...");
         </label>
         </div>
        {/* ___________________________________ */}
-       <div>
-       <label>Filtrer par : </label>
-    <div className="select-filter">
+       <div style={{gap:"10px"}}>
+       <label style={{fontSize:"clamp(1rem,1vw,3rem)",flex:"1"}}>Filtrer par : </label>
+    <div style={{height:"40px",flex:"1"}} className="select-filter">
   <div
+  style={{height:"40px"}}
     className="select-box-filter"
     onClick={() => setOpen(!open)}
   >

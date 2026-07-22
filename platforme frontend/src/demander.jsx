@@ -28,6 +28,7 @@ import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
 import api from "./api/axios";
 import VerificationModal from "./composants/VerificationModal";
+import { motion } from "framer-motion";
 
 function Demander(){
     const navigate=useNavigate();
@@ -473,7 +474,7 @@ const supprimerProduit = (indexProduit) => {
         email:"",
         telephone:""
     })
-    
+    setVerified(false)
     setDateFin({
       ...dateFin,
     dateDebutStockage: "",
@@ -491,11 +492,11 @@ const supprimerProduit = (indexProduit) => {
 
 
 
-const verifierCoordonnees=async()=>{
+const verifierCoordonnees=()=>{
 
 
   if( validateStep1()){
-    await axios.post(
+     axios.post(
         "http://localhost:8080/api/client/sendCode",
         {
             email:clientData.email,
@@ -504,7 +505,7 @@ const verifierCoordonnees=async()=>{
     );
 
 
-    setOpenVerification(true);
+     setOpenVerification(true);
 
 }}
  
@@ -535,17 +536,37 @@ const verifierCoordonnees=async()=>{
     {boite && <Ouinon type={0} sortir={()=>envoyerDemande()} annuler={()=>setBoite(false)} />}
     {show===0?<Loader />:<>
     <Header at={2} atphone={3} at1={2}/>
-    <Main back={img3}/>
+    <Main back={img3} at={4}/>
     {/* =================================== */}
     <div id="dem1">
-        <div>
+        <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0 }}
+        viewport={{ once: true, amount: 0 }}
+        >
         <hr/>
         <h1>Réservez <span className="span">votre</span> espace <span className="span">frigorifique</span></h1>
-        </div>
-        <h3>Remplissez le formulaire ci-dessous pour demander votre réservation.</h3>
-        <h3>Notre équipe vous contactera rapidement pour confirmer la disponibilité.</h3>
+        </motion.div>
+        <motion.h3
+       initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0.2 }}
+        viewport={{ once: true, amount: 0 }} 
+       >Remplissez le formulaire ci-dessous pour demander votre réservation.</motion.h3>
+        <motion.h3
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0.4 }}
+        viewport={{ once: true, amount: 0 }}
+        >Notre équipe vous contactera rapidement pour confirmer la disponibilité.</motion.h3>
     </div>
-    <form onSubmit={handleSubmit} id="dem2">
+    <motion.form
+    initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0.5 }}
+        viewport={{ once: true, amount: 0 }}
+    onSubmit={handleSubmit} id="dem2">
         <h1>Veuillez saisir les informations demandées.</h1>
         <div>
         <div className="wave-group">
@@ -710,7 +731,7 @@ const verifierCoordonnees=async()=>{
         <div>
         {produits.map((produit,index)=>(
             
-            <div key={index} id="produit"><p>{produit.nomProduit} ({produit.quantite} tonnes, {produit.chambre.temperature} °C, {produit.dateDebutStockage}, {produit.dureeStockage} jours, {produit.prix.toFixed(2)} DH)</p><button type="button" onClick={()=>supprimerProduit(index)} ><img src={del}/></button></div>
+            <div key={index} id="produit"><p>{produit.nomProduit}<br/> ({produit.quantite} tonnes, {produit.chambre.temperature} °C, {produit.dateDebutStockage}, {produit.dureeStockage} jours, {produit.prix.toFixed(2)} DH)</p><button type="button" onClick={()=>supprimerProduit(index)} ><img src={del}/></button></div>
         
         ))}
         </div>
@@ -721,38 +742,63 @@ const verifierCoordonnees=async()=>{
         {done && <p style={{textAlign:"center",marginTop:"-5%"}} className="errors">Vous devez remplir tous les champs.</p>}
         {!done &&(done1 && <p style={{textAlign:"center",marginTop:"-5%"}} className="errors">Vous devez ajouter au moins un produit.</p>)}
 
-    </form>
+    </motion.form>
     {/* ============================================ */}
     <div id="dem3">
-        <h1>Pourquoi réserver chez nous ?</h1>
+        <motion.h1
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0 }}
+        viewport={{ once: true, amount: 0 }}
+        >Pourquoi réserver chez nous ?</motion.h1>
         <div>
             <div>
-            <div>
+            <motion.div
+            initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0.2 }}
+        viewport={{ once: true, amount: 0 }}
+            >
             <div></div>
             <p>Processus simple et rapide</p>
             <img src={img8}/>
             
-            </div>
-            <div>
+            </motion.div>
+            <motion.div
+            initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0.4 }}
+        viewport={{ once: true, amount: 0 }}
+            >
             <div></div>
             <p>Confirmation rapide</p>
             <img src={img9}/>
             
-            </div>
+            </motion.div>
             </div>
             <div>
-            <div>
+            <motion.div
+            initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0.6 }}
+        viewport={{ once: true, amount: 0 }}
+            >
             <div></div>
             <p>Conditions optimales de conservation</p>
             <img src={img10}/>
             
-            </div>
-            <div>
+            </motion.div>
+            <motion.div
+            initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0.8 }}
+        viewport={{ once: true, amount: 0 }}
+            >
             <div></div>
             <p>Espaces adaptés à vos besoins</p>
             <img src={img11}/>
             
-            </div>
+            </motion.div>
             </div>
         </div>
     </div>

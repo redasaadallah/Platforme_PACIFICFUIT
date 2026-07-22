@@ -5,9 +5,7 @@
 
     background:rgba(0,0,0,.35);
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    
 
     z-index:2000;
 
@@ -27,13 +25,19 @@
     border-radius:25px;
 
     padding:40px;
-
+    position: fixed;
     box-shadow:
     0 15px 40px rgba(0,0,0,.15);
-
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
     text-align:center;
+    animation: apear 1s 1 forwards;
+    
+
 
 }
+
 
 
 

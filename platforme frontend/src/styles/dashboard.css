@@ -34,7 +34,7 @@
     align-items: center;
     justify-content: space-around;
     flex-shrink: 0;
-    height: 300px;
+    min-height: 200px;
 
 }
 
@@ -59,7 +59,7 @@
 #s1>div:first-of-type>div>div:first-of-type h3{
      width: 100%;
     text-align: center;
-    font-size: clamp(1rem,1.3vw,6rem);
+    font-size: clamp(1.2rem,1.3vw,6rem);
     font-weight: lighter;
 }
 #s1>div:first-of-type>div>div:last-of-type{
@@ -157,7 +157,7 @@
     color: white;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
     padding: 10px;
-    font-size: clamp(0.6rem,0.8vw,2rem);
+    font-size: clamp(0.8rem,0.8vw,2rem);
 
 }
 #s2 .type{
@@ -167,7 +167,7 @@
     color: white;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
     padding: 10px;
-    font-size: clamp(0.6rem,0.8vw,2rem);
+    font-size: clamp(0.8rem,0.8vw,2rem);
 
 
 }
@@ -182,7 +182,7 @@
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
     padding: 10px;
     border: none;
-    font-size: clamp(0.6rem,0.8vw,2rem);
+    font-size: clamp(0.8rem,0.8vw,2rem);
     font-family: 'Playfair Display', serif;
     font-weight: lighter;
     
@@ -195,7 +195,7 @@
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
     padding: 10px;
     border: none;
-    font-size: clamp(0.6rem,0.8vw,2rem);
+    font-size: clamp(0.8rem,0.8vw,2rem);
     font-family: 'Playfair Display', serif;
     font-weight: lighter;
     
@@ -229,13 +229,17 @@
   height: 300px;
   margin: 0 auto;
   border-radius: 10px;
-  overflow: hidden;
   box-shadow: 0 5px 20px rgba(0,0,0,0.1);
   font-family: Arial, sans-serif;
+  overflow-x: scroll;
+  scrollbar-width: none;
 }
 
 /* HEADER FIXED */
 .table-headerd {
+    font-size: clamp(0.6rem,0.7vw,2rem);
+
+    min-width: 500px;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
    align-items: center;
@@ -251,6 +255,8 @@
 
 /* BODY SCROLL */
 .table-bodyd {
+        font-size: clamp(0.7rem,0.7vw,2rem);
+    min-width: 530px;
   max-height: 300px;   /*  important */
   overflow-y: auto;
   scrollbar-width: none;
@@ -280,13 +286,16 @@
   height: 350px;
   margin: 0 auto;
   border-radius: 10px;
-  overflow: hidden;
   box-shadow: 0 5px 20px rgba(0,0,0,0.1);
   font-family: Arial, sans-serif;
+  overflow-x: scroll;
+  scrollbar-width: none;
 }
 
 /* HEADER FIXED */
 .table-headerm {
+    font-size: clamp(0.7rem,0.7vw,2rem);
+    min-width: 500px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
    align-items: center;
@@ -302,6 +311,8 @@
 
 /* BODY SCROLL */
 .table-bodym {
+font-size: clamp(0.7rem,0.7vw,2rem);
+min-width: 530px;
   max-height: 300px;   /*  important */
   overflow-y: auto;
   scrollbar-width: none;

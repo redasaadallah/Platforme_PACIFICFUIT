@@ -88,6 +88,7 @@
    transition: 0.5s ease;
     font-family: 'Playfair Display', serif;
     font-size: clamp(0.9rem,1.3vw,2rem);
+    min-width: 170px;
 }
 
 #home1> div:last-of-type button:last-of-type{
@@ -108,6 +109,7 @@
         font-size: clamp(0.9rem,1.3vw,2rem);
         overflow: hidden;
     transition: 0.5s ease;
+    min-width: 170px;
    
 }
 

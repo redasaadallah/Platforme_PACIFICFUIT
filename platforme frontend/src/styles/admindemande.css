@@ -1,12 +1,15 @@
 #ademande1{
-    width: 90%;
-    height: 200px;
-    margin-left: 10%;
-    margin-top: 10%;
+    width: 85vw;
+    margin-left: 150px;
+    margin-top: 150px;
+    min-width: 360px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 #ademande1 h1{
      width: 100%;
-    font-size: clamp(1rem,2vw,6rem);
+    font-size: clamp(1.2rem,2vw,6rem);
     font-weight: lighter;
     margin: 0;
 }
@@ -16,17 +19,24 @@
     font-weight: lighter;
     margin: 0;
 }
+/* ================================= */
 #ademande1>div{
     display: flex;
     align-items: center;
-    gap: 100px;
-    margin-left: 6%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    width: 85vw;
+}
+#ademande1>div{
+    margin-bottom: 20px;
 }
 #ademande1>div>div{
-    width: 40%;
+    width: 360px;
 }
 #ademande1>div>div:first-of-type{
-    width: 30%;
+   width: 360px;
+   height: 40px;
 }
 #ademande1>div>div:last-of-type{
     display: flex;
@@ -46,6 +56,9 @@
 #ademande2{
     width: 90%;
     margin-left: 10%;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    margin-bottom: 100px;
 
     
     
@@ -53,7 +66,8 @@
 
 #ademande2 table{
     width: 90%;
-    font-size: clamp(1rem,1vw,2rem);
+    min-width: 1000px;
+    font-size: clamp(1.2rem,1.2vw,2rem);
     border-collapse:collapse ;
     margin-left: 3%;
     margin-bottom: 5%;
@@ -102,7 +116,7 @@ padding: 12px 15px;
 
 
 #ademande2 td{
-    font-size: clamp(1rem,1vw,2rem);
+    font-size: clamp(0.9rem,1vw,2rem);
     font-weight: lighter;
     text-align: center;
     padding: 12px 15px;
@@ -137,15 +151,17 @@ padding: 12px 15px;
     width: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     transition: 1s ease;
-    
+    /* flex-wrap: wrap;     */
     
 }
 #detailtest>div>div:first-of-type{
         box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
         width: 30%;
-        height: 300px;
+        min-width: 300px;
+        min-height: 300px;
         border-radius: 10px;
         display: flex;
         flex-direction: column;
@@ -179,8 +195,8 @@ padding: 12px 15px;
 /* ==================================== */
 #detailtest>div>div:last-of-type{
         box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
-        width: 70%;
-        height: 300px;
+        width: 65%;
+        min-height: 300px;
         border-radius: 10px;
         padding: 10px;
         display: flex;
@@ -251,3 +267,24 @@ gap: 10px;
     background-color: #F27147;
 }
 /* ============================================ */
+@media (max-width:767px) {
+
+#ademande1{
+    margin-left: 0;
+    margin-inline: auto;
+    
+    
+}
+#ademande1>div{
+    width: 100%;
+}
+#ademande2{
+    margin-left: 0;
+    margin-inline: auto;
+}
+#ademande2 table{
+    margin-left: 0;
+}
+    
+}
+

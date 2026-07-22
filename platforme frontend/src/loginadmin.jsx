@@ -126,12 +126,11 @@ const validateStep1 = () => {
             <img src={logo}/>
             <div>
                 <hr/>
-                <h1>Espace<span className="span">Administrateur</span></h1>
+                <h1>Espace<span className="span"> administrateur</span></h1>
             </div>
         </div>
         <div>
             <button onClick={()=>{navigate("/home")}}>Espace Client</button>
-            {/* <button><img src={france} alt=""/>France <img src={arow} alt=""/></button> */}
         </div>
     </div>
     <h1 id="la2">Cet espace est réservé à l’administration de la plateforme.</h1>

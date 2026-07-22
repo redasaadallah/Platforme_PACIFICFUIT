@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -43,17 +44,15 @@ public class StatistiqueController {
 @GetMapping("/dashboard/current-month/simple")
 public ResponseEntity<Map<String, Object>> getSimpleStats() {
 
-    LocalDate now = LocalDate.now();
 
-    LocalDate start = now.withDayOfMonth(1);
-    LocalDate end = now.withDayOfMonth(now.lengthOfMonth());
+    LocalDateTime start = LocalDate.now().withDayOfMonth(1).atStartOfDay();
+    LocalDateTime end = LocalDate.now().withDayOfMonth(LocalDate.now().lengthOfMonth()).atTime(LocalTime.MAX);
 
-    // ================= DATA =================
     List<Produit> produits =
-            produitRepository.findByDateDebutStockageBetween(start, end);
+            produitRepository.findByDateDemandeBetween(start, end);
 
     List<Prolongement> prolongements =
-            prolongementRepository.findByAncienneDateFinBetween(start, end);
+            prolongementRepository.findByDateDemandeBetween(start, end);
 
     // ================= RESERVATIONS =================
     long reservations = produits.size();
@@ -63,11 +62,11 @@ public ResponseEntity<Map<String, Object>> getSimpleStats() {
 
     // ================= ACCEPTED (R + P) =================
     long acceptedReservations = produits.stream()
-            .filter(p -> "accepted".equals(p.getStatut()) || "ended".equals(p.getStatut()))
+            .filter(p -> "accepted".equals(p.getStatut()) || "ended".equals(p.getStatut())|| "stocked".equals(p.getStatut()) || "canceled".equals(p.getStatut()))
             .count();
 
     long acceptedProlongations = prolongements.stream()
-            .filter(p -> "accepted".equals(p.getStatut()) || "ended".equals(p.getStatut()))
+            .filter(p -> "accepted".equals(p.getStatut()) || "ended".equals(p.getStatut()) || "stocked".equals(p.getStatut()) || "canceled".equals(p.getStatut()))
             .count();
 
     long acceptedTotal = acceptedReservations + acceptedProlongations;

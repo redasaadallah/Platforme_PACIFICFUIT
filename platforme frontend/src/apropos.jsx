@@ -20,6 +20,7 @@ import FadeIn from "./composants/fadein";
 import { motion } from "framer-motion";
 
 function Apropos(){
+    // localStorage.clear()
     const [show,setshow]=useState(0);
     const [visible,setvisible]=useState(0)
     useEffect(()=>{

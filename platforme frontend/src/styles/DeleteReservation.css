@@ -5,9 +5,6 @@
 
     background:rgba(255, 255, 255, 0.5);
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
 
     z-index:3000;
 
@@ -18,17 +15,22 @@
 
 .delete-modal{
 
-    width:600px;
+    width:min(75%,600px);
 
     background:white;
 
     border-radius:10px;
 
     padding:35px;
-
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%);
     box-shadow:
     0 15px 40px rgba(0,0,0,0.18);
-    border-block: solid 5px #4caf50
+    border-block: solid 5px #4caf50;
+    animation: apear 1s 1 forwards;
+
 
 
 }
@@ -155,9 +157,9 @@
 
 .option-icon{
 
-    width:55px;
+    width:50px;
 
-    height:55px;
+    height:50px;
 
     border-radius:50%;
 
@@ -195,6 +197,8 @@
 .option-content h3{
 
     margin:0 0 8px;
+    font-size: clamp(0.9rem,1vw,2rem);
+
 
 }
 
@@ -224,6 +228,8 @@
     color:#475569;
 
     font-size:15px;
+    font-size: clamp(0.8rem,1vw,2rem);
+
 
 }
 

@@ -1,6 +1,6 @@
 #ha{
-    width: 90vw;
-    margin-left: 150px;
+    width: 85vw;
+    left: 150px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,21 +23,20 @@
         padding-top: 40px;
 }
 #ha>div:first-of-type>div:first-of-type hr{
-    width: 150px;
+    width: 100px;
     max-width: 30vw;
     text-align: left;
     border-radius: 50px;
     margin-right: 85%;
-    margin-bottom: -5%;
     border: solid 3px #0A8D47;
 }
 #ha>div:first-of-type>div:first-of-type h1{
     width: 100%;
     text-align: left;
     border-radius: 50px;
-    font-size: clamp(1.3rem,2vw,6rem);
+    font-size: clamp(1.2rem,2vw,6rem);
     font-weight: lighter;
-    margin-bottom: -6%;
+    margin: 0;
 
 }
 #ha>div:first-of-type>div:first-of-type p{
@@ -46,6 +45,7 @@
     border-radius: 50px;
     font-size: clamp(0.9rem,1.2vw,2rem);
     font-weight: lighter;
+    margin: 0;
 }
 #ha>div:first-of-type>div:last-of-type{
     display: flex;
@@ -75,77 +75,12 @@
     width: 25px;
 } 
 /* ================================= */
-#buttonmenu{
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    border: none;
-    background: none;
-    right: 5px;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 200;
 
-}
-#buttonmenu img{
-    width: 30px;
-    height: 30px;
-}
 
-.box {
-  position: fixed;
-  width: 95%;
-  height: 30dvh;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.7);
-  top: 110dvh; /* hidden */
-  border-radius: 5px 5px 0 0;
-  z-index: 300;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: white;
-  transition: top 0.2s ease,display 0.2s ease; /* smooth sliding both ways */
-  display: flex;
-}
 
-.box.show {
-  top: 70dvh;
-   /* visible position */
-}
-.whitemenu{
-    width: 100%;
-    height: 100dvh;
-    background-color: rgb(255, 255, 255);
-    opacity: 0;
-    position: fixed;
-    z-index: 100;
-    top: 0;
-    display: none;
-}
-.whitemenu.cover{
-    display: block;
-    opacity: 0.7;
-    transition: opacity 0.2s ease;
 
-}
-#buttonmenu{
-    position: fixed;
-    top: 10px;
-    width: 40px;
-    height: 40px;
-    border: none;
-    background: none;
-    right: 10px;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 200;
 
-}
-#buttonmenu img{
-    width: 40px;
-    height: 40px;
-}
+
 @media (max-width:767px) {
 #ha{
     left: 50%;
@@ -155,14 +90,13 @@
     padding-left: 5px;
 
 }
-#ha>div:first-of-type>div:last-of-type{
-    display: none;
+#ha{
+    width: 90%;
 }
+
 #ha>div:first-of-type>div:first-of-type{
     padding-top: 0;
 }
-#buttonmenu{
-    display: flex;
-}
+
 }
 

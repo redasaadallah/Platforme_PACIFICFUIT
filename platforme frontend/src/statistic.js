@@ -268,7 +268,7 @@ useEffect(() => {
                         <p>Espace disponible</p>
                         <img src={readystock}/>
                     </div>
-                    <h1>{capchambres.capaciteDisponible} tonnes</h1>
+                    <h1>{capchambres.capaciteDisponible?.toFixed(2)} tonnes</h1>
                     <div>
                         <h1>{capchambres?.tauxDisponible?.toFixed(2)} %</h1>
                         <div></div>
@@ -279,7 +279,7 @@ useEffect(() => {
                         <p>Espace occupé</p>
                         <img src={outofstock}/>
                     </div>
-                    <h1>{capchambres.capaciteOccupee} tonnes</h1>
+                    <h1>{capchambres.capaciteOccupee?.toFixed(2)} tonnes</h1>
                     <div>
                         <h1>{capchambres?.tauxOccupee?.toFixed(2)} %</h1>
                         <div></div>
@@ -288,6 +288,7 @@ useEffect(() => {
                 </div>
             </div>
             {/* statistic des demande progress bar */}
+            <div>
             <div>
                 <h1>Statistiques des demandes clients</h1>
                 <div>
@@ -366,7 +367,7 @@ useEffect(() => {
                         </tr>
                     </table>
                     <div>
-                       <div style={{ position: "relative", width: "250px" }}>
+                       <div style={{ position: "relative", width: "250px",zIndex:1000}}>
 
       {/*  CLICKABLE BOX */}
       <div
@@ -399,6 +400,7 @@ useEffect(() => {
             borderRadius: "8px",
             maxHeight: "250px",
             overflowY: "auto",
+            
             
             zIndex: 1000
           }}
@@ -437,6 +439,7 @@ useEffect(() => {
                     </div>
                 </div>
             </div>
+            </div>
         </div>
 
         <div id="statistic3">
@@ -444,7 +447,7 @@ useEffect(() => {
                 <div>
                     <h3>Évolution {getLabel(selectedType)} en {selectedYear}</h3>
                     <div>
-                          <div style={{ position: "relative", width: "250px" }}>
+                          <div style={{ position: "relative", width: "150px" }}>
 
       {/*  CLICKABLE BOX */}
       <div
@@ -513,7 +516,7 @@ useEffect(() => {
       )}
     </div>
     {/* ============================================= */}
-     <div style={{ position: "relative", width: "250px" }}>
+     <div style={{ position: "relative", width: "190px" }}>
 
       {/*  CLICKABLE BOX */}
       <div

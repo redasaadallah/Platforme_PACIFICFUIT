@@ -22,11 +22,7 @@ function Headeradmin({closeWindow}){
     
       }, []);
     return(<>
-    <div className={`whitemenu ${show ? "cover" : ""}`}></div>
-    <div className={`box ${show ? "show" : ""}`}>
-        reda
-    </div>
-    <button onClick={toggleAnimation} id='buttonmenu'><img src={menu}/></button>
+    
     <div id="ha">
         <div>
             <div>
@@ -44,7 +40,6 @@ function Headeradmin({closeWindow}){
                     <img/>
                 </div>
                 <button onClick={closeWindow}><img src={logout} />Se déconnecter</button>
-                {/* <button><img src={france} alt=""/>France <img src={arow} alt=""/></button> */}
 
             </div>
         </div>

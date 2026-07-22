@@ -25,12 +25,14 @@ import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
 import api from "./api/axios";
 import axios from "axios"
+import { motion } from "framer-motion";
+
 function Espaceclient(){
     const [client, setClient] = useState( JSON.parse(localStorage.getItem("client")));
     const [produits,setProduits]=useState([])
     const [annule,setAnnule]=useState(false)
     const [parametres,setParametres]=useState({})
-
+    // localStorage.clear()
     useEffect(() => {
     // Fonction async à l'intérieur du useEffect
     const fetchProduits = async () => {
@@ -72,7 +74,7 @@ function Espaceclient(){
               //  Auto refresh when admin adds chambre
             
             try {
-                const response = await api.get(`http://localhost:8080/api/client/after-login/${client.cin}`);
+                const response = await api.get(`http://localhost:8080/api/client/after-login`);
                 setProduits(response.data);
                 console.log(response.data)
                 setAnnule(false)
@@ -296,17 +298,26 @@ function canRequestExtension(dateDebut, dateFin, delai) {
         </div>
         <div>
             <button onClick={()=>{setout(true)}}><img src={logout}/>Se déconnecter</button>
-            <button><img src={france}/>Français<img src={arow}/></button>
         </div>
     </div>
 
-    <div id="cbien">
+    <motion.div
+    initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0 }}
+        viewport={{ once: true, amount: 0 }}
+    id="cbien">
         <h1>Bienvenue {client?.nom}, dans votre espace client.</h1>
         <h3>Depuis cet espace, vous pouvez consulter les informations relatives à votre réservation, suivre son état, accéder à vos documents et effectuer certaines demandes complémentaires.</h3>
-    </div>
+    </motion.div>
     <div id="client">
     <div id="client1">
-        <div>
+        <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0.3 }}
+        viewport={{ once: true, amount: 0 }}
+        >
             <div>
                 <h1>Mes informations</h1>
                 <img src={infopers}/>
@@ -319,21 +330,31 @@ function canRequestExtension(dateDebut, dateFin, delai) {
                 <div><h3>Mot de passe : ********</h3><button onClick={()=>{setprol(true);setType(5);setInfo(client.motDePasse)}}><img src={pencil}/></button></div>
 
             </div>
-        </div>
+        </motion.div>
         {/* ================================ */}
-        <div>
+        <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0.2 }}
+        viewport={{ once: true, amount: 0 }}
+        >
             <div>
                 <img src={ad5}/><p>Ajouter une nouvelle demande de stockage</p>  
             </div>
                 <button onClick={()=>{setprol(true);setType(2)}}>Ajouter un produit</button>
             
-        </div>
+        </motion.div>
     </div>
     <div id="client2">
-        <div>
+        <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0 }}
+        viewport={{ once: true, amount: 0 }}
+        >
                 <h1>Mes produits ({produits.length})</h1>
                 <img src={about}/>
-        </div>
+        </motion.div>
         {/* ============================== */}
         {/* ============================== */}
         {/* ===================le debut pour les produit==== */}
@@ -343,13 +364,18 @@ function canRequestExtension(dateDebut, dateFin, delai) {
             const last = prolongements[lastIndex];
             const isLastPending = last?.statut === "enAtente";
             return(<>
-        <div className="rowproduit">
+        <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0.2 }}
+        viewport={{ once: true, amount: 0 }}
+        className="rowproduit">
             <div><p >Produit : {produit.nomProduit}</p>{produit.statut==="enAtente"?<><p>(En attente)</p><img src={loading}></img></>:<p>Code : {produit.idProduit}</p>}</div>
             <div>
             {produit.statut!=="enAtente" && openRow===null &&<button onClick={() => telechargerRecu(produit.idProduit)}>Télécharger le reçu</button>}
             <button onClick={()=>{openRow===produit.idProduit?setOpenRow(null):setOpenRow(produit.idProduit);}}>{openRow===produit.idProduit?"Masquer details":"Voir details"}</button>
             </div>
-        </div>
+        </motion.div>
         {/* ==================================== */}
         {/* ===================les details pour les produit======= */}
         {openRow ===produit.idProduit &&<>
@@ -536,10 +562,15 @@ function canRequestExtension(dateDebut, dateFin, delai) {
         </>)})}
     </div>
     </div>
-    <div id="recu">
+    <motion.div
+    initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay:0 }}
+        viewport={{ once: true, amount: 0 }}
+    id="recu">
         <img src={warningrecu}/>
         <p>Pour déposer vos produits, veuillez présenter votre reçu de réservation.</p>
-    </div>
+    </motion.div>
     <Footer/>
     </>)
 }

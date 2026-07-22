@@ -14,6 +14,11 @@ import logout from "../img/log-out.png"
 import {useNavigate} from "react-router-dom"
 import menu from "../img/menu.png"
 import { useState } from "react"
+import clipboardgreen from "../img/clipboardgreen.png"
+import menugreen from "../img/menugreen.png"
+import homegreen from "../img/homegreen.png"
+import adjustgreen from "../img/adjustgreen.png"
+import statisticsgreen from "../img/statisticsgreen.png"
 function Baradmin({closeWindow,page}){
     const navigate=useNavigate();
     const [show, setShow] = useState(false);
@@ -51,25 +56,21 @@ function Baradmin({closeWindow,page}){
         </div>
     </div>
     {/* ===============================la bare pour les telephones */}
-    <div className={`white ${show ? "cover" : ""}`}></div>
-    <div className={`box ${show ? "show" : ""}`}>
-        reda
-    </div>
-    <button onClick={toggleAnimation} id='buttonmenu'><img src={menu}/></button>
+   
     <div id='baradminphone'>
-        <div id='selected'><button id='selectedbutton'><img id='selectedimg' src={ad5}/></button>
-        <p id='selectedp'>Accueil</p>
+        <div ><button onClick={()=>{navigate("/dashboard")}} id={page===1?'selectedbutton':""}><img  src={page===1?homegreen:home} /></button>
+        <p >Accueil</p>
         </div>
-        <div><button><img src={ad1}/></button>
+        <div><button onClick={()=>{navigate("/admindemande")}} id={page===2?'selectedbutton':""}><img src={page===2?clipboardgreen:ad1}/></button>
         <p>Demandes</p>
         </div>
-        <div><button><img src={ad2}/></button>
+        <div><button onClick={()=>{navigate("/adminreservation")}} id={page===3?'selectedbutton':""}><img src={page===3?menugreen:ad2}/></button>
         <p>Réservations</p>
         </div>
-        <div><button><img src={ad3}/></button>
+        <div><button onClick={()=>{navigate("/statistic")}} id={page===4?'selectedbutton':""}><img src={page===4?statisticsgreen:ad3}/></button>
         <p>Statistiques</p>
         </div>
-        <div><button><img src={ad4}/></button>
+        <div><button onClick={()=>{navigate("/parametre")}} id={page===5?'selectedbutton':""}><img src={page===5?adjustgreen:ad4}/></button>
         <p>Paramètres</p>
         </div>
         

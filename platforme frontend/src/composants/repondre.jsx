@@ -4,7 +4,7 @@ import send from "../img/send1.png"
 import React,{useEffect,useState} from "react"
 import { toast } from "react-toastify";
 import api from "../api/axios";
-
+import usergreen from "../img/usergreen.png"
 import axios from "axios";
 function Repondre({msg,closeWindow,done}){
     const [formData, setFormData] = useState({
@@ -101,9 +101,16 @@ function Repondre({msg,closeWindow,done}){
         <div>
             <img onClick={closeWindow} src={close}/>
         </div>
+        <div>
         <h1>{msg.nom} {msg.prenom}</h1>
+        <div><img src={usergreen} alt=""/></div>
+        </div>
         <p>{msg.contenu}</p>
-        <textarea onChange={handleChange} name="reponce" placeholder="Répondre"></textarea>
+        <hr id="baros"/>
+        <label className="reply-title">
+        Répondre
+      </label>
+        <textarea onChange={handleChange} name="reponce" placeholder="Écrivez votre réponse ici..."></textarea>
         <button  ><img src={send}/>Envoyer</button>
     </form>
    

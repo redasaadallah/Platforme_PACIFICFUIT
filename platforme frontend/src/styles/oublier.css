@@ -14,6 +14,8 @@
     padding: 10px;
     max-width: 600px;
     z-index: 201;
+    animation: apear 1s 1 forwards;
+
 }
 #oublier>div{
     width: 100%;
@@ -57,4 +59,15 @@
 }
 #oublier>form>button>img{
     width: 20px;
+}
+@keyframes apear {
+    from{
+        opacity: 0.2;
+        transform: translate(-50%,50%);
+    }
+    to{
+        opacity: 1;
+        transform: translate(-50%,-50%);
+    }
+    
 }

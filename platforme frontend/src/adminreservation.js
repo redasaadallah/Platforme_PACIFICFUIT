@@ -320,14 +320,15 @@ setRchoisi({})
         <div>
            {/* ============================= */}
            <div className="reda">
-        <label className='option'>Chercher par :</label>
+        <label style={{fontSize:"clamp(1rem,1vw,3rem)",flex:"1"}} className='option'>Chercher par :</label>
         {/* +++++++++++++++++++++++++++++++++++++++++++++++ */}
-             <div className="select-filter">
+             <div style={{height:"40px",flex:"1"}} className="select-filter">
   <div
+  style={{height:"40px"}}
     className="select-box-filter"
     onClick={() => setOpensearch(!opensearch)}
   >
-    <span>{optionsearchSelectionnee.label}</span>
+    <span style={{fontSize:"clamp(0.8rem,0.8vw,3rem)"}}>{optionsearchSelectionnee.label}</span>
     <span><img width="30px"  src={arowdown}/></span>
   </div>
 
@@ -361,14 +362,15 @@ setRchoisi({})
         </label>
         </div>
        {/* =============================la section pour filtrer les listes */}
-    <div>
-       <label>Filtrer par : </label>
-    <div className="select-filter">
+    <div style={{width:"360px",marginLeft:"0"}}>
+       <label style={{fontSize:"clamp(1rem,1vw,3rem)"}}>Filtrer par : </label>
+    <div style={{height:"40px",width:"70%"}} className="select-filter">
   <div
+  style={{height:"40px"}}
     className="select-box-filter"
     onClick={() => setOpen(!open)}
   >
-    <span>{optionSelectionnee.label}</span>
+    <span style={{fontSize:"clamp(0.8rem,0.8vw,3rem)"}}>{optionSelectionnee.label}</span>
     <span><img width="30px"  src={arowdown}/></span>
   </div>
 
@@ -451,7 +453,7 @@ setRchoisi({})
         <>
         
         <tr id="rowreservation" key={index} >
-      <td>{res.cinClient}</td>
+      <td>{res.cinClient} ({res.type==="reservation"?"R":"P"})</td>
       <td>{res.nomClient}</td>
       <td><div style={{backgroundColor:etat(res.dateDebutStockage,res.dateFinStockage)}}></div></td>
       <td>{new Date(res.dateDebutStockage).toLocaleDateString("fr-FR")}</td>
@@ -482,46 +484,46 @@ setRchoisi({})
                 <img src={ares1}/>
                 <h1>Informations du client</h1>
             </div>
-            <table>
-                <tr>
-                    <td>Nom complet : {reservation.nomClient}</td>
-                    <td>CIN : {reservation.cinClient}</td>
-                </tr>
-                <tr>
-                    <td>Email : {reservation.emailClient}</td>
-                    <td>Téléphone : {reservation.telephoneClient}</td>
-                </tr>
-            </table>
+            <div>
+                <div>
+                    <p>Nom complet : {reservation.nomClient}</p>
+                    <p>CIN : {reservation.cinClient}</p>
+                </div>
+                <div>
+                    <p>Email : {reservation.emailClient}</p>
+                    <p>Téléphone : {reservation.telephoneClient}</p>
+                </div>
+            </div>
         </div>
         <div>
             <div>
                 <img src={ares2}/>
                 <h1>Informations sur le stockage </h1>
             </div>
-            <table>
-                <tr>
-                    <td> Code : {reservation.codeProduit}</td>
-                    <td> Produit : {reservation.nomProduit}</td>
+            <div>
+                <div>
+                    <p> Code : {reservation.codeProduit}</p>
+                    <p> Produit : {reservation.nomProduit}</p>
 
-                </tr>
-                <tr>
+                </div>
+                <div>
                     
-                    <td> Quantité en tonne : {reservation.quantiteProduit}</td>
-                    <td>Prix : {reservation.prixProduit.toFixed(2)} DH</td>
-                </tr>
-                <tr>
-                    <td> Chambre : {reservation.nomChambre}</td>
-                    <td> Température : {reservation.temperatureStockage}°C</td>
-                </tr>
-                <tr>
-                    <td>Date de début : {new Date(reservation.dateDebutStockage).toLocaleDateString("fr-FR")}</td>
-                    <td>durée en jour : {reservation.dureeStockage}</td>
-                </tr>
-                <tr>
-                    <td>Date de fin : {new Date(reservation.dateFinStockage).toLocaleDateString("fr-FR")}</td>
-                </tr>
+                    <p> Quantité en tonne : {reservation.quantiteProduit}</p>
+                    <p>Prix : {reservation.prixProduit.toFixed(2)} DH</p>
+                </div>
+                <div>
+                    <p> Chambre : {reservation.nomChambre}</p>
+                    <p> Température : {reservation.temperatureStockage}°C</p>
+                </div>
+                <div>
+                    <p>Date de début : {new Date(reservation.dateDebutStockage).toLocaleDateString("fr-FR")}</p>
+                    <p>durée en jour : {reservation.dureeStockage}</p>
+                </div>
+                <div>
+                    <p>Date de fin : {new Date(reservation.dateFinStockage).toLocaleDateString("fr-FR")}</p>
+                </div>
                 
-            </table>
+            </div>
         </div>
         <div>
             <div>

@@ -91,11 +91,10 @@ public ResponseEntity<?> login(
     if(admin == null) {
 
         return ResponseEntity
-                .status(401)
-                .body(
+                .ok(
                         Map.of(
                                 "success", false,
-                                "message", "Email introuvable"
+                                "message", "Email ou mot de passe incorrect."
                         )
                 );
 
@@ -112,12 +111,11 @@ public ResponseEntity<?> login(
 
 
         return ResponseEntity
-                .status(401)
-                .body(
+                .ok(
                         Map.of(
                                 "success", false,
                                 "message",
-                                "Mot de passe incorrect"
+                                "Email ou mot de passe incorrect."
                         )
                 );
 

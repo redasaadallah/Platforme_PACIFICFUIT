@@ -1,15 +1,16 @@
 #areservation1{
-    width: 90%;
+    width: 85vw;
     height: 250px;
-    margin-left: 10%;
-    margin-top: 10%;
+   margin-left: 150px;
+    margin-top: 150px;
+    margin-bottom: 60px;
    
     
     
 }
 #areservation1 h1{
      width: 100%;
-    font-size: clamp(1rem,2vw,6rem);
+    font-size: clamp(1.5rem,2vw,6rem);
     font-weight: lighter;
     margin: 0;
 }
@@ -18,20 +19,23 @@
     font-size: clamp(1rem,1vw,2rem);
     font-weight: lighter;
     margin: 0;
+    margin-bottom: 20px;
 }
 #areservation1>div:first-of-type{
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 90%;
-    margin-left: 2%;
+    width: 85vw;
+    margin-inline: auto;
+    gap: 0;
     
 }
 #areservation1>div:first-of-type>div{
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 10px;
+    flex: 1;
 }
 #areservation1>div:first-of-type>div div{
     width: 20px;
@@ -54,8 +58,9 @@
    
 }
 #areservation1>div:first-of-type>div h3{
-    font-size: clamp(1rem,1.2vw,2rem);
+    font-size: clamp(0.8rem,1.2vw,2rem);
     font-weight: lighter;
+    margin: 0;
    
 }
 
@@ -63,27 +68,24 @@
     width: 40%;
 }
 
-#areservation1>div>div:first-of-type{
-    width: 30%;
-    
+
+#areservation1>div:nth-of-type(2)>div{
+    width: 360px;
 }
+
 #areservation1>div:last-of-type{
     display: flex;
-    gap: 20px;
+    gap: 10px;
     justify-content: center;
-    width: 90%;
+    width: 100%;
     margin-top: 20px;
+    flex-wrap: wrap;
+    
 
     
 }
-#areservation1>div:last-of-type>div:first-of-type{
-    display: flex;
-    width: 15%;
-}
-#areservation1>div:last-of-type>div:nth-child(2){
-    display: flex;
-    width: 30%;
-}
+
+
 
 
 
@@ -92,12 +94,11 @@
 /* ----------------------------------------------------------------- */
 #areservation2{
     width: 90%;
-    margin-left: 7%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow-y: auto;
+    margin-left: 10%;
+    
+    overflow-y: scroll;
     margin-bottom: 100px; 
+    scrollbar-width: none;
       
 
 
@@ -109,6 +110,7 @@
 
 #areservation2 table{
    width: 90%;
+    min-width: 1200px;
     font-size: clamp(1rem,1vw,2rem);
     border-collapse:collapse ;
     margin-left: 3%;
@@ -131,7 +133,7 @@
 
 #areservation2 td{
     
-    font-size: clamp(1rem,1vw,2rem);
+    font-size: clamp(0.9rem,1vw,2rem);
     font-weight: lighter;
     text-align: center;
     padding-block: 5px;
@@ -265,6 +267,8 @@ flex-direction: row-reverse;
     max-height: 90dvh;
     overflow-y: scroll;
     scrollbar-width: none;
+        animation: apear 1s 1 forwards;
+
     
 }
 #resdetail>div{
@@ -283,34 +287,79 @@ flex-direction: row-reverse;
     font-size: clamp(1rem,1.5vw,6rem);
     font-weight: lighter;
 }
-#resdetail>div>table{
-    width: 100%;
-    font-size: clamp(1rem,1vw,6rem);
-    font-weight: lighter;
+/* +++++++++++++++++++++++++++++++ */
+#resdetail>div:first-of-type>div:last-of-type{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
     border: solid 1px #0A8D47;
     border-radius: 5px;
-    border-collapse: separate;
-    overflow: hidden;  
+    padding: 20px;
+    width: 90%;
+    margin-inline: auto;
+    margin-top: 20px;
+
 }
-#resdetail>div>table td{
-    border: none;
-    border-radius: 5px;
-    text-align:left;
+#resdetail>div:first-of-type>div:last-of-type div{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 45%;
+    min-width: 300px;
+}
+#resdetail>div:first-of-type>div:last-of-type div p{
+    margin: 0;
+    font-size: clamp(0.8rem,1vw,4rem);
+
+}
+/* ++++++++++++++++++++++++++++++++++++++ */
+#resdetail>div:nth-of-type(2)>div:last-of-type{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
     
+    flex-wrap: wrap;
+    border: solid 1px #0A8D47;
+    border-radius: 5px;
+    padding: 20px;
+    width: 90%;
+    margin-inline: auto;
+    margin-top: 20px;
+
 }
+#resdetail>div:nth-of-type(2)>div:last-of-type div{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 10px;
+    width: 45%;
+    min-width: 300px;
+}
+#resdetail>div:nth-of-type(2)>div:last-of-type div p{
+    margin: 0;
+    font-size: clamp(0.8rem,1vw,4rem);
+
+}
+/* ====================================== */
+
 
 
 
 #resdetail>div:nth-of-type(3)>div:last-of-type {
    display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+   margin-top: 20px;
 
 }
 #resdetail>div:nth-of-type(3)>div:last-of-type>div:first-of-type {
    
-   width: 50%;
+   width: 45%;
    display: flex;
    flex-direction: column;
    gap: 10px;
+   min-width: 300px;
 
 }
 #resdetail>div:nth-of-type(3)>div:last-of-type>div:first-of-type>div{
@@ -337,7 +386,8 @@ flex-direction: row-reverse;
     height: 20px;
 }
 #resdetail>div:nth-of-type(3)>div:last-of-type>div:last-of-type{
-    width: 50%;
+    width: 45%;
+    min-width: 300px;
     height: 100px;
     border: solid 1px #4caf50;
     border-radius:5px ;
@@ -474,12 +524,39 @@ background-color: #F2BC47;
 
 /* Large desktops */
 @media (min-width: 1440px) {
-  #areservation2{
-    margin-top: 50px;
-  }
+  
 }
 
 /* Extra large screens */
 @media (min-width: 1920px) {
   /* styles */
+}
+@media (max-width:767px) {
+
+#areservation1{
+    margin-left: 0;
+    margin-inline: auto;
+    width: 95%;
+}
+#areservation2{
+    margin-left: 0;
+    margin-inline: auto;
+    width: 95%;
+    padding-left: 0;
+}
+#areservation2 table{
+    margin-left: 0;
+}
+    
+}
+@keyframes apear {
+    from{
+        opacity: 0.2;
+        transform: translate(-50%,50%);
+    }
+    to{
+        opacity: 1;
+        transform: translate(-50%,-50%);
+    }
+    
 }

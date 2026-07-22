@@ -91,29 +91,47 @@ public ResponseEntity<?> login(
     String cin = request.get("cin");
 
     String motDePasse = request.get("motDePasse");
+    Map<String,Object> response =
+            new HashMap<>();
 
 
-    Client client = clientRepository
-            .findById(cin)
-            .orElseThrow(
-                    () -> new RuntimeException(
-                            "Client not found"
-                    )
-            );
+    Optional<Client> clientOptional = clientRepository.findById(cin);
+
+    if (clientOptional.isEmpty()) {
+        response.put(
+                "success",
+                false
+        );
+        response.put(
+                "message",
+                "CIN ou mot de passe incorrect."
+        );
+        return ResponseEntity.ok(
+                response
+        );
+    }
+
+    Client client = clientOptional.get();
 
 
 
     // Check password
 
-    if(!passwordEncoder.matches(
+    if (!passwordEncoder.matches(
             motDePasse,
             client.getMotDePasse()
     )) {
+        response.put(
+                "success",
+                false
+        );
+        response.put(
+                "message",
+                "CIN ou mot de passe incorrect."
+        );
 
         return ResponseEntity
-                .status(401)
-                .body("Mot de passe incorrect");
-
+                .ok(response);
     }
 
 
@@ -141,8 +159,7 @@ public ResponseEntity<?> login(
 
 
 
-    Map<String,Object> response =
-            new HashMap<>();
+
 
 
     response.put(

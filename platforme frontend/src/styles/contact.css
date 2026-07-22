@@ -3,12 +3,11 @@
     width: 90%;
 }
 #contact1 hr{
-    width: 15%;
+    width: 100px;
     border: 3px solid #0A8D47;
     text-align: left;
     border-radius: 50px;
     margin-right: 100%;
-    margin-bottom: -3%;
 }
 
 #contact1 h1{
@@ -16,7 +15,8 @@
     text-align: left;
     border-radius: 50px;
     font-weight: lighter;
-    font-size: clamp(2rem,4vw,6rem);
+    font-size: clamp(2rem,4vw,4rem);
+    margin: 0;
 }
 #contact1 h3{
     width: 100%;
@@ -24,6 +24,7 @@
     font-weight: lighter;
     font-size: clamp(1rem,2.5vw,4rem);
     text-align: center;
+    margin: 0;
 }
 #contact1>div:last-of-type{
     width: 100%;
@@ -75,20 +76,20 @@
     margin: 20px auto;
 }
 #contact2 hr{
-    width: 200px;
+    width: 100px;
     max-width: 30vw;
     text-align: left;
     border-radius: 50px;
-    margin-right: 85%;
-    margin-bottom: -3%;
+    margin-right: 100%;
     border: solid 3px #0A8D47;
 }
 #contact2>div:first-of-type div h1{
     width: 100%;
     text-align: left;
     border-radius: 50px;
-    font-size: clamp(1.8rem,4vw,6rem);
+    font-size: clamp(1.8rem,4vw,4rem);
     font-weight: lighter;
+    margin: 0;
 }
 
 #contact2 h3{
@@ -234,6 +235,7 @@
   position: absolute;
   pointer-events: none;
   left: 5px;
+  
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -248,6 +250,21 @@
 .wave-group .input:not(:placeholder-shown) ~ label .label-char
  {
   transform: translateY(-20px);
+  
+      font-size: clamp(0.8rem,0.9vw,3rem);
+  color: #0A8D47;
+  z-index: 100;
+  background-color: white;
+}
+.wave-group .label-erea {
+  transition: 0.2s ease all;
+  transition-delay: calc(var(--index) * .05s);
+}
+.wave-group .input:focus ~ label .label-erea,
+.wave-group .input:not(:placeholder-shown) ~ label .label-erea
+ {
+  transform: translateY(-400%);
+  
       font-size: clamp(0.8rem,0.9vw,3rem);
   color: #0A8D47;
   z-index: 100;
@@ -259,19 +276,19 @@
     padding-inline: 10px;
 }
 #contact3 hr{
-    width: 15%;
+    width: 100px;
     border: 3px solid #0A8D47;
     text-align: left;
     border-radius: 50px;
     margin-right: 100%;
-    margin-bottom: -3%;
 }
 #contact3 h1{
     width: 100%;
     text-align: left;
     border-radius: 50px;
     font-weight: lighter;
-    font-size: clamp(2rem,4vw,6rem);
+    font-size: clamp(2rem,4vw,4rem);
+    margin: 0;
 }
 #contact3 h3{
     width: 100%;

@@ -308,7 +308,7 @@ const modiferPassWord=async()=>{
 //   ==============================================================
     return(<>
     {showSup && <Ouinon sortir={()=>{supprimer()}} annuler={()=>setShowSup(false)} type={3}/>}
-    <div id="black"></div>
+    <div id="black" style={{zIndex:"201"}}></div>
     <div id="espace">
         <div><img onClick={closeWindow} src={close}/></div>
         <div>
@@ -332,10 +332,12 @@ const modiferPassWord=async()=>{
         </div>}
         {typeP==="espace1" &&
         <div id="espace1">
+            <section className="scrl">
             <table>
                 <tr><th>Nom de la chambre</th><th>Capacité totale en tonne</th><th>Capacité disponible en tonne</th><th>Température</th><th>visible</th></tr>
                 <tr><td>{selectedChambre.nomChambre}</td><td>{selectedChambre.capacite}</td><td>{selectedChambre.capaciteDisponible}</td><td>{selectedChambre.temperature} °C </td><td>{selectedChambre.visible===true?"oui":"non"}</td></tr>
             </table>
+            </section>
             <form onSubmit={update}>
                 <input placeholder="Nouveau nom de la chambre" type="text" name="nomChambre" onChange={updateChambre}/>
                 <input placeholder="Nouvelle capacite en tonne" type="number" name="capacite" onChange={updateChambre}/>
@@ -380,7 +382,7 @@ const modiferPassWord=async()=>{
                 <div>
                     <input onChange={()=>{handleUnlimited(false);setChoix("Rmin")}}  name="dureeMinReservation" type="radio" />
                     <label>limitée</label>
-                    <input style={{opacity:isUnlimited?"0":""}} value={value} disabled={isUnlimited} onChange={(e)=>{paramChange(e); setValue(e.target.value);setChoix("Rmin")}} name="dureeMinReservation"  type="number" placeholder="Nombre de jours"/>
+                    <input style={{opacity:isUnlimited?"0":""}} value={value} disabled={isUnlimited} onChange={(e)=>{paramChange(e); setValue(e.target.value);setChoix("Rmin")}} name="dureeMinReservation"  type="number" />
                 </div>
                 <button onClick={()=>{updateParametre("Rmin")}}><img src={save}/></button>
             </div>
@@ -396,7 +398,7 @@ const modiferPassWord=async()=>{
                 <div>
                     <input onChange={()=>{handleUnlimited1(false);setChoix("Rmax")}} name="dureeMaxReservation" type="radio"/>
                     <label>limitée</label>
-                    <input style={{opacity:isUnlimited1?"0":""}} value={value1} disabled={isUnlimited1} onChange={(e)=>{paramChange(e); setValue1(e.target.value);setChoix("Rmax")}} name="dureeMaxReservation"  type="number" placeholder="Nombre de jours"/>
+                    <input style={{opacity:isUnlimited1?"0":""}} value={value1} disabled={isUnlimited1} onChange={(e)=>{paramChange(e); setValue1(e.target.value);setChoix("Rmax")}} name="dureeMaxReservation"  type="number" />
                 </div>
                 <button onClick={()=>{updateParametre("Rmax")}}><img src={save}/></button>
             </div>
@@ -482,7 +484,7 @@ const modiferPassWord=async()=>{
                 <div>
                     <input onChange={()=>{handleUnlimited(false);setChoix("Pmin")}} name="delaiMaxEntreDemandeEtDebut" type="radio"/>
                     <label>limitée</label>
-                    <input style={{opacity:isUnlimited?"0":""}} value={value} disabled={isUnlimited} onChange={(e)=>{paramChange(e); setValue(e.target.value);setChoix("Pmin")}} name="delaiMaxEntreDemandeEtDebut" type="number" placeholder="Nombre de jours"/>
+                    <input style={{opacity:isUnlimited?"0":""}} value={value} disabled={isUnlimited} onChange={(e)=>{paramChange(e); setValue(e.target.value);setChoix("Pmin")}} name="delaiMaxEntreDemandeEtDebut" type="number" />
                 </div>
                 <div>
                 <button onClick={()=>{updateParametre("Pmin")}}><img src={save}/></button>
@@ -509,7 +511,7 @@ const modiferPassWord=async()=>{
                 <div>
                     <input onChange={()=>{handleUnlimited1(false);setChoix("Pmax")}} name="delaiProlongement" type="radio"/>
                     <label>Après des jours de la fin du prolongation actuel</label>
-                    <input style={{opacity:isUnlimited1?"0":""}} value={value1} disabled={isUnlimited1} onChange={(e)=>{paramChange(e); setValue1(e.target.value);setChoix("Pmax")}} name="delaiProlongement" type="number" placeholder="Nombre de jours"/>
+                    <input style={{opacity:isUnlimited1?"0":""}} value={value1} disabled={isUnlimited1} onChange={(e)=>{paramChange(e); setValue1(e.target.value);setChoix("Pmax")}} name="delaiProlongement" type="number" />
                 </div>
                 <div>
                 <button onClick={()=>{updateParametre("Pmax")}}><img src={save}/></button>

@@ -14,6 +14,11 @@
     padding-bottom: 20px;
     max-width: 700px;
     z-index: 201;
+    max-height: 85dvh;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    animation: apear 1s 1 forwards;
+
 }
 #pro>div:first-of-type{
     width: 100%;
@@ -22,7 +27,7 @@
     justify-content: flex-end;
 }
 #pro>div:first-of-type img{
-    width: 25px;
+    width: 20px;
 }
 #pro>div:nth-of-type(2){
     display: flex;
@@ -31,7 +36,8 @@
     
 }
 #pro>div:nth-of-type(2) img{
-width: 100px;
+width: 60px;
+margin-bottom: 10px;
 }
 #pro>div:nth-of-type(2) h1{
  font-size: clamp(1.2rem,1.5vw,2.8rem);
@@ -62,6 +68,7 @@ font-weight: lighter;
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
+    justify-content: center;
 }
 #prelengement>form label{
     font-size: clamp(0.8rem,1vw,2.8rem);
@@ -84,8 +91,9 @@ font-weight: lighter;
     font-size: clamp(1rem,1.2vw,1.3rem);
 }
 #prelengement>p{
-    font-size: clamp(0.6rem,1vw,2.8rem);
+    font-size: clamp(0.8rem,1vw,2.8rem);
     font-weight: lighter;
+    text-align: center;
 }
 /* ============================pour modier linfo pers */
 #changerinfo>form{
@@ -93,6 +101,8 @@ font-weight: lighter;
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
+    justify-content: center;
+    
 }
 #changerinfo>form label{
     font-size: clamp(0.8rem,1vw,2.8rem);
@@ -115,7 +125,7 @@ font-weight: lighter;
     font-size: clamp(1rem,1.2vw,1.3rem);
 }
 #changerinfo>p{
-    font-size: clamp(0.6rem,1vw,2.8rem);
+    font-size: clamp(0.7rem,1vw,2.8rem);
     font-weight: lighter;
     text-align: center;
 }
@@ -125,6 +135,7 @@ font-weight: lighter;
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
+    justify-content: center;
 }
 #changerpasse>form label{
     font-size: clamp(0.8rem,1vw,2.8rem);
@@ -143,8 +154,7 @@ font-weight: lighter;
     height: 35px;
     background-image: linear-gradient(90deg,#0A8D47,#144B24);
     border-radius: 5px;
-    min-width: 120px;
-    font-size: clamp(1rem,1.2vw,1.3rem);
+    font-size: clamp(1rem,1vw,1.3rem);
 }
 #pro input:focus{
     outline: none;
@@ -195,6 +205,7 @@ font-weight: lighter;
     border: none;
     font-family: 'Playfair Display', serif;
 
+
 }
 #addProduct>div:nth-of-type(2)>div img{
     width: 25px;
@@ -219,5 +230,21 @@ font-weight: lighter;
     min-width: 10px;
     font-size: clamp(0.9rem,1vw,2rem);
     border: none;
+    
+}
+@media (max-width: 500px) {
+    #changerpasse>form input{
+        width: 90%;
+    }
+}
+@keyframes apear {
+    from{
+        opacity: 0.2;
+        transform: translate(-50%,50%);
+    }
+    to{
+        opacity: 1;
+        transform: translate(-50%,-50%);
+    }
     
 }

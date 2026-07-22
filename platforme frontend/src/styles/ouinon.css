@@ -11,7 +11,7 @@
     left: 50%;
     /* transform: translate(-50%,-50%); */
     background-color: white;
-    width: auto;
+    width: min(80%,400px);
     padding: 20px;
     z-index: 300;
     animation: apear 1s 1 forwards;
@@ -22,7 +22,7 @@
      margin-bottom: 10px;
 }
 #question h3{
-        font-size: clamp(0.8rem,1.3vw,2.8rem);
+        font-size: clamp(0.9rem,1vw,2rem);
         font-weight: lighter;
         margin: 0;
         margin-block: 2px;
@@ -39,16 +39,16 @@
     border: none;
     
     padding-inline: 20px;
-    height: 50px;
+    height: 40px;
     background-image: linear-gradient(90deg,#0A8D47,#144B24);
     border-radius: 5px;
     
-    font-size: clamp(0.8rem,1.2vw,1.3rem);
+    font-size: clamp(0.8rem,1vw,1.3rem);
 }
 #question button:last-of-type{
     padding-inline: 20px;
-    height: 50px;
-    font-size: clamp(0.8rem,1.2vw,1.3rem);
+    height: 40px;
+    font-size: clamp(0.8rem,1vw,1.3rem);
      border-radius: 5px;
      background: none;
      color: #0A8D47;

@@ -1,55 +1,65 @@
 #statistic1{
-    margin-left: 10%;
-    margin-top: 10%;
+    margin-left: 150px;
+    margin-top: 150px;
+    margin-bottom: 50px;
     display: flex;
     width: 80%;
     align-items: center;
     justify-content: space-between;
 }
 #statistic1 h1{
-    width: 100%;
-    font-size: clamp(2rem,2vw,4rem);
+    font-size: clamp(1.2rem,2vw,4rem);
     font-weight: lighter;
+    margin: 0;
 }
 #statistic1 button{
 color: rgb(255, 255, 255);
     border: none;
-    min-width: 200px;
-    max-width: 500px;
     height: 50px;
     background-image: linear-gradient(90deg,#0A8D47,#144B24);
     border-radius: 5px;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
     font-size: clamp(0.8rem,0.8vw,2rem);
     font-family: 'Playfair Display', serif;
     font-weight: lighter;
+    padding-inline: 20px;
+    gap: 10px;
 }
 #statistic1 img{
     width: 25px;
 }
 #statistic2{
-    margin-left: 10%;
+    margin-left: 150px;
     width: 80%;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 20px;
+    height: auto;
 }
 #statistic2>div:first-of-type{
-    width: 40%;
+    width: 35%;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 15px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    padding: 10px;
+
 }
 #statistic2>div:first-of-type>div{
-    width: 100%;
-    height: 200px;
     display: flex;
     gap: 15px;
+    margin: 0;
+    min-width: 400px;
+    max-width: 500px;
+
+    
+    
 }
 #statistic2>div:first-of-type>div>div{
-        width: 50%;
         height: 200px;
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
         border-radius: 20px;
@@ -58,6 +68,7 @@ color: rgb(255, 255, 255);
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        width: 50%;
         
 
 }
@@ -80,7 +91,7 @@ color: rgb(255, 255, 255);
 
 #statistic2>div:first-of-type>div:first-of-type>div:last-of-type div h1{
     color: white;
-    font-size: clamp(0.8rem,1.5vw,2rem);
+    font-size: clamp(1rem,1.5vw,2rem);
 }
 
 #statistic2>div:first-of-type>div>div>div{
@@ -94,14 +105,14 @@ color: rgb(255, 255, 255);
     gap: 5px;
 }
 #statistic2>div:first-of-type>div>div p{
-    font-size: clamp(0.8rem,1.2vw,1.4rem);
+    font-size: clamp(0.9rem,1vw,1.4rem);
     font-weight: lighter;
 }
 #statistic2>div:first-of-type>div>div img{
-    width: 50px;
+    width: 40px;
 }
 #statistic2>div:first-of-type>div>div h1{
-    font-size: clamp(0.8rem,2vw,2.5rem);
+    font-size: clamp(1.2rem,1.3vw,2.5rem);
     
 }
 #statistic2>div:first-of-type>div>div h1:first-of-type{
@@ -124,7 +135,18 @@ color: rgb(255, 255, 255);
 }
 /* ================================================================= */
 #statistic2>div:last-of-type{
-    width: 60%;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    padding: 10px;
+    width: 55%;
+    
+    
+
+
+}
+#statistic2>div:last-of-type>div{
+    width: 97%;
+    min-width: 650px;
     height: 400px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
     border-radius: 20px;
@@ -132,34 +154,39 @@ color: rgb(255, 255, 255);
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    
+    
+   
+    
+
 
 }
-#statistic2>div:last-of-type>h1{
+#statistic2>div:last-of-type>div>h1{
     font-size: clamp(1rem,2vw,4rem);
     font-weight: lighter;
 }
-#statistic2>div:last-of-type>div:first-of-type{
+#statistic2>div:last-of-type>div>div:first-of-type{
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-#statistic2>div:last-of-type>div:first-of-type>div{
+#statistic2>div:last-of-type>div>div:first-of-type>div{
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
 }
-#statistic2>div:last-of-type>div:first-of-type>div h3{
+#statistic2>div:last-of-type>div>div:first-of-type>div h3{
     font-size: clamp(1rem,1.1vw,2rem);
     font-weight: lighter;
     margin: 0;
 }
-#statistic2>div:last-of-type>div:first-of-type>div>div{
+#statistic2>div:last-of-type>div>div:first-of-type>div>div{
     flex-grow: 1;
     
     
 }
-#statistic2>div:last-of-type>div:first-of-type hr{
+#statistic2>div:last-of-type>div>div:first-of-type hr{
     border-radius: 20px;
     height: 5px;
     background-color: blue;
@@ -167,29 +194,31 @@ color: rgb(255, 255, 255);
     
 
 }
-#statistic2>div:last-of-type>div:first-of-type>div:nth-of-type(2) hr{
+#statistic2>div:last-of-type>div>div:first-of-type>div:nth-of-type(2) hr{
    border: none;
     height: 6px;
 
 }
-#statistic2>div:last-of-type>div:first-of-type>div:last-of-type hr{
+#statistic2>div:last-of-type>div>div:first-of-type>div:last-of-type hr{
     border: none;
     height: 6px;
 
 }
-#statistic2>div:last-of-type>div:last-of-type{
+#statistic2>div:last-of-type>div>div:last-of-type{
     display: flex;
     justify-content: center;
+    position: relative;
+    
     
     
 }
-#statistic2>div:last-of-type>div:last-of-type table{
+#statistic2>div:last-of-type>div>div:last-of-type table{
     width: 70%;
     
     
     
 }
-#statistic2>div:last-of-type>div:last-of-type td{
+#statistic2>div:last-of-type>div>div:last-of-type td{
     font-size: clamp(1rem,1.1vw,2rem);
     font-weight: lighter;
     border: none;
@@ -197,7 +226,7 @@ color: rgb(255, 255, 255);
     
 
 }
-#statistic2>div:last-of-type>div:last-of-type tr td:first-of-type{
+#statistic2>div:last-of-type>div>div:last-of-type tr td:first-of-type{
     display: flex;
     align-items: center;
     gap: 10px;
@@ -205,31 +234,33 @@ color: rgb(255, 255, 255);
     
 }
 
-#statistic2>div:last-of-type>div:last-of-type td h3{
+#statistic2>div:last-of-type>div>div:last-of-type td h3{
  font-size: clamp(1rem,1.1vw,2rem);
     font-weight: lighter;
 }
-#statistic2>div:last-of-type>div:last-of-type tr:first-of-type td div{
+#statistic2>div:last-of-type>div>div:last-of-type tr:first-of-type td div{
     width: 20px;
     height: 20px;
     background-color: #0A8D47;
     border-radius: 50%;
     
 }
-#statistic2>div:last-of-type>div:last-of-type tr:last-of-type td div{
+#statistic2>div:last-of-type>div>div:last-of-type tr:last-of-type td div{
     width: 20px;
     height: 20px;
     background-color: red;
     border-radius: 50%;
     
 }
-#statistic2>div:last-of-type>div:last-of-type>div{
+#statistic2>div:last-of-type>div>div:last-of-type>div{
     width: 30%;
     display: flex;
     align-items: end;
     justify-content: flex-end;
+    position: relative;
+    
 }
-#statistic2>div:last-of-type>div:last-of-type>div button{
+#statistic2>div:last-of-type>div>div:last-of-type>div button{
     color: rgb(255, 255, 255);
     width:100%;
     border: none;
@@ -248,23 +279,29 @@ color: rgb(255, 255, 255);
 }
 /* ================================================================= */
 #statistic3{
-    margin-left: 10%;
+    margin-left: 150px;
     width: 80%;
     height: 400px;
     gap: 20px;
     display: flex;
     margin-block: 1%;
+    flex-wrap: wrap;
+    padding: 10px;
+    margin-bottom: 100px;
+
     
    
 }
 #statistic3>div:first-of-type{
-    width: 60%;
+    width: 55%;
     height: 400px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    min-width: 600px;
+    padding-top: 10px;
 
 
 }
@@ -273,27 +310,14 @@ color: rgb(255, 255, 255);
         align-items: center;
         justify-content: space-between;
         padding-inline: 5px;
+
 }
 #statistic3>div:first-of-type>div:first-of-type>h3{
     font-size: clamp(0.8rem,1.2vw,1.3rem);
     font-weight: lighter;
+    
 }
-#statistic3>div:first-of-type>div:first-of-type button{
-   color: rgb(255, 255, 255);
-    width:100%;
-    border: none;
-    min-width: 200px;
-    max-width: 500px;
-    height: 50px;
-    background-image: linear-gradient(90deg,#0A8D47,#144B24);
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    font-size: clamp(0.8rem,1.2vw,1.3rem);
-    font-weight: lighter;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
-}
+
 #statistic3>div:first-of-type>div:first-of-type>div{
     display: flex;
     gap: 5px;
@@ -312,6 +336,8 @@ color: rgb(255, 255, 255);
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
     border-radius: 10px;
     padding-inline: 5px;
+        min-width: 500px;
+
 
     
 
@@ -344,6 +370,8 @@ color: rgb(255, 255, 255);
   font-weight: bold;
   padding: 15px;
   position: sticky;
+font-size: clamp(0.7rem,0.8vw,1.3rem);
+
   top: 0;
   z-index: 10;
 }
@@ -374,7 +402,45 @@ color: rgb(255, 255, 255);
   cursor: pointer;
 }
 /* +++++++++++++++++++++++++++++++++++++ */
+@media (max-width:767px) {
+#statistic1{
+    margin-inline: auto;
+    width: 90%;
+}
+#statistic2{
+    margin-inline: auto;
+    width: 90%;
+}
+#statistic3{
+    margin-inline: auto;
+    width: 90%;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    height: auto;
+}
 
+    
+}
+@media (max-width:1450px) {
+#statistic2>div:first-of-type{
+    flex-direction: row;
+    margin-inline: auto;
+}
+#statistic2>div:first-of-type{
+    width: 100%;
+}
+#statistic2>div:first-of-type>div{
+    width: 50%;
+}
+#statistic2>div:last-of-type{
+    width: 100%;
+}
+#statistic2>div:last-of-type>div{
+    width: 95%;
+    margin-inline: auto;
+}
+    
+}
 
 
 
