@@ -48,7 +48,6 @@ const getChambreStats = async () => {
 useEffect(() => {
   const fetchStats = async () => {
     const data = await getChambreStats();
-    console.log(data);
     setcapchambres(data)
   };
 
@@ -124,7 +123,6 @@ useEffect(() => {
         try {
              const monthIndex = months.indexOf(currentMonth) + 1;
       const res = await api.get(`http://localhost:8080/api/admin/statistiques/${currentYear}/${monthIndex}`);
-      console.log("demandes",res.data);
       setStats(res.data);
     } catch (error) {
       console.error("Error loading stats:", error);
@@ -143,7 +141,6 @@ useEffect(() => {
     try {
       const res = await getStatsByMonth(year, month);
       setStats(res.data);
-      console.log("demandes bar orizentales",res.data)
     } catch (error) {
       console.error("Error loading stats:", error);
     }
@@ -167,7 +164,6 @@ const [dataBar, setDataBar] = useState([]);
     try {
       const res = await getStatsByType(currentYear, "total");
       setDataBar(res.data);
-      console.log("databarrrrrrrrrrrrrrrrr",res.data)
     } catch (error) {
       console.error("Error loading stats:", error);
     }
@@ -180,7 +176,6 @@ const [dataBar, setDataBar] = useState([]);
     try {
       const res = await getStatsByType(year, type);
       setDataBar(res.data);
-      console.log("barrbarr",res.data)
       setOpenBar(false)
         setOpenBarType(false)
     } catch (error) {
@@ -205,7 +200,6 @@ useEffect(() => {
         const res = await api.get("http://localhost:8080/api/admin/statistiques/stock");
 
         setProduits(res.data);
-        console.log("produits",res.data)
       } catch (error) {
         console.error("Error fetching stock data:", error);
       }

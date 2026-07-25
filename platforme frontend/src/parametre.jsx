@@ -33,11 +33,9 @@ useEffect(() => {
         // Récupérer tous les paramètres
         const paramResponse = await axios.get('http://localhost:8080/api/parametres');
         setParametres(paramResponse.data[0]);
-        console.log(paramResponse.data)
         // Récupérer toutes les chambres
         const chambreResponse = await api.get('http://localhost:8080/api/chambres');
         setChambres(chambreResponse.data);
-        console.log(chambreResponse.data)
       } catch (error) {
         console.error('Erreur lors de la récupération des données:', error);
       }

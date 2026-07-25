@@ -23,6 +23,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PrivateRouteAdmin from "./composants/PrivateRouteAdmin";
 import PrivateRouteClient from "./composants/PrivateRouteClient";
+import ContactForm from "./composants/ContactForm";
 function App() {
   
   return (
@@ -44,6 +45,8 @@ function App() {
 />
 </div>
     <Routes>
+  <Route path="form" element={<ContactForm/>} />
+
     <Route path="/" element={<Splash/>} />
     <Route path="/home" element={<Home/>} />
     <Route path="/apropos" element={<Apropos/>} />

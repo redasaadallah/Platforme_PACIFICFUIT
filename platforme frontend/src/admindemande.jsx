@@ -209,7 +209,6 @@ const toastId = toast.loading("Acceptation en cours...",{
             if(rchoisi.type==="reservation"){
               
               const response = await envoieAccepterReservation(rchoisi.codeProduit)
-            console.log("mmmmmmmmmmmmmmmmmmmmmm",response)
             if(response.data.success){
             toast.update(toastId, {
                 render: response.data.message,
@@ -246,7 +245,6 @@ const toastId = toast.loading("Acceptation en cours...",{
           }
           }else{
                 const response=await envoieAccepterProlongation(rchoisi.idProlongement)
-            console.log("mmmmmmmmmmmmmmmmmmmmmm",response)
             if(response.data.success){
              toast.update(toastId, {
                 render: response.data.message,

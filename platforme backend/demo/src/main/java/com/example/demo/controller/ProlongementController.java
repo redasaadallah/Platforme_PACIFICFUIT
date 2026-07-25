@@ -56,12 +56,7 @@ public class ProlongementController {
     @Autowired
     NotificationAsyncService notificationAsyncService;
 
-//    // Récupérer toutes les prolongations en attente
-//    @GetMapping("/pending")
-//    public List<Prolongement> getProlongementsPending() {
-//
-//        return prolongementRepository.findByStatut("pending");
-//    }
+
 
 
 
@@ -159,92 +154,7 @@ public class ProlongementController {
         return prolongementRepository.save(prolongement);
     }
     //===================================================================
-//=========================accepter une prolongation==================
-//    @PutMapping("/accepter/{code}")
-//    @PreAuthorize("hasAnyAuthority('ADMIN')")
-//
-//    public ResponseEntity<?> accepterProlongation(@PathVariable Long code) throws Exception {
-//
-//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//
-//        Prolongement prolongement = prolongementRepository.findById(code)
-//                .orElseThrow(() -> new RuntimeException("Prolongation introuvable"));
-//        Produit produit=prolongement.getProduit();
-//        Double quantiteOccupee =
-//                prolongementRepository
-//                        .getQuantiteOccupeePourProlongement(
-//                                produit.getChambre(),
-//                                produit.getCodeProduit(),
-//                                prolongement.getAncienneDateFin(),
-//                                prolongement.getNouvelleDateFinDemandee()
-//                        );
-//        if(
-//                quantiteOccupee + produit.getQuantite()
-//                        > produit.getChambre().getCapacite()
-//        ){
-//
-//            return ResponseEntity
-//                    .ok(
-//                            Map.of(
-//                                    "success", false,
-//                                    "message",
-//                                    "Capacité insuffisante pour cette prolongation"
-//                            )
-//                    );
-//        }
-//        prolongement.setStatut("accepted");
-//        prolongementRepository.save(prolongement);
-//        template.convertAndSend(
-//                "/topic/reservations",
-//                "reservation"
-//        );
-//
-//        Client client=produit.getClient();
-//        // Vérifier si le client a déjà une réservation acceptée
-//        List<Produit> produitsAcceptes = produitRepository.findByClientAndStatutIn(client, List.of("accepted", "ended"));
-//        boolean envoyerMotDePasse = produitsAcceptes.isEmpty(); // true si c’est la première réservation acceptée
-//        String motpass=client.getMotDePasse();
-//        // Générer le PDF
-//
-//
-//        byte[] pdfBytes = pdfService.generatePdf(
-//                "Reçu de prolongation de réservation",
-//                client.getNom(),
-//                client.getEmail(),
-//                client.getCin(),
-//                client.getTelephone(),
-//                produit.getCodeProduit(),
-//                prolongement.getAncienneDateFin().toString(),
-//                String.valueOf(prolongement.getNbJoursAjoutes()),
-//                prolongement.getNouvelleDateFinDemandee().toString(),
-//                LocalDate.now().toString(),
-//                String.valueOf(produit.getPrix()),
-//                produit.getNom(),
-//                String.valueOf(produit.getQuantite()),
-//                produit.getChambre().getNomChambre(),
-//                String.valueOf(produit.getTemperatureStockage())
-//        );
-//
-//        // Sauvegarder le PDF
-//        String fileName = pdfService.savePdf(pdfBytes, produit.getCodeProduit());
-//
-//        // Créer l’URL du PDF
-//        String pdfUrl = baseUrl + "/api/produits/recus/" + fileName;
-//        int type=2;
-//        //envoyer le email
-//        emailService.envoyerEmail(produit,motpass,envoyerMotDePasse,type,"Reçu de prolongation de réservation");
-//        //emvoyer le message whatsapp
-//        twilioService.envoyerMessageWhatsApp(produit,motpass,pdfUrl,fileName,envoyerMotDePasse,type);
-//
-//        return ResponseEntity
-//                .ok(
-//                        Map.of(
-//                                "success", true,
-//                                "message",
-//                                "La demande a été acceptée avec succès."
-//                        )
-//                );
-//    }
+
     //========================= accepter une prolongation ==================
 
     @PutMapping("/accepter/{code}")

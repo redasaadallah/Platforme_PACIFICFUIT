@@ -229,7 +229,6 @@ const monthIndex = months.indexOf(month) + 1;
 
               <button
                 onClick={() => {
-                  console.log({ year, month, type });
                   type==="monthly"?exportCSV(year):exportCSVD(yearD,month)
                   onClose()
                 }}

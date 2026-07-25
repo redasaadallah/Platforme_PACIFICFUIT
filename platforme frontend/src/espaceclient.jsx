@@ -41,7 +41,6 @@ function Espaceclient(){
       try {
         const response = await api.get(`http://localhost:8080/api/client/after-login`);
         setProduits(response.data);
-        console.log(response.data)
         setAnnule(false)
       } catch (error) {
         console.error("Erreur lors de la récupération des produits :", error);
@@ -50,7 +49,6 @@ function Espaceclient(){
         // Récupérer tous les paramètres
         const paramResponse = await axios.get('http://localhost:8080/api/parametres');
         setParametres(paramResponse.data[0]);
-        console.log(paramResponse.data)
         
       } catch (error) {
         console.error('Erreur lors de la récupération des données:', error);
@@ -67,7 +65,6 @@ function Espaceclient(){
           });
       
           stompClient.onConnect = () => {
-              console.log("WebSocket connected");
             //  Listen for new chambres
             stompClient.subscribe("/topic/reservations", async() => {
       
@@ -76,7 +73,6 @@ function Espaceclient(){
             try {
                 const response = await api.get(`http://localhost:8080/api/client/after-login`);
                 setProduits(response.data);
-                console.log(response.data)
                 setAnnule(false)
             } catch (error) {
                 console.error("Erreur lors de la récupération des produits :", error);

@@ -62,7 +62,6 @@ function Contact(){
   }
       );
 
-      console.log(response.data);
       setSuccess(true)
       setTimeout(()=>{
         setSuccess(false)

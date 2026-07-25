@@ -69,7 +69,6 @@ function Repondre({msg,closeWindow,done}){
     
     try {
       const response = await envoyerReponse(formData)
-      console.log(response)
       
       
 
@@ -86,7 +85,6 @@ function Repondre({msg,closeWindow,done}){
     await axios.delete(`http://localhost:8080/api/messages/${msg.id}`);
 
 
-    console.log("Message supprimé");
   } catch (error) {
     console.error("Erreur lors de la suppression :", error);
   }

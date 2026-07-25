@@ -356,8 +356,6 @@ const validatePassword=(password)=> {
 }
 // ====================================================
 const modiferPassWord=async()=>{
-    console.log(admin)
-    console.log(admin.id)
     if(!passWord.trim() || !passWord1.trim() || !passWord2.trim()){
         toast.error("Veuillez remplir les trois champs.",{
       style:{

@@ -67,7 +67,6 @@ const optionSelectionnee = chambres.find(option => option.id === filtre);
     });
 
     stompClient.onConnect = () => {
-        console.log("WebSocket connected");
       //  Listen for new chambres
       stompClient.subscribe("/topic/chambres", () => {
 
@@ -290,7 +289,6 @@ return Object.keys(newErrors).length === 0;
       dureeStockage:duree,
       prix:parametres.prixReservation*quantite*duree
     };
-    console.log("voici le nauveau produit",nouveauProduit)
     const nouveauDocument={
       facture:fileURL,
       onssa:fileURL1,
@@ -354,8 +352,7 @@ const supprimerProduit = (indexProduit) => {
     //================================calculer la date de fin de la reservation
    const calculateDateFin = (e) => {
   const { name, value } = e.target;
-    console.log(dateDebut)
-    console.log(duree)
+  
   let updatedDateFin = {
     ...dateFin,
     [name]: value
@@ -389,9 +386,7 @@ const supprimerProduit = (indexProduit) => {
     const handleSubmit=async(e)=>{
     
             e.preventDefault();
-      console.log(produits.length)
-      console.log(done)
-      console.log(done1)
+     
     if(validateStep1() && produits.length>0){
       if(!verified){
           toast.error("Veuillez vérifier vos coordonnées.")
@@ -438,7 +433,6 @@ const supprimerProduit = (indexProduit) => {
       statut:"enAtente"
     }))
   };
-  console.log("les produits envoye",requestData )
   formData.append("data", JSON.stringify(requestData));
 
   files.forEach((file, index) => {
@@ -446,11 +440,8 @@ const supprimerProduit = (indexProduit) => {
     formData.append(`onca_${index}`, file.onssa);
     formData.append(`rc_${index}`, file.rc);
   });
-  for (let pair of formData.entries()) {
-  console.log(pair[0], pair[1]);
-  }
   
-  console.log(requestData)
+  
   try {
     const response = await axios.post(
       "http://localhost:8080/api/produits/add",

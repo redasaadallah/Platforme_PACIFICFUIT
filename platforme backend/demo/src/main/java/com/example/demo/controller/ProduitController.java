@@ -80,53 +80,7 @@ public class ProduitController {
     NotificationAsyncService notificationAsyncService;
 
 
-//    // Récupérer les produits d'un client par son CIN
-//    @GetMapping("/produits/client/{cin}")
-//    public List<ProduitDTO> getProduitsByClient(@PathVariable String cin) {
-//
-//        String baseUrl = "http://localhost:8080/uploads/";
-//
-//
-//        // Récupérer tous les produits du client
-//        List<Produit> produits = produitRepository.findByClientCin(cin);
-//
-//        // Mapper chaque produit vers ProduitDTO complet
-//        return produits.stream().map(p -> {
-//            var d = p.getDocument();
-//            var c = p.getClient();
-//            var ch = p.getChambre();
-//
-//            return new ProduitDTO(
-//                    p.getCodeProduit(),
-//                    p.getNom(),
-//                    p.getQuantite(),
-//                    p.getPrix(),
-//                    p.getTemperatureStockage(),
-//                    p.getDateDebutStockage(),
-//                    p.getDateFinStockage(),
-//                    p.getDureeStockage(),
-//                    p.getDateDemande(),
-//                    p.getStatut(),
-//
-//                    d != null ? baseUrl + d.getFacture() : null,
-//                    d != null ? baseUrl + d.getOnssa() : null,
-//                    d != null ? baseUrl + d.getRc() : null,
-//
-//                    c != null ? c.getCin() : null,
-//                    c != null ? c.getNom() : null,
-//                    c != null ? c.getEmail() : null,
-//                    c != null ? c.getTelephone() : null,
-//
-//                    ch != null ? ch.getNomChambre() : null,
-//                    ch != null ? ch.getCapacite() : 0,
-//                    ch != null ? ch.getCapaciteDisponible() : 0,
-//                    ch != null ? ch.getTemperature() : 0,
-//                    ch != null && ch.isVisible()
-//
-//            );
-//        }).toList();
-//    }
-//    -------------------------------------------------------------------
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 @PostMapping("/add")
 @Transactional
@@ -270,96 +224,7 @@ public ResponseEntity<?> ajouterClientEtProduits(
         return fileName;
     }
 //===================================================================
-//=========================accepter une reservation==================
-//    @PutMapping("/accepter/{code}")
-//    @PreAuthorize("hasAuthority('ADMIN')")
-//    public ResponseEntity<?> accepterProduit(@PathVariable String code) throws Exception {
-//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//
-//        Produit produit = produitRepository.findById(code)
-//                .orElseThrow(() -> new RuntimeException("Reservation introuvable"));
-//
-//        Chambre chambre = produit.getChambre();
-//         /*
-//     Vérification capacité selon la période
-//    */
-//
-//
-//        Double quantiteOccupee =
-//                produitRepository.getQuantiteOccupeePourPeriode(
-//                        chambre,
-//                        produit.getDateDebutStockage(),
-//                        produit.getDateFinStockage()
-//                );
-//
-//
-//        if(
-//                quantiteOccupee + produit.getQuantite()
-//                        > chambre.getCapacite()
-//        ){
-//
-//            return ResponseEntity
-//                    .ok(Map.of(
-//                                    "success", false,
-//                                    "message",
-//                                    "Capacité insuffisante pour cette période"
-//                            )
-//                    );
-//
-//        }
-//        produit.setStatut("accepted");
-//        Client client=produit.getClient();
-//
-//        // Vérifier si le client a déjà une réservation acceptée
-//        List<Produit> produitsAcceptes = produitRepository.findByClientAndStatutIn(client, List.of("accepted", "ended"));
-//        boolean envoyerMotDePasse = produitsAcceptes.isEmpty(); // true si c’est la première réservation acceptée
-//        String motpass=client.getMotDePasse();
-//
-//        // Générer le PDF
-//
-//        byte[] pdfBytes = pdfService.generatePdf(
-//                "Reçu de Réservation",
-//                client.getNom(),
-//                client.getEmail(),
-//                client.getCin(),
-//                client.getTelephone(),
-//                produit.getCodeProduit(),
-//                produit.getDateDebutStockage().toString(),
-//                String.valueOf(produit.getDureeStockage()),
-//                produit.getDateFinStockage().toString(),
-//                LocalDate.now().toString(),
-//                String.valueOf(produit.getPrix()),
-//                produit.getNom(),
-//                String.valueOf(produit.getQuantite()),
-//                produit.getChambre().getNomChambre(),
-//                String.valueOf(produit.getTemperatureStockage())
-//        );
-//
-//        // Sauvegarder le PDF
-//        String fileName = pdfService.savePdf(pdfBytes, produit.getCodeProduit());
-//
-//        // Créer l’URL du PDF
-//        String pdfUrl = baseUrl + "/api/produits/recus/" + fileName;
-//        int type=1;
-//        //envoyer le email
-//        emailService.envoyerEmail(produit,motpass,envoyerMotDePasse,type,"Reçu de Réservation");
-//        //emvoyer le message whatsapp
-//        twilioService.envoyerMessageWhatsApp(produit,motpass,pdfUrl,fileName,envoyerMotDePasse,type);
-//        if(envoyerMotDePasse){
-//        client.setMotDePasse(encoder.encode(client.getMotDePasse()));
-//        }
-//        template.convertAndSend(
-//                "/topic/reservations",
-//                "reservation"
-//        );
-//        return ResponseEntity.ok(
-//                Map.of(
-//                        "success", true,
-//                        "message", "La demande a été acceptée avec succès.",
-//                        "produit", produitRepository.save(produit)
-//                )
-//        );
-//    }
+
 //========================= accepter une reservation ==================
 
     @PutMapping("/accepter/{code}")

@@ -36,7 +36,6 @@ const currentYear = date.getFullYear();
 
       setMessage(response.data);
 
-      console.log("data arrivée :", response.data);
     } catch (error) {
       console.error("Erreur :", error);
     }
@@ -101,7 +100,6 @@ const fetchDemande=async()=>{
     await api.get("http://localhost:8080/api/produits/demandes-en-attente")
       .then(response => {
         setReservations(response.data); // On stocke le tableau de DemandeCompletDTO
-        console.log("les dennes",response.data)
         
       })
       .catch(err => {

@@ -69,7 +69,6 @@ function Prolongement({close,type,idpro,client,onClientChange,onDemandeSent,prod
         // Récupérer tous les paramètres
         const paramResponse = await axios.get('http://localhost:8080/api/parametres');
         setParametres(paramResponse.data[0]);
-        console.log(paramResponse.data)
         // Récupérer toutes les chambres
         const chambreResponse = await axios.get('http://localhost:8080/api/chambres/visible');
         setChambres(chambreResponse.data);
@@ -88,7 +87,6 @@ function Prolongement({close,type,idpro,client,onClientChange,onDemandeSent,prod
         });
     
         stompClient.onConnect = () => {
-            console.log("WebSocket connected");
           //  Listen for new chambres
           stompClient.subscribe("/topic/chambres", () => {
     
@@ -407,8 +405,7 @@ const modifierPassWord=async(e)=>{
   //================================calculer la date de fin de la reservation
    const calculateDateFin = (e) => {
   const { name, value } = e.target;
-    console.log(dateDebut)
-    console.log(duree)
+    
   let updatedDateFin = {
     ...dateFin,
     [name]: value
@@ -584,11 +581,6 @@ return Object.keys(newErrors).length === 0;
     formData.append(`onca_${index}`, file.onssa);
     formData.append(`rc_${index}`, file.rc);
   });
-  for (let pair of formData.entries()) {
-  console.log(pair[0], pair[1]);
-  }
-  
- 
   try {
     const response = await api.post(
       "http://localhost:8080/api/produits/add",
@@ -650,7 +642,6 @@ const envoyerProlongement = async () => {
         prixProlongement:parseFloat(Number(parametres.prixPrelangemant)*Number(value)*Number(produit.quantite))
       }
     );
-    console.log("++++++++++++++++++++++++",produit)
     setBoite1(false)
     close()
     onDemandeSent(false,true,false)
@@ -662,7 +653,6 @@ const envoyerProlongement = async () => {
             marginTop:"20px"
       }
     })
-    console.log("Prolongement créé :", response.data);
   } catch (error) {
     console.error("Erreur lors de l'envoi du prolongement :", error);
   }

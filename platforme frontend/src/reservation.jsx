@@ -75,8 +75,7 @@ const handleSubmit=async(e)=>{
       "http://localhost:8080/api/client/login",
       dataForm
     );
-    console.log(dataForm)
-    console.log(response)
+   
     if (response.data.success) {
       // login OK
        

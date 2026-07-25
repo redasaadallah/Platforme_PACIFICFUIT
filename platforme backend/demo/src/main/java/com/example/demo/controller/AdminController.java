@@ -41,35 +41,7 @@ public class AdminController {
 
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-//    @PostMapping("/login")
-//    public Map<String, Object> login(@RequestBody Map<String, String> request) {
-//
-//        String email = request.get("email");
-//        String password = request.get("motDePasse");
-//
-//        Map<String, Object> response = new HashMap<>();
-//
-//        Optional<Admin> optionalAdmin = adminRepository.findByEmail(email);
-//
-//        if (optionalAdmin.isPresent()) {
-//            Admin admin = optionalAdmin.get();
-//
-//            if (encoder.matches(password, admin.getMotDePasse())) {
-//                response.put("success", true);
-//                response.put("message", "Login réussi");
-//                response.put("admin", admin);
-//            } else {
-//                response.put("success", false);
-//                response.put("message", "Mot de passe incorrect");
-//            }
-//
-//        } else {
-//            response.put("success", false);
-//            response.put("message", "Email introuvable");
-//        }
-//
-//        return response;
-//    }
+
 @PostMapping("/login")
 public ResponseEntity<?> login(
         @RequestBody Map<String, String> request
