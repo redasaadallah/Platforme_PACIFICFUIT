@@ -28,18 +28,18 @@ import axios from "axios"
 import { motion } from "framer-motion";
 
 function Espaceclient(){
-    const [client, setClient] = useState( JSON.parse(localStorage.getItem("client")));
+    const [client, setClient] = useState( JSON.parse(sessionStorage.getItem("client")));
     const [produits,setProduits]=useState([])
     const [annule,setAnnule]=useState(false)
     const [parametres,setParametres]=useState({})
-    // localStorage.clear()
+    // sessionStorage.clear()
     useEffect(() => {
     // Fonction async à l'intérieur du useEffect
     const fetchProduits = async () => {
       if (!client?.cin) return;
 
       try {
-        const response = await api.get(`http://localhost:8080/api/client/after-login`);
+        const response = await api.get(`/client/after-login`);
         setProduits(response.data);
         setAnnule(false)
       } catch (error) {
@@ -47,7 +47,7 @@ function Espaceclient(){
       }
       try {
         // Récupérer tous les paramètres
-        const paramResponse = await axios.get('http://localhost:8080/api/parametres');
+        const paramResponse = await axios.get('/parametres');
         setParametres(paramResponse.data[0]);
         
       } catch (error) {
@@ -57,7 +57,7 @@ function Espaceclient(){
 
     fetchProduits();
     // 2. WebSocket connection
-          const socket = new SockJS("http://localhost:8080/ws");
+          const socket = new SockJS("/ws");
       
           const stompClient = new Client({
             webSocketFactory: () => socket,
@@ -71,7 +71,7 @@ function Espaceclient(){
               //  Auto refresh when admin adds chambre
             
             try {
-                const response = await api.get(`http://localhost:8080/api/client/after-login`);
+                const response = await api.get(`/client/after-login`);
                 setProduits(response.data);
                 setAnnule(false)
             } catch (error) {
@@ -198,15 +198,15 @@ function messageReservation(dateDebut, dateFin) {
 }
 //==============pour telecharger le recu
 const telechargerRecu = (codeProduit) => {
-  window.open(`http://localhost:8080/api/produits/download/${codeProduit}`, "_blank");
+  window.open(`/api/produits/download/${codeProduit}`, "_blank");
 };
 const telechargerRecuP = (idProlongement) => {
-    window.open(`http://localhost:8080/api/prolongements/download/${idProlongement}`, "_blank");
+    window.open(`/api/prolongements/download/${idProlongement}`, "_blank");
 };
 //==================lannulation d'une demande en atente
 const supprimerProlongement = async (prolongementId) => {
   try {
-    const response = await api.delete(`http://localhost:8080/api/prolongements/${prolongementId}`);
+    const response = await api.delete(`/prolongements/${prolongementId}`);
     toast.success(response.data.message); // "Prolongement supprimé avec succès"
     setshowpro(null)
     setAnnule(true)
@@ -276,7 +276,7 @@ function canRequestExtension(dateDebut, dateFin, delai) {
     {read && <FileReader produit={idpr} type={typeFile} suivant={setfile}  close={()=>{setFileUrl(null);setRead(false)}} url={fileUrl}/>}
      {message && <Message closeWindow={()=>setMessage(false)}/>}
     {prol && <Prolongement idpro={selectedPro}  onDemandeSent={changes}  onClientChange={setClient} produit={selectedProduit} client={client} type={type} close={()=>{setprol(false)}} />}
-    {out && <Ouinon type={1} sortir={()=>{localStorage.removeItem("client");localStorage.removeItem("accessToken");localStorage.removeItem("refreshToken");localStorage.removeItem("type");navigate("/reservation")}} annuler={()=>{setout(false)}}/>}
+    {out && <Ouinon type={1} sortir={()=>{sessionStorage.removeItem("client");sessionStorage.removeItem("accessToken");sessionStorage.removeItem("refreshToken");sessionStorage.removeItem("type");navigate("/reservation")}} annuler={()=>{setout(false)}}/>}
     {annuleBoite && <Ouinon type={6} sortir={()=>{supprimerProlongement(selectedPro)}} annuler={()=>{setAnnuleBoite(false)}}/>}
 
     <div id="cheader">

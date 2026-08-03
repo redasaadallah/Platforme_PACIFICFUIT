@@ -32,7 +32,7 @@ const currentYear = date.getFullYear();
   useEffect(() => {
   const getMessages = async () => {
     try {
-      const response = await api.get("http://localhost:8080/api/messages");
+      const response = await api.get("/messages");
 
       setMessage(response.data);
 
@@ -51,7 +51,7 @@ const repondreMessage=()=>{
 // ============================filtrer le message suprimer===================
 const deleteMessage = async (id) => {
   try {
-    await api.delete(`http://localhost:8080/api/messages/${id}`);
+    await api.delete(`/messages/${id}`);
     toast.success("Le message a été supprimé avec succès",{
       style:{
         width: "auto",
@@ -84,7 +84,7 @@ useEffect(() => {
 const fetchStats = async () => {
     try {
       const res = await api.get(
-        "http://localhost:8080/api/admin/statistiques/dashboard/current-month/simple"
+        "/admin/statistiques/dashboard/current-month/simple"
       );
 
       setStats(res.data);
@@ -97,7 +97,7 @@ const fetchStats = async () => {
   fetchStats();
 const fetchDemande=async()=>{
     // Requête GET vers l’endpoint Spring Boot
-    await api.get("http://localhost:8080/api/produits/demandes-en-attente")
+    await api.get("/produits/demandes-en-attente")
       .then(response => {
         setReservations(response.data); // On stocke le tableau de DemandeCompletDTO
         
@@ -117,7 +117,7 @@ const fetchDemande=async()=>{
 
     return(<>
      
-    {out && <Ouinon type={1} sortir={()=>{localStorage.removeItem("admin");localStorage.removeItem("accessToken");localStorage.removeItem("refreshToken");localStorage.removeItem("type");navigate("/admin")}}  annuler={()=>setOut(false)}/>}
+    {out && <Ouinon type={1} sortir={()=>{sessionStorage.removeItem("admin");sessionStorage.removeItem("accessToken");sessionStorage.removeItem("refreshToken");sessionStorage.removeItem("type");navigate("/admin")}}  annuler={()=>setOut(false)}/>}
     {repondre && <Repondre type={0} done={()=>{don===0?setDon(1):setDon(0)}} closeWindow={()=>{setRepondre(false)}} msg={selectedMessage}/>}
     <Baradmin page={1} closeWindow={()=>{setOut(true)}}/>
     <Headeradmin closeWindow={()=>{setOut(true)}}/>

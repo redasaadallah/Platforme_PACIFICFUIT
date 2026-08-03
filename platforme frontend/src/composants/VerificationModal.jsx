@@ -35,7 +35,7 @@ function VerificationModal({
 
             const response =
             await axios.post(
-                "http://localhost:8080/api/client/verify",
+                "/api/client/verify",
                 {
 
                     email:email,
@@ -80,7 +80,7 @@ function VerificationModal({
 
 
         await axios.post(
-            "http://localhost:8080/api/client/sendCode",
+            "/api/client/sendCode",
             {
                 email,
                 telephone

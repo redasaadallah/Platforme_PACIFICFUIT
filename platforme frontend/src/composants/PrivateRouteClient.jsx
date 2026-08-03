@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 
 const PrivateRouteClient = ({ children }) => {
-  const token = localStorage.getItem("client");
+  const token = sessionStorage.getItem("client");
 
   return token ? children : <Navigate to="/reservation" />;
 };

@@ -31,7 +31,7 @@ function Reservation(){
                     setTimeout(()=>{
                         setshow(1);
                     },2000);
-    const token = localStorage.getItem("client");
+    const token = sessionStorage.getItem("client");
 
     if (token) {
       navigate("/espaceclient");
@@ -72,7 +72,7 @@ const handleSubmit=async(e)=>{
     
   try {
     const response = await axios.post(
-      "http://localhost:8080/api/client/login",
+      "/api/client/login",
       dataForm
     );
    
@@ -80,23 +80,23 @@ const handleSubmit=async(e)=>{
       // login OK
        
     
-    localStorage.setItem(
+    sessionStorage.setItem(
     "client",
     JSON.stringify(response.data.client)
 );
-localStorage.setItem(
+sessionStorage.setItem(
     "accessToken",
     response.data.accessToken
 );
 
 
-localStorage.setItem(
+sessionStorage.setItem(
     "refreshToken",
     response.data.refreshToken
 );
 
 
-localStorage.setItem(
+sessionStorage.setItem(
     "type",
     response.data.type
 );

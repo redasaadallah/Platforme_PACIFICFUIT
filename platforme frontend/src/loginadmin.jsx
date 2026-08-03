@@ -17,20 +17,20 @@ function LoginAdmin(){
     const [errors,setErrors]=useState({})
     
     useEffect(()=>{
-        const admin=localStorage.getItem("admin")
+        const admin=sessionStorage.getItem("admin")
         if (admin) {
             navigate("/dashboard")
 }
 
-// ✔ JWT Authentication
-// ✔ Spring Security config
-// ✔ Protected APIs
-// ✔ Token expiration
-// 🟢 En résumé
+//  JWT Authentication
+//  Spring Security config
+//  Protected APIs
+//  Token expiration
+//  En résumé
 
 // Ton plan initial couvre la base correcte pour une API sécurisée :
 
-// JWT, expiration, Spring Security, endpoints protégés ✅
+// JWT, expiration, Spring Security, endpoints protégés 
 
 // Mais pour niveau production / PFE pro, ajoute :
 
@@ -89,22 +89,22 @@ const validateStep1 = () => {
 
     if (response.data.success) {
       // login OK
-      // Remove all localStorage data
-    localStorage.clear();
-      localStorage.setItem("admin", JSON.stringify(response.data.admin));
-      localStorage.setItem(
+      // Remove all sessionStorage data
+    sessionStorage.clear();
+      sessionStorage.setItem("admin", JSON.stringify(response.data.admin));
+      sessionStorage.setItem(
     "accessToken",
     response.data.accessToken
         );
 
 
-        localStorage.setItem(
+        sessionStorage.setItem(
             "refreshToken",
             response.data.refreshToken
         );
 
 
-        localStorage.setItem(
+        sessionStorage.setItem(
             "type",
             response.data.type
         );

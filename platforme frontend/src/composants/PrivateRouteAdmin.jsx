@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 
 const PrivateRouteAdmin = ({ children }) => {
-  const token = localStorage.getItem("admin");
+  const token = sessionStorage.getItem("admin");
 
   return token ? children : <Navigate to="/admin" />;
 };

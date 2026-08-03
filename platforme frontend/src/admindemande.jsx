@@ -60,7 +60,7 @@ useEffect(() => {
 //  *********************************************************
   const fetchDemande=async()=>{
     // Requête GET vers l’endpoint Spring Boot
-    await api.get("http://localhost:8080/api/produits/demandes-en-attente")
+    await api.get("/produits/demandes-en-attente")
       .then(response => {
         setReservations(response.data); // On stocke le tableau de DemandeCompletDTO
         setFiltredList(response.data)
@@ -73,7 +73,7 @@ useEffect(() => {
   }
   fetchDemande();
    // 2. WebSocket connection
-      const socket = new SockJS("http://localhost:8080/ws");
+      const socket = new SockJS("/ws");
   
       const stompClient = new Client({
         webSocketFactory: () => socket,
@@ -112,13 +112,13 @@ useEffect(() => {
 // =================================refuser la demande===========================
 const envoieRefuserReservation=async(reserv,text)=>{
     const response = await api.delete(
-            `http://localhost:8080/api/produits/refuser/${reserv}/${encodeURIComponent(text)}`
+            `/produits/refuser/${reserv}/${encodeURIComponent(text)}`
         );
     return response
 }
 const envoieRefuserProlongation=async(reserv,text)=>{
     const response = await api.delete(
-            `http://localhost:8080/api/prolongements/refuser/${reserv}/${encodeURIComponent(text)}`
+            `/prolongements/refuser/${reserv}/${encodeURIComponent(text)}`
         );
     return response
 }
@@ -183,13 +183,13 @@ const refuser=async()=>{
 // =================================accepter la demande==========================
 const envoieAccepterReservation=async(reserv)=>{
     const response = await api.put(
-            `http://localhost:8080/api/produits/accepter/${reserv}`
+            `/produits/accepter/${reserv}`
         );
     return response
 }
 const envoieAccepterProlongation=async(reserv)=>{
     const response = await api.put(
-            `http://localhost:8080/api/prolongements/accepter/${reserv}`
+            `/prolongements/accepter/${reserv}`
         );
     return response
 }
@@ -332,7 +332,7 @@ const toastId = toast.loading("Acceptation en cours...",{
     
 
      {refus && <Refus sendText={handleText}  refuser={refuser}  closeWindow={()=>setRefus(false)}/>}
-    {out && <Ouinon type={1} sortir={()=>{localStorage.removeItem("admin");localStorage.removeItem("accessToken");localStorage.removeItem("refreshToken");localStorage.removeItem("type");navigate("/admin")}}  annuler={()=>setOut(false)}/>}
+    {out && <Ouinon type={1} sortir={()=>{sessionStorage.removeItem("admin");sessionStorage.removeItem("accessToken");sessionStorage.removeItem("refreshToken");sessionStorage.removeItem("type");navigate("/admin")}}  annuler={()=>setOut(false)}/>}
     {type && <Ouinon type={4} sortir={()=>{accepter()}}  annuler={()=>setType(false)}/>}
     {read && <FileReader produit={idpr} type={typeFile} suivant={setfile}  close={()=>{setFileUrl(null);setRead(false)}} url={fileUrl}/>}
     <Baradmin page={2} closeWindow={()=>{setOut(true)}}/>

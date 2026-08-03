@@ -52,7 +52,7 @@ function Adminreservation(){
 //  *********************************************************
   const fetchDemande=async()=>{
     // Requête GET vers l’endpoint Spring Boot
-    await api.get("http://localhost:8080/api/produits/demandes-accepted")
+    await api.get("/produits/demandes-accepted")
       .then(response => {
         setReservations(response.data); // On stocke le tableau de DemandeCompletDTO
         setFiltredList(response.data)
@@ -156,9 +156,9 @@ const setfile=()=>{
 //===================telecharger le recu
 const telechargerRecu = (reserv) => {
   if(reserv.type==="reservation"){
-  window.open(`http://localhost:8080/api/produits/download/${reserv.codeProduit}`, "_blank");}
+  window.open(`/api/produits/download/${reserv.codeProduit}`, "_blank");}
   else{
-    window.open(`http://localhost:8080/api/prolongements/download/${reserv.idProlongement}`, "_blank");
+    window.open(`/api/prolongements/download/${reserv.idProlongement}`, "_blank");
   }
 };
 // ==================================================================
@@ -298,7 +298,7 @@ setRchoisi({})
         }}
         />}
     {read && <FileReader type={typeFile} produit={idpr} suivant={setfile}  close={()=>{setFileUrl(null);setRead(false);setshowdetails(true)}} url={fileUrl}/>}
-    {out && <Ouinon type={1} sortir={()=>{localStorage.removeItem("admin");localStorage.removeItem("accessToken");localStorage.removeItem("refreshToken");localStorage.removeItem("type");navigate("/admin")}}  annuler={()=>setOut(false)}/>}
+    {out && <Ouinon type={1} sortir={()=>{sessionStorage.removeItem("admin");sessionStorage.removeItem("accessToken");sessionStorage.removeItem("refreshToken");sessionStorage.removeItem("type");navigate("/admin")}}  annuler={()=>setOut(false)}/>}
     <Baradmin page={3} closeWindow={()=>{setOut(true)}}/>
     <Headeradmin closeWindow={()=>{setOut(true)}}/>
     <div id="areservation1">

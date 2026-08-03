@@ -36,7 +36,7 @@ const [capchambres,setcapchambres]=useState({})
 const getChambreStats = async () => {
   try {
     const response = await api.get(
-      "http://localhost:8080/api/admin/statistiques/chambres"
+      "/admin/statistiques/chambres"
     );
 
     return response.data;
@@ -122,7 +122,7 @@ useEffect(() => {
     const fetchData=async()=>{
         try {
              const monthIndex = months.indexOf(currentMonth) + 1;
-      const res = await api.get(`http://localhost:8080/api/admin/statistiques/${currentYear}/${monthIndex}`);
+      const res = await api.get(`/admin/statistiques/${currentYear}/${monthIndex}`);
       setStats(res.data);
     } catch (error) {
       console.error("Error loading stats:", error);
@@ -132,7 +132,7 @@ useEffect(() => {
   }, []);
  const getStatsByMonth = async (year, month) => {
     const monthIndex = months.indexOf(month) + 1;
-  return await api.get(`http://localhost:8080/api/admin/statistiques/${year}/${monthIndex}`);
+  return await api.get(`/admin/statistiques/${year}/${monthIndex}`);
 };
 
   //  HANDLE SELECTION
@@ -183,7 +183,7 @@ const [dataBar, setDataBar] = useState([]);
     }
   };
 const getStatsByType = (year, type) => {
-  return api.get(`http://localhost:8080/api/admin/statistiques/bar/${year}/${type}`);
+  return api.get(`/admin/statistiques/bar/${year}/${type}`);
   
   
 };
@@ -197,7 +197,7 @@ useEffect(() => {
 
     const fetchStock = async () => {
       try {
-        const res = await api.get("http://localhost:8080/api/admin/statistiques/stock");
+        const res = await api.get("/admin/statistiques/stock");
 
         setProduits(res.data);
       } catch (error) {
@@ -211,7 +211,7 @@ useEffect(() => {
 
     return(<>
     {openDialog && <ExportDialog onClose={()=>setOpenDialog(false)}/>}
-    {out && <Ouinon type={1} sortir={()=>{localStorage.removeItem("admin");localStorage.removeItem("accessToken");localStorage.removeItem("refreshToken");localStorage.removeItem("type");navigate("/admin")}}  annuler={()=>setOut(false)}/>}
+    {out && <Ouinon type={1} sortir={()=>{sessionStorage.removeItem("admin");sessionStorage.removeItem("accessToken");sessionStorage.removeItem("refreshToken");sessionStorage.removeItem("type");navigate("/admin")}}  annuler={()=>setOut(false)}/>}
     <Baradmin page={4} closeWindow={()=>{setOut(true)}}/>
     <Headeradmin closeWindow={()=>{setOut(true)}}/>
     <motion.div

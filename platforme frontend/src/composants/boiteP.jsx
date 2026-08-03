@@ -27,7 +27,7 @@ export default function BoiteP({admin,type,closeWindow,data,icon,param,onParamCh
     // =====================supprimer une chambre=================
     const supprimer=async()=>{
          try {
-    await api.delete(`http://localhost:8080/api/chambres/${selectedId}`);
+    await api.delete(`/chambres/${selectedId}`);
     const result = chambres.filter(item => item.id !== selectedId);
     setChambres(result);
     onDelete(result)
@@ -127,7 +127,7 @@ const exists = chambres.some(
     }else if(!exists){
         try {
       await api.put(
-        `http://localhost:8080/api/chambres/${selectedChambre.id}`,
+        `/chambres/${selectedChambre.id}`,
         updatedChambre
       );
 
@@ -213,7 +213,7 @@ return Object.keys(newErrors).length === 0;
   };
 
   try {
-    const response =await api.post("http://localhost:8080/api/chambres", payload);
+    const response =await api.post("/chambres", payload);
 
     toast.success("Chambre ajoutée avec succès",{
       style:{
@@ -302,7 +302,7 @@ const updateParametre = async (mode) => {
         
   try {
     const res = await api.put(
-      `http://localhost:8080/api/parametres/${param.idParametre}`,
+      `/parametres/${param.idParametre}`,
       parametre
     );
 
@@ -388,7 +388,7 @@ const modiferPassWord=async()=>{
     }else{
         try {
       const response = await api.post(
-        "http://localhost:8080/api/admin/change-password",
+        "/admin/change-password",
         {
           email: admin.email,
           oldPassword: passWord,

@@ -29,7 +29,7 @@ function Repondre({msg,closeWindow,done}){
 
   try {
     const response = await api.post(
-      "http://localhost:8080/api/messages/send",
+      "/messages/send",
       data,
       {
         headers: {
@@ -82,7 +82,7 @@ function Repondre({msg,closeWindow,done}){
       console.error("Erreur :", err);
     }
     try {
-    await axios.delete(`http://localhost:8080/api/messages/${msg.id}`);
+    await api.delete(`/messages/${msg.id}`);
 
 
   } catch (error) {

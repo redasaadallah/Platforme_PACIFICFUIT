@@ -26,15 +26,15 @@ export default function Parametre(){
     const [genre,setGenre]=useState("")
      const [parametres, setParametres] = useState({});
   const [chambres, setChambres] = useState([]);
-  const [admin,setadmin]=useState(JSON.parse(localStorage.getItem("admin")))
+  const [admin,setadmin]=useState(JSON.parse(sessionStorage.getItem("admin")))
 useEffect(() => {
     const fetchData = async () => {
       try {
         // Récupérer tous les paramètres
-        const paramResponse = await axios.get('http://localhost:8080/api/parametres');
+        const paramResponse = await axios.get('/api/parametres');
         setParametres(paramResponse.data[0]);
         // Récupérer toutes les chambres
-        const chambreResponse = await api.get('http://localhost:8080/api/chambres');
+        const chambreResponse = await api.get('/chambres');
         setChambres(chambreResponse.data);
       } catch (error) {
         console.error('Erreur lors de la récupération des données:', error);
@@ -47,7 +47,7 @@ useEffect(() => {
     return(<>
      
     {change && <BoiteP onDelete={setChambres} admin={admin} onParamChange={setParametres} param={parametres} data={chambres} type={genre} icon={genre} closeWindow={()=>{setGenre("");setChange(false)}}/>}
-    {out && <Ouinon type={1} sortir={()=>{localStorage.removeItem("admin");localStorage.removeItem("accessToken");localStorage.removeItem("refreshToken");localStorage.removeItem("type");navigate("/admin")}}  annuler={()=>setOut(false)}/>}
+    {out && <Ouinon type={1} sortir={()=>{sessionStorage.removeItem("admin");sessionStorage.removeItem("accessToken");sessionStorage.removeItem("refreshToken");sessionStorage.removeItem("type");navigate("/admin")}}  annuler={()=>setOut(false)}/>}
     
     <Baradmin page={5} closeWindow={()=>{setOut(true)}}/>
     <Headeradmin closeWindow={()=>{setOut(true)}}/>

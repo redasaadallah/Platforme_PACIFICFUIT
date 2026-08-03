@@ -67,10 +67,10 @@ function Prolongement({close,type,idpro,client,onClientChange,onDemandeSent,prod
     const fetchData = async () => {
       try {
         // Récupérer tous les paramètres
-        const paramResponse = await axios.get('http://localhost:8080/api/parametres');
+        const paramResponse = await axios.get('/api/parametres');
         setParametres(paramResponse.data[0]);
         // Récupérer toutes les chambres
-        const chambreResponse = await axios.get('http://localhost:8080/api/chambres/visible');
+        const chambreResponse = await axios.get('/api/chambres/visible');
         setChambres(chambreResponse.data);
       } catch (error) {
         console.error('Erreur lors de la récupération des données:', error);
@@ -79,7 +79,7 @@ function Prolongement({close,type,idpro,client,onClientChange,onDemandeSent,prod
 
     fetchData();
         // 2. WebSocket connection
-        const socket = new SockJS("http://localhost:8080/ws");
+        const socket = new SockJS("/ws");
     
         const stompClient = new Client({
           webSocketFactory: () => socket,
@@ -178,7 +178,7 @@ const updateClient = async (e) => {
    else{
   try {
     const res = await api.put(
-      `http://localhost:8080/api/client/${client.cin}`,
+      `/client/${client.cin}`,
       clientCh
     );
     if(res.success==="true"){
@@ -311,7 +311,7 @@ const modifierPassWord=async(e)=>{
     else{
         try {
       const response = await api.post(
-        "http://localhost:8080/api/client/change-password",
+        "/client/change-password",
         {
           cin: client.cin,
           oldPassword: passWord,
@@ -583,7 +583,7 @@ return Object.keys(newErrors).length === 0;
   });
   try {
     const response = await api.post(
-      "http://localhost:8080/api/produits/add",
+      "/produits/add",
       formData,
       {
         headers: {
@@ -634,7 +634,7 @@ const envoyerProlongement = async () => {
     
   try {
     const response = await api.post(
-      "http://localhost:8080/api/prolongements/demande",
+      "/prolongements/demande",
       {
         codeProduit: produit.idProduit,
         dateFinStockage:produit.dateFinStockage,
@@ -693,7 +693,7 @@ const modifierProlongement = async (e) => {
         try {
         
     const response = await api.put(
-      `http://localhost:8080/api/prolongements/modifier/${idpro}`,
+      `/prolongements/modifier/${idpro}`,
       { nbJours : Number(value),
         prix:parseFloat(Number(parametres.prixPrelangemant)*Number(value)*Number(produit.quantite))
        }

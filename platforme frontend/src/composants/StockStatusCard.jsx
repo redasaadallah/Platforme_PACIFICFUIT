@@ -24,7 +24,7 @@ if(reservation.type==="reservation"){
         
         const response =
             await api.put(
-        `http://localhost:8080/api/produits/statutstockage/${reservation.codeProduit}`,
+        `/produits/statutstockage/${reservation.codeProduit}`,
         {
             statut: status
         }
@@ -75,7 +75,7 @@ if(reservation.type==="reservation"){
     }else{
          const response =
             await api.put(
-        `http://localhost:8080/api/prolongements/statutstockage/${reservation.idProlongement}`,
+        `/prolongements/statutstockage/${reservation.idProlongement}`,
         {
             statut: status
         }

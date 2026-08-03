@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 function Oublier({onClose,type}){ 
     const [email,setEmail]=useState("")
     const sendEmailAdmin=async(email)=>{
-        const response = await axios.post("http://localhost:8080/api/admin/forgot-password", {
+        const response = await axios.post("/api/admin/forgot-password", {
     email:email,
   });
 
@@ -16,7 +16,7 @@ function Oublier({onClose,type}){
     }
   
     const sendEmailClient=async(email)=>{
-        const response = await axios.post("http://localhost:8080/api/client/forgot-password", {
+        const response = await axios.post("/api/client/forgot-password", {
     email:email,
   });
 

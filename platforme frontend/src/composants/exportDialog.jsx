@@ -24,7 +24,7 @@ export default function ExportDialog({onClose}) {
 const exportCSV = async (year) => {
 
    try {
-      let url = "http://localhost:8080/api/admin/statistiques/export/monthly";
+      let url = "/admin/statistiques/export/monthly";
         const res = await api.get(url, {
         params: {
           year
@@ -50,7 +50,7 @@ const monthIndex = months.indexOf(month) + 1;
    try {
       
      
-        let url = "http://localhost:8080/api/admin/statistiques/export/details";
+        let url = "/admin/statistiques/export/details";
         const res = await api.get(url, {
         params: {
           year,

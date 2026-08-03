@@ -47,10 +47,10 @@ const optionSelectionnee = chambres.find(option => option.id === filtre);
     const fetchData = async () => {
       try {
         // Récupérer tous les paramètres
-        const paramResponse = await axios.get('http://localhost:8080/api/parametres');
+        const paramResponse = await axios.get('/api/parametres');
         setParametres(paramResponse.data[0]);
         // Récupérer toutes les chambres
-        const chambreResponse = await axios.get('http://localhost:8080/api/chambres/visible');
+        const chambreResponse = await axios.get('/api/chambres/visible');
         setChambres(chambreResponse.data);
       } catch (error) {
         console.error('Erreur lors de la récupération des données:', error);
@@ -59,7 +59,7 @@ const optionSelectionnee = chambres.find(option => option.id === filtre);
 
     fetchData();
     // 2. WebSocket connection
-    const socket = new SockJS("http://localhost:8080/ws");
+    const socket = new SockJS("/ws");
 
     const stompClient = new Client({
       webSocketFactory: () => socket,
@@ -444,7 +444,7 @@ const supprimerProduit = (indexProduit) => {
   
   try {
     const response = await axios.post(
-      "http://localhost:8080/api/produits/add",
+      "/api/produits/add",
       formData,
       {
         headers: {
@@ -488,7 +488,7 @@ const verifierCoordonnees=()=>{
 
   if( validateStep1()){
      axios.post(
-        "http://localhost:8080/api/client/sendCode",
+        "/api/client/sendCode",
         {
             email:clientData.email,
             telephone:clientData.telephone

@@ -3,7 +3,7 @@ import axios from "axios";
 
 const api = axios.create({
 
-    baseURL: "http://localhost:8080"
+    baseURL: "/api"
 
 });
 
@@ -19,7 +19,7 @@ api.interceptors.request.use(
 
 
     const token =
-        localStorage.getItem("accessToken");
+        sessionStorage.getItem("accessToken");
 
 
     if(token){
@@ -90,7 +90,7 @@ async(error)=>{
 
 
             const refreshToken =
-                localStorage.getItem(
+                sessionStorage.getItem(
                     "refreshToken"
                 );
 
@@ -104,7 +104,7 @@ async(error)=>{
             const response =
                 await axios.post(
 
-                    "http://localhost:8080/api/auth/refresh",
+                    "/api/auth/refresh",
 
                     {
                         refreshToken:
@@ -122,7 +122,7 @@ async(error)=>{
 
             // Save new token
 
-            localStorage.setItem(
+            sessionStorage.setItem(
                 "accessToken",
                 newAccessToken
             );
@@ -148,15 +148,15 @@ async(error)=>{
 
             // Refresh token invalid
 
-            localStorage.removeItem(
+            sessionStorage.removeItem(
                 "accessToken"
             );
 
 
-            localStorage.removeItem(
+            sessionStorage.removeItem(
                 "refreshToken"
             );
-            const type =localStorage.getItem("type");
+            const type =sessionStorage.getItem("type");
 
             if(type === "ADMIN"){
 
