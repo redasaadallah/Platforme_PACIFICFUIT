@@ -53,7 +53,7 @@ function Contact(){
     }else{
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/messages",
+        "/api/messages",
         formData,
          {
     headers: {
