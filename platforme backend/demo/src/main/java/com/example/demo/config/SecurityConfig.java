@@ -159,6 +159,7 @@ public class SecurityConfig {
                                 "/api/client/forgot-password",
                                 "/api/client/sendCode",
                                 "/api/client/verify",
+                                "/api/messages",
                                 "/api/auth/**"
                         )
                         .permitAll()
