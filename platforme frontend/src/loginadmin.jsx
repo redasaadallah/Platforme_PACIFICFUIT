@@ -83,7 +83,7 @@ const validateStep1 = () => {
     if(validateStep1()){
   try {
     const response = await axios.post(
-      "http://localhost:8080/api/admin/login",
+      "/api/admin/login",
       dataForm
     );
 
