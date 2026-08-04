@@ -266,7 +266,8 @@ public class SecurityConfig {
                 List.of(
                         "http://localhost:3000",
                         "http://localhost:3001",
-                        "http://82.29.172.203:3001"
+                        "http://82.29.172.203:3001",
+                        "http://192.168.31.133:3001"
                 )
         );
 

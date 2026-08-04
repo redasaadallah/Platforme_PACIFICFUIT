@@ -102,7 +102,7 @@
     border: none;
    transition: 0.5s ease;
     font-family: 'Playfair Display', serif;
-    font-size: clamp(0.9rem,1.3vw,2rem);
+    font-size: clamp(0.8rem,1.3vw,2rem);
     min-width: 170px;
 }
 
@@ -121,7 +121,7 @@
     max-width: 400px;
     font-weight: lighter;
     font-family: 'Playfair Display', serif;
-        font-size: clamp(0.9rem,1.3vw,2rem);
+        font-size: clamp(0.8rem,1.3vw,2rem);
         overflow: hidden;
     transition: 0.5s ease;
     min-width: 170px;
