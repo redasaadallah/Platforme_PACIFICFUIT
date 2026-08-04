@@ -10,10 +10,8 @@
     left: 50%;
     transform: translate(-50%,-50%);
     background-color: white;
-    width: 80%;
+    width: min(90%,700px);
     padding: 10px;
-    max-width: 700px;
-    min-width: 360px;
     z-index: 201;
     gap: 10px;
     animation: apear 1s 1 forwards;

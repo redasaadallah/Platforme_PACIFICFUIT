@@ -58,7 +58,7 @@
    
 }
 #areservation1>div:first-of-type>div h3{
-    font-size: clamp(0.8rem,1.2vw,2rem);
+    font-size: clamp(0.6rem,1.2vw,2rem);
     font-weight: lighter;
     margin: 0;
    
@@ -97,7 +97,7 @@
     margin-left: 10%;
     
     overflow-y: scroll;
-    margin-bottom: 100px; 
+    margin-bottom: 300px; 
     scrollbar-width: none;
       
 

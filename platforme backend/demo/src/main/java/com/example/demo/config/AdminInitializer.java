@@ -25,7 +25,6 @@ public class AdminInitializer {
 
                 adminRepository.save(admin);
 
-                System.out.println("Admin créé avec succès !");
             }
         };
     }
