@@ -573,7 +573,7 @@ public List<DemandeCompletDTO> getDemandesAccepted() {
     public List<DemandeCompletDTO> getDemandesEnAttente() {
 
         List<DemandeCompletDTO> demandes = new ArrayList<>();
-        String baseUrl = "http://localhost:8080/uploads/";
+        String baseUrl = "/uploads/";
 
         // Prolongements en attente
         prolongementRepository.findByStatut("enAtente").forEach(p -> {

@@ -64,7 +64,7 @@ useEffect(() => {
       .then(response => {
         setReservations(response.data); // On stocke le tableau de DemandeCompletDTO
         setFiltredList(response.data)
-        
+        console.log(response.data)
       })
       .catch(err => {
         console.error("Erreur lors du chargement des demandes :", err);
