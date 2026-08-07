@@ -7,10 +7,7 @@ import com.example.demo.entity.Prolongement;
 import com.example.demo.repository.ChambreRepository;
 import com.example.demo.repository.ProduitRepository;
 import com.example.demo.repository.ProlongementRepository;
-import com.example.demo.service.EmailService;
-import com.example.demo.service.NotificationAsyncService;
-import com.example.demo.service.PdfService;
-import com.example.demo.service.TwilioService;
+import com.example.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -30,6 +27,9 @@ import java.util.Map;
 public class ProlongementController {
 
     @Autowired
+    WhatsAppService whatsappService;
+
+    @Autowired
     private ProlongementRepository prolongementRepository;
 
     @Autowired
@@ -40,12 +40,6 @@ public class ProlongementController {
 
     @Autowired
     private EmailService emailService;
-
-    @Autowired
-    private TwilioService twilioService;
-
-    @Value("${app.base-url}")
-    private String baseUrl;
 
     @Autowired
     private PdfService pdfService;
@@ -95,11 +89,15 @@ public class ProlongementController {
 
         // Sauvegarder et retourner le prolongement
         // 2. Notify admins
+        Prolongement saved = prolongementRepository.save(pr);
+
         template.convertAndSend(
                 "/topic/demandes",
                 "demande"
+
         );
-        return prolongementRepository.save(pr);
+
+        return saved;
     }
 //    =============pour annuler un prolongation en atente
     @DeleteMapping("/{id}")
@@ -147,11 +145,16 @@ public class ProlongementController {
             prolongement.setPrixProlongement(prix);
         }
         // 2. Notify admins
+
+        Prolongement saved = prolongementRepository.save(prolongement);
+
         template.convertAndSend(
                 "/topic/demandes",
                 "demande"
+
         );
-        return prolongementRepository.save(prolongement);
+
+        return saved;
     }
     //===================================================================
 
@@ -243,7 +246,9 @@ public class ProlongementController {
                         client,
                         List.of(
                                 "accepted",
-                                "ended"
+                                "ended",
+                                "stocked",
+                                "canceled"
                         )
                 );
 
@@ -279,10 +284,9 @@ public class ProlongementController {
                         true,
 
                         "message",
-                        "La prolongation a été acceptée avec succès.",
+                        "La prolongation a été acceptée avec succès."
 
-                        "prolongement",
-                        prolongementSauvegarde
+
                 )
         );
 
@@ -308,7 +312,7 @@ public class ProlongementController {
         //envoyer le email
 
         emailService.sendRefuseEmail(produit, message,2);
-        twilioService.envoyerMessageRefus(produit,message,2);
+        whatsappService.envoyerMessageRefus(produit,message,2);
         return "refusée avec succès";
     }
     //=====================================telecharger le recu
@@ -444,7 +448,10 @@ public ResponseEntity<?> SupprimerProlongement(
     prolongementRepository.save(
             prolongement
     );
-
+    template.convertAndSend(
+            "/topic/reservations",
+            "reservation"
+    );
 
 
     return ResponseEntity.ok(

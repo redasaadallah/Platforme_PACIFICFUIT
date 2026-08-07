@@ -50,7 +50,7 @@
     text-align: center;
     font-size: clamp(1rem,2vw,6rem);
     font-weight: lighter;
-    margin-top: 150px;
+    margin-top: 15dvh;
 
 }
 #ademande2{
@@ -58,7 +58,8 @@
     margin-left: 10%;
     overflow-y: scroll;
     scrollbar-width: none;
-    margin-bottom: 300px;
+    margin-bottom: 100px;
+    margin-top: 10px;
 
     
     
@@ -67,7 +68,6 @@
 #ademande2 table{
     width: 90%;
     min-width: 1000px;
-    font-size: clamp(1.2rem,1.2vw,2rem);
     border-collapse:collapse ;
     margin-left: 3%;
     margin-bottom: 5%;
@@ -79,7 +79,7 @@
 }
 #ademande2 th{
     
-    font-size: clamp(1rem,1vw,2rem);
+    font-size: clamp(0.8rem,1vw,2rem);
     font-weight: lighter;
     padding-block: 10px;
 }
@@ -116,7 +116,7 @@ padding: 12px 15px;
 
 
 #ademande2 td{
-    font-size: clamp(0.9rem,1vw,2rem);
+    font-size: clamp(0.8rem,1vw,2rem);
     font-weight: lighter;
     text-align: center;
     padding: 12px 15px;
@@ -137,7 +137,7 @@ padding: 12px 15px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
     padding: 5px 15px;
     border: none;
-    font-size: clamp(1rem,1vw,6rem);
+    font-size: clamp(0.8rem,1vw,2rem);
     font-weight: lighter;
         font-family: 'Playfair Display', serif;
 
@@ -185,7 +185,7 @@ padding: 12px 15px;
     padding-bottom: 40px;
 }
 #detailtest>div>div:first-of-type>div:last-of-type p{
-    font-size: clamp(1rem,1.2vw,3rem);
+    font-size: clamp(0.9rem,1vw,3rem);
     margin: 0;
 }
 #detailtest>div>div:first-of-type>div:first-of-type img{
@@ -225,7 +225,7 @@ height: 50px;
     
 }
 #detailtest>div>div:last-of-type>div:nth-of-type(2) p{
-    font-size: clamp(1rem,1.2vw,3rem);
+    font-size: clamp(0.8rem,1vw,3rem);
     margin: 0;
     
 }

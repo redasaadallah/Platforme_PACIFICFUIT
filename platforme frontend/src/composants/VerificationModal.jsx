@@ -56,7 +56,10 @@ function VerificationModal({
 
                 onVerified();
                 onClose();
+                setEmailCode("")
+                setWhatsappCode("")
                 toast.success("Vos coordonnées ont été vérifiées avec succès.")
+                
 
             }
 

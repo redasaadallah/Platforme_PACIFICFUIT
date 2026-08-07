@@ -545,7 +545,7 @@ const modiferPassWord=async()=>{
                 <div>
                     <input onChange={()=>{handleUnlimited(false);setChoix("Pmin")}} name="dureeMinProlongement" type="radio"/>
                     <label>limitée</label>
-                    <input style={{opacity:isUnlimited?"0":""}} value={value} disabled={isUnlimited} onChange={(e)=>{paramChange(e); setValue(e.target.value);setChoix("Pmin")}} name="dureeMinProlongement" type="number" placeholder="Nombre de jours"/>
+                    <input style={{opacity:isUnlimited?"0":""}} value={value} disabled={isUnlimited} onChange={(e)=>{paramChange(e); setValue(e.target.value);setChoix("Pmin")}} name="dureeMinProlongement" type="number" p/>
                 </div>
                 <button onClick={()=>{updateParametre("Pmin")}}><img src={save}/></button>
             </div>
@@ -561,7 +561,7 @@ const modiferPassWord=async()=>{
                 <div>
                     <input onChange={()=>{handleUnlimited1(false);setChoix("Pmax")}} name="dureeMaxProlongemet" type="radio"/>
                     <label>limitée</label>
-                    <input style={{opacity:isUnlimited1?"0":""}} value={value1} disabled={isUnlimited1} onChange={(e)=>{paramChange(e); setValue1(e.target.value);setChoix("Pmax")}} name="dureeMaxProlongement"  type="number" placeholder="Nombre de jours"/>
+                    <input style={{opacity:isUnlimited1?"0":""}} value={value1} disabled={isUnlimited1} onChange={(e)=>{paramChange(e); setValue1(e.target.value);setChoix("Pmax")}} name="dureeMaxProlongement"  type="number" />
                 </div>
                 <button onClick={()=>{updateParametre("Pmax")}}><img src={save}/></button>
             </div>
@@ -661,7 +661,7 @@ const modiferPassWord=async()=>{
                 <div>
                     <input onChange={()=>{handleUnlimited(false);setChoix("Qmin")}} name="quantiteMinProduit" type="radio"/>
                     <label>limitée</label>
-                    <input style={{opacity:isUnlimited?"0":""}} value={value} disabled={isUnlimited} onChange={(e)=>{paramChange(e); setValue(e.target.value);setChoix("Qmin")}} name="quantiteMinProduit" type="number" placeholder="Quantité en tonne"/>
+                    <input style={{opacity:isUnlimited?"0":""}} value={value} disabled={isUnlimited} onChange={(e)=>{paramChange(e); setValue(e.target.value);setChoix("Qmin")}} name="quantiteMinProduit" type="number" />
                 </div>
                 <button onClick={()=>{updateParametre("Qmin")}}><img src={save}/></button>
             </div>
@@ -677,7 +677,7 @@ const modiferPassWord=async()=>{
                 <div>
                     <input onChange={()=>{handleUnlimited1(false);setChoix("Qmax")}} name="quantiteMaxProduit" type="radio"/>
                     <label>limitée</label>
-                    <input style={{opacity:isUnlimited1?"0":""}} value={value1} disabled={isUnlimited1} onChange={(e)=>{paramChange(e); setValue1(e.target.value);setChoix("Qmax")}} name="quantiteMaxProduit" type="number" placeholder="Quantité en tonne"/>
+                    <input style={{opacity:isUnlimited1?"0":""}} value={value1} disabled={isUnlimited1} onChange={(e)=>{paramChange(e); setValue1(e.target.value);setChoix("Qmax")}} name="quantiteMaxProduit" type="number" />
                 </div>
                 <button onClick={()=>{updateParametre("Qmax")}}><img src={save}/></button>
             </div>

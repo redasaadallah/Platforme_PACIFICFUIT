@@ -29,6 +29,9 @@ public class ClientController {
     private  ProlongementRepository prolongementRepository;
 
     @Autowired
+    WhatsAppService whatsappService;
+
+    @Autowired
     private VerificationCodeRepository verificationRepository;
 
 
@@ -38,8 +41,7 @@ public class ClientController {
     @Autowired
     private EmailService emailService;
 
-    @Autowired
-    private TwilioService twilioService;
+
 
     @Autowired
     private JwtService jwtService;
@@ -209,9 +211,10 @@ public List<ProduitDTO> getProduitsParClient() {
     String cin =
             authentication.getName();
 //    *************************************************
-    List<Produit> produits = produitRepository.findByClientCin(cin);
-
-    String baseUrl = "http://localhost:8080/uploads/";
+    List<Produit> produits = produitRepository.findByClientCinAndStatutNotIn(
+            cin,
+            List.of("canceled", "refused")
+    );    String baseUrl = "/uploads/";
 
     return produits.stream().map(p -> {
 
@@ -220,8 +223,11 @@ public List<ProduitDTO> getProduitsParClient() {
         Client cl = p.getClient();
 
         // ✔ GET ALL PROLONGEMENTS
-        List<Prolongement> prolongements =
-                prolongementRepository.findByProduitOrderByDateDemandeAsc(p);
+        List<Prolongement> prolongements = prolongementRepository
+                .findByProduitAndStatutNotInOrderByDateDemandeAsc(
+                        p,
+                        List.of("canceled", "refused")
+                );
 
         // ✔ NULL IF EMPTY
         List<ProlongementDTO> prolongementDTOs = new ArrayList<>();
@@ -470,7 +476,7 @@ public ResponseEntity<?> send(
 
 
 
-    twilioService.envoyerOTP(
+    whatsappService.envoyerOTP(
             telephone,
             whatsappCode
     );

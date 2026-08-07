@@ -13,7 +13,7 @@
     padding: 10px;
     width: min(90%,1200px);
     z-index: 201;
-    max-height: 80dvh;
+    max-height: 80vh;
     animation: apear 1s 1 forwards;
 
 }
@@ -73,7 +73,7 @@
     
 }
 #capacite table tr:first-of-type{
-    font-size: clamp(0.8rem,1vw,1rem);
+    font-size: clamp(0.7rem,1vw,1rem);
 background: #667eea;
   color: white;
   font-weight: bold;
@@ -92,7 +92,7 @@ background: #f3f4ff;
 #capacite tr:nth-of-type(n+2){
   border-bottom: 1px solid #eee;
   background: white;
-      font-size: clamp(0.8rem,1vw,1rem);
+      font-size: clamp(0.7rem,1vw,1rem);
 
 }
 #capacite th{
@@ -167,7 +167,7 @@ background: #f3f4ff;
     background-color: #128a30;
 }
 #capacite>div:last-of-type p{
-      font-size: clamp(1rem,1vw,3rem);
+      font-size: clamp(0.8rem,1vw,3rem);
 }
 /* ==========================modifier le espace========================= */
 
@@ -387,7 +387,7 @@ flex: 1;
 
 }
 #duree input[type="number"]{
-    width: 30%;
+    width: 25%;
     height: 30px;
     border: solid 1px #0A8D47;
 }
@@ -417,7 +417,7 @@ flex: 1;
     height: 20px;
 }
 #duree p{
-    font-size: clamp(0.8rem,1vw,3rem);
+    font-size: clamp(0.7rem,1vw,3rem);
 
 }
 /* ============================prix de reservation=============== */
@@ -475,7 +475,7 @@ width: 20px;
 }
 #price p{
     margin: 0;
-    font-size: clamp(0.8rem,0.9vw,2rem);
+    font-size: clamp(0.7rem,0.9vw,2rem);
 
 }
 /* =================le delai======================== */
@@ -521,7 +521,7 @@ width: 20px;
     align-self: start;
 }
 #delai label{
-        font-size: clamp(0.8rem,0.8vw,3rem);
+        font-size: clamp(0.7rem,0.8vw,3rem);
         width: auto;
 
 }
@@ -563,7 +563,7 @@ width: 100%;
     height: 20px;
 }
 #delai p{
-    font-size: clamp(0.8rem,0.8vw,3rem);
+    font-size: clamp(0.65rem,0.8vw,3rem);
 
 }
 /* ============================mot de passe=============== */
@@ -612,7 +612,7 @@ width: 20px;
 
 #passe small{
     margin: 0;
-    font-size: clamp(0.8rem,0.8vw,3rem);
+    font-size: clamp(0.7rem,0.8vw,3rem);
     width: 100%;
     text-align: center;
 

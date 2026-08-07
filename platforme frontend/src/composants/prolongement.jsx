@@ -841,7 +841,9 @@ const modifierProlongement = async (e) => {
         {/* ++++++++++++++++++++++++++++++++++++++++++++ */}
         <div  className="reda">
         <label className='option'>Date de Stockage :</label>
-        <input  className="typeemprunt" min={minDate} className="typeemprunt" type="date"  name="dateDebutStockage" value={dateDebut} onChange={(e)=>{setErrors1({...errors1,[e.target.name]:""});setDateDebut(e.target.value);calculateDateFin(e)}}/>
+        <input  className="typeemprunt" 
+        min={minDate} 
+        className="typeemprunt" type="date"  name="dateDebutStockage" value={dateDebut} onChange={(e)=>{setErrors1({...errors1,[e.target.name]:""});setDateDebut(e.target.value);calculateDateFin(e)}}/>
         </div>
         {errors1.dateReservation && <p className="errors" style={{marginTop:"-10px"}}>{errors1.dateReservation}</p>}
         {/* ======================================== */}
@@ -916,7 +918,7 @@ const modifierProlongement = async (e) => {
                 <input type="text" name="password2" value={passWord2} onChange={(e)=>{setPassWord2(e.target.value)}} placeholder="nouveau mot de passe"/>
             <button>Modifier</button>
         </form>
-        <small>Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un symbole.</small>
+        <p >Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un symbole.</p>
 
     </div>
     }

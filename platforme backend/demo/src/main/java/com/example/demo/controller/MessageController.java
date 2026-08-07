@@ -3,7 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.entity.Message;
 import com.example.demo.repository.MessageRepository;
 import com.example.demo.service.EmailService;
-import com.example.demo.service.TwilioService;
+import com.example.demo.service.WhatsAppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +15,9 @@ import java.util.Map;
 @RequestMapping("/api/messages")
 public class MessageController {
     private final EmailService emailService;
+
     @Autowired
-    private TwilioService twilioService;
+    WhatsAppService whatsappService;
 
     public MessageController(EmailService emailService) {
         this.emailService = emailService;
@@ -47,7 +48,8 @@ public class MessageController {
         String telephone = data.get("telephone");
 
         emailService.sendMessageEmail(email, reponce, nom, prenom, messageClient);
-        twilioService.sendMessagePhone(telephone, reponce, nom, prenom, messageClient);
+
+       whatsappService.sendMessagePhone(telephone, reponce, nom, prenom, messageClient);
         return "Message envoyé avec succès.";
     }
     @DeleteMapping("/{id}")

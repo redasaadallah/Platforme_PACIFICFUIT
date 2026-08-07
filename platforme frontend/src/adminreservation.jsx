@@ -274,7 +274,7 @@ const telechargerRecu = (reserv) => {
 
 
     }
-    else if(rchoisi.type === "prolongement"){
+    else if(rchoisi.type === "prolongation"){
 
 
         setFiltredList(prev =>

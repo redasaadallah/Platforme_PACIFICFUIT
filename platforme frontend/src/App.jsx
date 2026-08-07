@@ -24,6 +24,7 @@ import "react-toastify/dist/ReactToastify.css";
 import PrivateRouteAdmin from "./composants/PrivateRouteAdmin";
 import PrivateRouteClient from "./composants/PrivateRouteClient";
 import ContactForm from "./composants/ContactForm";
+import ScrollToTop from "./composants/ScrollToTop";
 function App() {
   
   return (
@@ -44,6 +45,7 @@ function App() {
     }}
 />
 </div>
+    <ScrollToTop/>
     <Routes>
   <Route path="form" element={<ContactForm/>} />
 

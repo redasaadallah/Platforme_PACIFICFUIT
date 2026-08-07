@@ -110,10 +110,10 @@ if(reservation.type==="reservation"){
         <div id="black" style={{zIndex:"300"}}></div>
         <div
             style={{
-                width:"min(75%,430px)",
+                width:"min(90%,430px)",
                 background:"#ffffff",
                 borderRadius:"10px",
-                padding:"35px",
+                padding:"10px",
                 boxShadow:
                 "0 15px 40px rgba(0,0,0,0.12)",
                 

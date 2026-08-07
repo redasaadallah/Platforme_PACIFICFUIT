@@ -272,7 +272,7 @@ useEffect(() => {
                         <p>Espace disponible</p>
                         <img src={readystock}/>
                     </div>
-                    <h1>{capchambres.capaciteDisponible?.toFixed(2)} tonnes</h1>
+                    <h1>{capchambres.capaciteDisponible} tonnes</h1>
                     <div>
                         <h1>{capchambres?.tauxDisponible?.toFixed(2)} %</h1>
                         <div></div>
@@ -283,7 +283,7 @@ useEffect(() => {
                         <p>Espace occupé</p>
                         <img src={outofstock}/>
                     </div>
-                    <h1>{capchambres.capaciteOccupee?.toFixed(2)} tonnes</h1>
+                    <h1>{capchambres?.capaciteOccupee} tonnes</h1>
                     <div>
                         <h1>{capchambres?.tauxOccupee?.toFixed(2)} %</h1>
                         <div></div>

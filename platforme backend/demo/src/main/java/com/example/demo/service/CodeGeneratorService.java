@@ -23,7 +23,7 @@ public class CodeGeneratorService {
     }
 
     /**
-     * 1️⃣ Générer un mot de passe client aléatoire (8 caractères : lettres + chiffres + symboles)
+     * Générer un mot de passe client aléatoire (8 caractères : lettres + chiffres + symboles)
      *    et unique dans la base Client.
      */
     public String generateUniqueClientPassword() {

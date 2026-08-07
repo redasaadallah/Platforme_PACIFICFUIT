@@ -66,9 +66,10 @@ if(reservation.type==="reservation"){
 
     }
 }else{
+    console.log(reservation.idProlongment)
     const response =
             await api.put(
-                    `/prolongements/statut/${reservation.idProlongment}`,
+                    `/prolongements/statut/${reservation.idProlongement}`,
                     {
                         statut: choice
                     }

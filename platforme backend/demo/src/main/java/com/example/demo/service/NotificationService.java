@@ -11,13 +11,14 @@ import java.util.List;
 @Service
 public class NotificationService {
     @Autowired
+    WhatsAppService whatsappService;
+    @Autowired
     private ProduitRepository produitRepository;
     @Autowired
     private ProlongementRepository prolongementRepository;
     @Autowired
     private  EmailService emailService;
-    @Autowired
-    private TwilioService twilioService;
+
 
 
     public void checkStorageDates() {
@@ -31,13 +32,13 @@ public class NotificationService {
             // début stockage demain
             if (r.getDateDebutStockage().equals(tomorrow)) {
                 emailService.sendEmailBeforeStart(r);
-                twilioService.sendMessageBeforeStart(r);
+                whatsappService.sendMessageBeforeStart(r);
             }
 
             // fin stockage demain
             if (r.getDateFinStockage().equals(tomorrow)) {
                 emailService.sendEmailBeforeEnd(r);
-                twilioService.sendMessageBeforeEnd(r);
+                whatsappService.sendMessageBeforeEnd(r);
             }
         }
         List<Prolongement> prolongements = prolongementRepository.findAll();
@@ -47,13 +48,13 @@ public class NotificationService {
             // début prolongation demain
             if (p.getAncienneDateFin().equals(tomorrow)) {
                 emailService.sendEmailProlongationTomorrow(p);
-                twilioService.sendMessageProlongationTomorrow(p);
+                whatsappService.sendMessageProlongationTomorrow(p);
             }
 
             // fin prolongation demain
             if (p.getNouvelleDateFinDemandee().equals(tomorrow)) {
                 emailService.sendEmailProlongationEndTomorrow(p);
-                twilioService.sendMessageProlongationEndTomorrow(p);
+                whatsappService.sendMessageProlongationEndTomorrow(p);
             }
         }
 

@@ -41,6 +41,9 @@ import java.util.stream.Collectors;
 public class ProduitController {
 
     @Autowired
+    WhatsAppService whatsappService;
+
+    @Autowired
     private ProduitRepository produitRepository;
 
     @Autowired
@@ -64,11 +67,9 @@ public class ProduitController {
     @Autowired
     private EmailService emailService;
 
-    @Autowired
-    private TwilioService twilioService;
 
-    @Value("${app.base-url}")
-    private String baseUrl;
+
+
 
     @Autowired
     private PdfService pdfService;
@@ -301,7 +302,9 @@ public ResponseEntity<?> ajouterClientEtProduits(
                         client,
                         List.of(
                                 "accepted",
-                                "ended"
+                                "ended",
+                                "stocked",
+                                "canceled"
                         )
                 );
 
@@ -345,14 +348,13 @@ public ResponseEntity<?> ajouterClientEtProduits(
         Encoder mot de passe seulement
         après préparation
     */
-
         if(envoyerMotDePasse){
-
             client.setMotDePasse(
                     encoder.encode(
                             client.getMotDePasse()
                     )
             );
+            clientRepository.save(client);
 
         }
 
@@ -372,10 +374,9 @@ public ResponseEntity<?> ajouterClientEtProduits(
                         true,
 
                         "message",
-                        "La demande a été acceptée avec succès.",
+                        "La demande a été acceptée avec succès."
 
-                        "produit",
-                        produitSauvegarde
+
                 )
         );
 
@@ -383,24 +384,24 @@ public ResponseEntity<?> ajouterClientEtProduits(
 //________________________________________________________________________
 
 
-    @GetMapping("/recus/{fileName}")
-    public ResponseEntity<Resource> getRecu(@PathVariable String fileName) throws Exception {
-
-        Path path = Paths.get("uploads/recus")
-                .resolve(fileName)
-                .normalize();
-
-        Resource resource = new UrlResource(path.toUri());
-
-        if (!resource.exists()) {
-            throw new RuntimeException("Reçu introuvable : " + fileName);
-        }
-
-        return ResponseEntity.ok()
-                .contentType(MediaType.APPLICATION_PDF)
-                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + fileName + "\"")
-                .body(resource);
-    }
+//    @GetMapping("/recus/{fileName}")
+//    public ResponseEntity<Resource> getRecu(@PathVariable String fileName) throws Exception {
+//
+//        Path path = Paths.get("uploads/recus")
+//                .resolve(fileName)
+//                .normalize();
+//
+//        Resource resource = new UrlResource(path.toUri());
+//
+//        if (!resource.exists()) {
+//            throw new RuntimeException("Reçu introuvable : " + fileName);
+//        }
+//
+//        return ResponseEntity.ok()
+//                .contentType(MediaType.APPLICATION_PDF)
+//                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + fileName + "\"")
+//                .body(resource);
+//    }
 
 
 
@@ -416,7 +417,7 @@ public ResponseEntity<?> ajouterClientEtProduits(
         //envoyer le email
 
             emailService.sendRefuseEmail(produit, message,1);
-            twilioService.envoyerMessageRefus(produit,message,1);
+            whatsappService.envoyerMessageRefus(produit,message,1);
         produit.setStatut("refused");
         produitRepository.save(produit);
         template.convertAndSend(
@@ -469,7 +470,7 @@ public ResponseEntity<?> ajouterClientEtProduits(
 public List<DemandeCompletDTO> getDemandesAccepted() {
 
     List<DemandeCompletDTO> demandes = new ArrayList<>();
-    String baseUrl = "http://localhost:8080/uploads/";
+    String baseUrl = "/uploads/";
 
     // Prolongements en attente
     prolongementRepository.findByStatutIn(List.of("accepted", "stocked")).forEach(p -> {
@@ -846,7 +847,10 @@ public ResponseEntity<?> changerStatutReservation(
 
     produitRepository.save(produit);
 
-
+    template.convertAndSend(
+            "/topic/reservations",
+            "reservation"
+    );
 
     return ResponseEntity.ok(
             Map.of(

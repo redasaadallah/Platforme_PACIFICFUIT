@@ -32,7 +32,6 @@ function Espaceclient(){
     const [produits,setProduits]=useState([])
     const [annule,setAnnule]=useState(false)
     const [parametres,setParametres]=useState({})
-    // sessionStorage.clear()
     useEffect(() => {
     // Fonction async à l'intérieur du useEffect
     const fetchProduits = async () => {
@@ -47,7 +46,7 @@ function Espaceclient(){
       }
       try {
         // Récupérer tous les paramètres
-        const paramResponse = await axios.get('/parametres');
+        const paramResponse = await axios.get('/api/parametres');
         setParametres(paramResponse.data[0]);
         
       } catch (error) {
@@ -402,7 +401,7 @@ function canRequestExtension(dateDebut, dateFin, delai) {
                 <p>{messageReservation(produit.dateDebutStockage,produit.dateFinStockage)}</p>
             </div>
             <div>
-            {(!produit.prolongements || produit.prolongements.length === 0)?( canRequestExtension(produit.dateDebutStockage, produit.dateFinStockage, parametres.delaiProlongement) &&<button onClick={()=>{setprol(true);setType(1);setSelectedProduit(produit)}} >Demander une prolongation</button>):
+            {(!produit.prolongements || produit.prolongements.length === 0)?( canRequestExtension(produit.dateDebutStockage, produit.dateFinStockage, parametres.delaiProlongement) && produit.statut!=="ended" && <button onClick={()=>{setprol(true);setType(1);setSelectedProduit(produit)}} >Demander une prolongation</button>):
             (produit.prolongements?.length===1 && produit.prolongements[0]?.statut==="enAtente" &&
             <div id="showpro">
                 <div id="showpro1" onClick={()=>showpro===false?setshowpro(true):setshowpro(false)}><p >Prolongement en attente de {produit.prolongements[0]?.nbJoursAjoutes} jours</p><img style={{ transform: showpro === true ? "rotate(0deg)" : "rotate(-90deg)",transition: "transform 0.3s ease" }} width="30px"  src={arowdown}/></div>
@@ -544,7 +543,8 @@ function canRequestExtension(dateDebut, dateFin, delai) {
                 <p>{messageReservation(produit.prolongements[produit.prolongements.length-1].ancienneDateFin,produit.prolongements[produit.prolongements.length-1].nouvelleDateFinDemandee)}</p>
             </div>
             <div>
-             <button onClick={()=>{setprol(true);setType(1);setSelectedProduit({...produit,dateDebutStockage:produit.prolongements[produit.prolongements.length-1].ancienneDateFin,dateFinStockage:produit.prolongements[produit.prolongements.length-1].nouvelleDateFinDemandee})}} >Demander une prolongation</button>
+                {produit.prolongements[produit.prolongements.length-1].statut!=="ended" &&
+             <button onClick={()=>{setprol(true);setType(1);setSelectedProduit({...produit,dateDebutStockage:produit.prolongements[produit.prolongements.length-1].ancienneDateFin,dateFinStockage:produit.prolongements[produit.prolongements.length-1].nouvelleDateFinDemandee})}} >Demander une prolongation</button>}
            
             
             {openRow===produit.idProduit &&<button onClick={() => telechargerRecuP(produit.prolongements[produit.prolongements.length-1].id)}>Télécharger le reçu</button>}</div>

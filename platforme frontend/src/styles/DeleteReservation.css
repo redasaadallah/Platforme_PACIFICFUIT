@@ -15,13 +15,13 @@
 
 .delete-modal{
 
-    width:min(75%,600px);
+    width:min(90%,600px);
 
     background:white;
 
     border-radius:10px;
 
-    padding:35px;
+    padding:10px;
     position: fixed;
     left: 50%;
     top: 50%;
@@ -91,6 +91,8 @@
     color:#14213D;
 
     margin-bottom:20px;
+        font-size: clamp(1rem,1.5vw,2rem);
+
 
 }
 
@@ -116,7 +118,8 @@
     cursor:pointer;
 
     margin-bottom:20px;
-
+    width: 85%;
+    margin-inline: auto;
     
 
 }
@@ -197,7 +200,7 @@
 .option-content h3{
 
     margin:0 0 8px;
-    font-size: clamp(0.9rem,1vw,2rem);
+    font-size: clamp(0.8rem,1vw,2rem);
 
 
 }
@@ -228,7 +231,7 @@
     color:#475569;
 
     font-size:15px;
-    font-size: clamp(0.8rem,1vw,2rem);
+    font-size: clamp(0.7rem,1vw,2rem);
 
 
 }

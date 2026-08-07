@@ -86,4 +86,6 @@ public interface ProduitRepository extends JpaRepository<Produit, String> {
                     @Param("dateDebut") LocalDate dateDebut,
                     @Param("dateFin") LocalDate dateFin
             );
+    List<Produit> findByClientCinAndStatutNotIn(String cin, List<String> statuts);
+
 }

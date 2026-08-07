@@ -33,8 +33,10 @@ public interface ProlongementRepository extends JpaRepository<Prolongement, Long
     List<Prolongement> findByProduit(Produit produit);
 
 
-    List<Prolongement> findByProduitOrderByDateDemandeAsc(Produit produit);
-
+    List<Prolongement> findByProduitAndStatutNotInOrderByDateDemandeAsc(
+            Produit produit,
+            List<String> statuts
+    );
 
     List<Prolongement> findByAncienneDateFinBetween(LocalDate start, LocalDate end);
 

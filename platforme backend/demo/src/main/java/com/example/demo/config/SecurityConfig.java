@@ -137,10 +137,10 @@ public class SecurityConfig {
                         // Received products public
                         // ===============================
 
-                        .requestMatchers(
-                                "/api/produits/recus/**"
-                        )
-                        .permitAll()
+//                        .requestMatchers(
+//                                "/api/produits/recus/**"
+//                        )
+//                        .permitAll()
 
 
 

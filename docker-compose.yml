@@ -1,74 +1,235 @@
+# services:
+
+#   database:
+#     image: postgres:16
+#     container_name: pacific-postgres
+#     restart: always
+
+#     environment:
+#       POSTGRES_DB: PACIFIC_FRUIT
+#       POSTGRES_USER: ${DB_USERNAME}
+#       POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+
+
+#   backend:
+#     build:
+#       context: "./platforme backend/demo"
+
+#     container_name: pacific-backend
+#     restart: always
+
+
+#     environment:
+
+#       DB_URL: ${DB_URL}
+#       DB_USERNAME: ${DB_USERNAME}
+#       DB_PASSWORD: ${DB_PASSWORD}
+
+#       UPLOAD_DIR: /app/uploads
+
+
+#     volumes:
+#       - "./platforme backend/demo/uploads:/app/uploads"
+
+
+#     depends_on:
+#       database:
+#         condition: service_healthy
+
+
+#     depends_on:
+#       - whatsapp-service
+
+
+
+#   whatsapp-service:
+
+#     build:
+#       context: "./whatsapp-service"
+
+#     container_name: pacific-whatsapp
+
+#     restart: always
+
+#     ports:
+#       - "3005:3000"
+
+#     volumes:
+#       - "./whatsapp-service/auth:/app/auth"
+
+
+
+#   frontend:
+
+#     build:
+#       context: "./platforme frontend"
+
+#     container_name: pacific-frontend
+
+#     restart: always
+
+#     ports:
+#       - "3001:80"
+
+#     depends_on:
+#       - backend
+
+
+
+# volumes:
+
+#   postgres_data:
 services:
+
   database:
+
     image: postgres:16
+
     container_name: pacific-postgres
+
     restart: always
 
+
     environment:
+
       POSTGRES_DB: PACIFIC_FRUIT
+
       POSTGRES_USER: ${DB_USERNAME}
+
       POSTGRES_PASSWORD: ${DB_PASSWORD}
 
+
     volumes:
+
       - postgres_data:/var/lib/postgresql/data
 
+
     healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "pg_isready -U ${DB_USERNAME} -d PACIFIC_FRUIT"
-        ]
+
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME} -d PACIFIC_FRUIT"]
+
       interval: 10s
+
       timeout: 5s
-      retries: 10
+
+      retries: 5
+
+
+
+  whatsapp-service:
+
+
+    build:
+
+      context: "./whatsapp-service"
+
+
+    container_name: pacific-whatsapp
+
+
+    restart: always
+
+
+    ports:
+
+      - "3005:3000"
+
+
+    volumes:
+
+      - "./whatsapp-service/auth:/app/auth"
+
+
 
 
   backend:
+
+
     build:
+
       context: "./platforme backend/demo"
 
+
     container_name: pacific-backend
+
+
     restart: always
 
+
+
     environment:
+
+
       DB_URL: ${DB_URL}
+
       DB_USERNAME: ${DB_USERNAME}
+
       DB_PASSWORD: ${DB_PASSWORD}
+
 
       UPLOAD_DIR: /app/uploads
 
-      MAIL_HOST: ${MAIL_HOST}
-      MAIL_PORT: ${MAIL_PORT}
-      MAIL_USERNAME: ${MAIL_USERNAME}
-      MAIL_PASSWORD: ${MAIL_PASSWORD}
 
-      TWILIO_SID: ${TWILIO_SID}
-      TWILIO_TOKEN: ${TWILIO_TOKEN}
-      TWILIO_WHATSAPP_FROM: ${TWILIO_WHATSAPP_FROM}
+      WHATSAPP_URL: http://whatsapp-service:3000
 
-      APP_BASE_URL: ${APP_BASE_URL}
+
 
     volumes:
+
+
       - "./platforme backend/demo/uploads:/app/uploads"
 
+
+
     depends_on:
+
+
       database:
+
         condition: service_healthy
 
 
+      whatsapp-service:
+
+        condition: service_started
+
+
+
+
+
   frontend:
+
+
     build:
+
       context: "./platforme frontend"
 
+
     container_name: pacific-frontend
+
+
     restart: always
 
+
     ports:
+
+
       - "3001:80"
 
+
+
     depends_on:
+
+
       - backend
 
 
+
+
 volumes:
+
+
   postgres_data:

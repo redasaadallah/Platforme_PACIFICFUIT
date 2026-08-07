@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.entity.Client;
 import com.example.demo.entity.Produit;
 import com.example.demo.entity.Prolongement;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -12,25 +13,22 @@ import java.time.LocalDate;
 @Service
 public class NotificationAsyncService {
 
-
+    @Autowired
+    WhatsAppService whatsappService;
     private final PdfService pdfService;
     private final EmailService emailService;
-    private final TwilioService twilioService;
 
 
-    @Value("${app.base-url}")
-    private String baseUrl;
+
 
 
 
     public NotificationAsyncService(
             PdfService pdfService,
-            EmailService emailService,
-            TwilioService twilioService
+            EmailService emailService
     ){
         this.pdfService = pdfService;
         this.emailService = emailService;
-        this.twilioService = twilioService;
     }
 
 
@@ -71,20 +69,20 @@ public class NotificationAsyncService {
 
 
 
-            String fileName =
-                    pdfService.savePdf(
-                            pdfBytes,
-                            produit.getCodeProduit()
-                    );
+//            String fileName =
+//                    pdfService.savePdf(
+//                            pdfBytes,
+//                            produit.getCodeProduit()
+//                    );
 
 
 
-            String pdfUrl =
-                    baseUrl
-                            +
-                            "/api/produits/recus/"
-                            +
-                            fileName;
+//            String pdfUrl =
+//                    baseUrl
+//                            +
+//                            "/api/produits/recus/"
+//                            +
+//                            fileName;
 
 
 
@@ -102,11 +100,10 @@ public class NotificationAsyncService {
 
 
 
-            twilioService.envoyerMessageWhatsApp(
+            whatsappService.envoyerMessageWhatsApp(
                     produit,
                     motpass,
-                    pdfUrl,
-                    fileName,
+                    pdfBytes,
                     envoyerMotDePasse,
                     type
             );
@@ -162,20 +159,20 @@ public class NotificationAsyncService {
 
 
 
-            String fileName =
-                    pdfService.savePdf(
-                            pdfBytes,
-                            produit.getCodeProduit()
-                    );
+//            String fileName =
+//                    pdfService.savePdf(
+//                            pdfBytes,
+//                            produit.getCodeProduit()
+//                    );
 
 
 
-            String pdfUrl =
-                    baseUrl
-                            +
-                            "/api/produits/recus/"
-                            +
-                            fileName;
+//            String pdfUrl =
+//                    baseUrl
+//                            +
+//                            "/api/produits/recus/"
+//                            +
+//                            fileName;
 
 
 
@@ -193,11 +190,10 @@ public class NotificationAsyncService {
 
 
 
-            twilioService.envoyerMessageWhatsApp(
+            whatsappService.envoyerMessageWhatsApp(
                     produit,
                     motpass,
-                    pdfUrl,
-                    fileName,
+                    pdfBytes,
                     envoyerMotDePasse,
                     type
             );

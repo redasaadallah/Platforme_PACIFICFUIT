@@ -685,7 +685,7 @@ const verifierCoordonnees=()=>{
         </div>
         {errors1.dureeReservation && <p style={{width:"100%"}} className="errors">{errors1.dureeReservation}</p>}
         <div>
-        {dateFin.finReservation && <p id="datefin">Date de fin de votre stockage est : {dateFin.finReservation}</p>}
+        {dateFin.finReservation && <p id="datefin">Date de fin de votre stockage est : {new Date(dateFin.finReservation).toLocaleDateString("fr-FR")}</p>}
 
         </div>
         {/* ============================================================ */}
@@ -722,7 +722,7 @@ const verifierCoordonnees=()=>{
         <div>
         {produits.map((produit,index)=>(
             
-            <div key={index} id="produit"><p>{produit.nomProduit}<br/> ({produit.quantite} tonnes, {produit.chambre.temperature} °C, {produit.dateDebutStockage}, {produit.dureeStockage} jours, {produit.prix.toFixed(2)} DH)</p><button type="button" onClick={()=>supprimerProduit(index)} ><img src={del}/></button></div>
+            <div key={index} id="produit"><p>{produit.nomProduit}<br/> ({produit.quantite} tonnes, {produit.chambre.temperature} °C, {new Date(produit.dateDebutStockage).toLocaleDateString("fr-FR")}, {produit.dureeStockage} jours, {produit.prix.toFixed(2)} DH)</p><button type="button" onClick={()=>supprimerProduit(index)} ><img src={del}/></button></div>
         
         ))}
         </div>
